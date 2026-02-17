@@ -1,115 +1,119 @@
-$primary-color: #667eea;
-$secondary-color: #764ba2;
-$text-color: #333;
+$primary-color: #064e3b; /* Deep Islamic Green */
+$secondary-color: #b45309; /* Gold */
+$text-color: #022c22;
 
 .contact-area {
-    padding: 80px 0;
-    background-color: #f8f9fa;
+    padding: 60px 0;
+    background-color: transparent;
     
     .section-title {
-        margin-bottom: 60px;
+        margin-bottom: 40px;
         
         h2 {
-            font-size: 36px;
-            font-weight: 700;
-            color: $text-color;
-            margin-bottom: 20px;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: $primary-color;
+            margin-bottom: 15px;
         }
         
         p {
-            font-size: 16px;
-            color: #666;
+            font-size: 1.1rem;
+            color: #4b5563;
             max-width: 600px;
             margin: 0 auto;
-            line-height: 1.6;
+            line-height: 1.8;
         }
     }
 }
 
 .contact-form {
-    background: #fff;
-    padding: 50px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
     
     .form-group {
-        margin-bottom: 30px;
+        margin-bottom: 25px;
         
         label {
             font-weight: 600;
             color: $text-color;
             margin-bottom: 10px;
             display: block;
-            font-size: 16px;
+            font-size: 0.95rem;
         }
         
         .form-control {
-            height: 55px;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 15px 20px;
-            font-size: 16px;
+            height: 60px;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 15px 25px;
+            font-size: 1rem;
             color: $text-color;
-            background-color: #fff;
+            background-color: #ffffff;
             transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.02);
             
             &:focus {
-                border-color: $primary-color;
-                box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+                border-color: $secondary-color;
+                box-shadow: 0 10px 25px rgba(180, 83, 9, 0.1);
+                background-color: #ffffff;
                 outline: none;
             }
             
             &::placeholder {
-                color: #adb5bd;
+                color: #9ca3af;
             }
             
             &.is-invalid {
-                border-color: #dc3545;
+                border-color: #ef4444;
                 
                 &:focus {
-                    border-color: #dc3545;
-                    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+                    border-color: #ef4444;
+                    box-shadow: 0 0 0 0.2rem rgba(239, 68, 68, 0.1);
                 }
             }
         }
         
         textarea.form-control {
-            height: 120px;
-            resize: vertical;
-            padding-top: 15px;
+            height: 180px;
+            resize: none;
+            padding-top: 20px;
         }
         
         .invalid-feedback {
             display: block;
-            color: #dc3545;
-            font-size: 14px;
+            color: #ef4444;
+            font-size: 0.85rem;
             margin-top: 8px;
             font-weight: 500;
         }
     }
     
     .submit-btn {
-        background: linear-gradient(135deg, $primary-color, $secondary-color);
+        background: $primary-color;
         color: #fff;
         border: none;
-        padding: 15px 40px;
-        border-radius: 30px;
-        font-size: 16px;
-        font-weight: 600;
-        transition: all 0.3s ease;
+        padding: 18px 45px;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        transition: all 0.4s ease;
         cursor: pointer;
+        box-shadow: 0 10px 25px rgba(6, 78, 59, 0.2);
         
         i {
             margin-right: 10px;
         }
         
         &:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            background: $secondary-color;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(180, 83, 9, 0.3);
         }
         
         &:disabled {
-            opacity: 0.7;
+            opacity: 0.6;
             cursor: not-allowed;
             transform: none;
         }

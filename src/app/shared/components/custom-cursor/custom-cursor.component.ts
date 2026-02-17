@@ -64,7 +64,7 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
     this.cursorOutline = this.renderer.createElement('div');
     this.renderer.setStyle(this.cursorOutline, 'width', '40px');
     this.renderer.setStyle(this.cursorOutline, 'height', '40px');
-    this.renderer.setStyle(this.cursorOutline, 'border', '2px solid rgba(102, 126, 234, 0.6)');
+    this.renderer.setStyle(this.cursorOutline, 'border', '2px solid rgba(180, 83, 9, 0.6)'); // Gold Outline
     this.renderer.setStyle(this.cursorOutline, 'border-radius', '50%');
     this.renderer.setStyle(this.cursorOutline, 'position', 'absolute');
     this.renderer.setStyle(this.cursorOutline, 'top', '-20px');
@@ -99,7 +99,7 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
       this.renderer.setStyle(trail, 'left', '0');
       this.renderer.setStyle(trail, 'width', `${20 - i * 2}px`);
       this.renderer.setStyle(trail, 'height', `${20 - i * 2}px`);
-      this.renderer.setStyle(trail, 'border', '1px solid rgba(102, 126, 234, 0.3)');
+      this.renderer.setStyle(trail, 'border', '1px solid rgba(180, 83, 9, 0.3)');
       this.renderer.setStyle(trail, 'border-radius', '50%');
       this.renderer.setStyle(trail, 'pointer-events', 'none');
       this.renderer.setStyle(trail, 'z-index', (99998 - i).toString());
@@ -132,9 +132,9 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
 
       // Animate the outline with a beautiful click effect
       this.renderer.setStyle(this.cursorOutline, 'transform', 'scale(1.8)');
-      this.renderer.setStyle(this.cursorOutline, 'border-color', '#ff6b6b');
-      this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(255, 107, 107, 0.2)');
-      this.renderer.setStyle(this.cursorOutline, 'box-shadow', '0 0 30px rgba(255, 107, 107, 0.6)');
+      this.renderer.setStyle(this.cursorOutline, 'border-color', '#b45309');
+      this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(180, 83, 9, 0.2)');
+      this.renderer.setStyle(this.cursorOutline, 'box-shadow', '0 0 30px rgba(180, 83, 9, 0.6)');
 
       // Create multiple ripple effects
       this.cursorEffects.createRippleEffect(e.clientX, e.clientY);
@@ -151,8 +151,8 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
     this.renderer.listen(this.document, 'mouseup', () => {
       this.isClicking = false;
       this.renderer.setStyle(this.cursorOutline, 'transform', 'scale(1)');
-      this.renderer.setStyle(this.cursorOutline, 'border-color', 'rgba(102, 126, 234, 0.6)');
-      this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(102, 126, 234, 0.1)');
+      this.renderer.setStyle(this.cursorOutline, 'border-color', 'rgba(180, 83, 9, 0.6)');
+      this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(6, 78, 59, 0.1)');
       this.renderer.setStyle(this.cursorOutline, 'box-shadow', 'none');
     });
 
@@ -176,15 +176,15 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
       this.renderer.listen(link, 'mouseenter', () => {
         this.isHovering = true;
         this.renderer.setStyle(this.cursorOutline, 'transform', 'scale(1.5)');
-        this.renderer.setStyle(this.cursorOutline, 'border-color', '#10ac84');
-        this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(16, 172, 132, 0.15)');
+        this.renderer.setStyle(this.cursorOutline, 'border-color', '#064e3b');
+        this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(6, 78, 59, 0.15)');
       });
 
       this.renderer.listen(link, 'mouseleave', () => {
         this.isHovering = false;
         this.renderer.setStyle(this.cursorOutline, 'transform', 'scale(1)');
-        this.renderer.setStyle(this.cursorOutline, 'border-color', 'rgba(102, 126, 234, 0.6)');
-        this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(102, 126, 234, 0.1)');
+        this.renderer.setStyle(this.cursorOutline, 'border-color', 'rgba(180, 83, 9, 0.6)');
+        this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(6, 78, 59, 0.1)');
       });
     });
 
@@ -194,15 +194,15 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
       this.renderer.listen(button, 'mouseenter', () => {
         this.isHovering = true;
         this.renderer.setStyle(this.cursorOutline, 'transform', 'scale(1.3)');
-        this.renderer.setStyle(this.cursorOutline, 'border-color', '#f368e0');
-        this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(243, 104, 224, 0.15)');
+        this.renderer.setStyle(this.cursorOutline, 'border-color', '#b45309');
+        this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(180, 83, 9, 0.15)');
       });
 
       this.renderer.listen(button, 'mouseleave', () => {
         this.isHovering = false;
         this.renderer.setStyle(this.cursorOutline, 'transform', 'scale(1)');
-        this.renderer.setStyle(this.cursorOutline, 'border-color', 'rgba(102, 126, 234, 0.6)');
-        this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(102, 126, 234, 0.1)');
+        this.renderer.setStyle(this.cursorOutline, 'border-color', 'rgba(180, 83, 9, 0.6)');
+        this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(6, 78, 59, 0.1)');
       });
 
       this.renderer.listen(button, 'click', (e: MouseEvent) => {
@@ -215,14 +215,14 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
     inputs.forEach(input => {
       this.renderer.listen(input, 'mouseenter', () => {
         this.isHovering = true;
-        this.renderer.setStyle(this.cursorOutline, 'border-color', '#2ed573');
-        this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(46, 213, 115, 0.15)');
+        this.renderer.setStyle(this.cursorOutline, 'border-color', '#059669');
+        this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(5, 150, 105, 0.15)');
       });
 
       this.renderer.listen(input, 'mouseleave', () => {
         this.isHovering = false;
-        this.renderer.setStyle(this.cursorOutline, 'border-color', 'rgba(102, 126, 234, 0.6)');
-        this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(102, 126, 234, 0.1)');
+        this.renderer.setStyle(this.cursorOutline, 'border-color', 'rgba(180, 83, 9, 0.6)');
+        this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(6, 78, 59, 0.1)');
       });
     });
 
@@ -230,13 +230,13 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
     const images = this.document.querySelectorAll('img');
     images.forEach(image => {
       this.renderer.listen(image, 'mouseenter', () => {
-        this.renderer.setStyle(this.cursorOutline, 'border-color', '#ffa726');
-        this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(255, 167, 38, 0.15)');
+        this.renderer.setStyle(this.cursorOutline, 'border-color', '#f59e0b');
+        this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(245, 158, 11, 0.15)');
       });
 
       this.renderer.listen(image, 'mouseleave', () => {
-        this.renderer.setStyle(this.cursorOutline, 'border-color', 'rgba(102, 126, 234, 0.6)');
-        this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(102, 126, 234, 0.1)');
+        this.renderer.setStyle(this.cursorOutline, 'border-color', 'rgba(180, 83, 9, 0.6)');
+        this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(6, 78, 59, 0.1)');
       });
     });
   }
@@ -302,7 +302,7 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
     this.renderer.setStyle(ring, 'top', y + 'px');
     this.renderer.setStyle(ring, 'width', '10px');
     this.renderer.setStyle(ring, 'height', '10px');
-    this.renderer.setStyle(ring, 'border', '3px solid #667eea');
+    this.renderer.setStyle(ring, 'border', '3px solid #b45309');
     this.renderer.setStyle(ring, 'border-radius', '50%');
     this.renderer.setStyle(ring, 'pointer-events', 'none');
     this.renderer.setStyle(ring, 'z-index', '99997');

@@ -6,7 +6,7 @@ import { DOCUMENT } from '@angular/common';
 })
 export class CursorEffectsService {
   private particleContainer!: HTMLElement;
-  
+
   constructor(@Inject(DOCUMENT) private document: Document) {
     this.createParticleContainer();
   }
@@ -22,32 +22,32 @@ export class CursorEffectsService {
     for (let i = 0; i < count; i++) {
       const particle = this.document.createElement('div');
       particle.className = 'particle';
-      
+
       // موقع عشوائي للجسيمات
       const angle = (Math.PI * 2 * i) / count;
       const velocity = 50 + Math.random() * 50;
       const randomX = Math.cos(angle) * velocity;
       const randomY = Math.sin(angle) * velocity;
-      
+
       // تطبيق الموقع والحركة
       particle.style.left = x + 'px';
       particle.style.top = y + 'px';
       particle.style.setProperty('--random-x', randomX + 'px');
       particle.style.setProperty('--random-y', randomY + 'px');
-      
+
       // ألوان عشوائية
       const colors = [
-        'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-        'linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%)',
-        'linear-gradient(135deg, #10ac84 0%, #00d2d3 100%)',
-        'linear-gradient(135deg, #3742fa 0%, #2f3542 100%)',
-        'linear-gradient(135deg, #ff9ff3 0%, #f368e0 100%)'
+        'linear-gradient(135deg, #064e3b 0%, #059669 100%)', // Emerald Green
+        'linear-gradient(135deg, #b45309 0%, #f59e0b 100%)', // Gold
+        'linear-gradient(135deg, #022c22 0%, #064e3b 100%)', // Dark Green
+        'linear-gradient(135deg, #fef3c7 0%, #b45309 100%)', // Light Cream/Gold
+        'linear-gradient(135deg, #059669 0%, #34d399 100%)'  // Vibrant Green
       ];
-      
+
       particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-      
+
       this.particleContainer.appendChild(particle);
-      
+
       // إزالة الجسيم بعد انتهاء الانيميشن
       setTimeout(() => {
         if (particle.parentNode) {
@@ -63,22 +63,22 @@ export class CursorEffectsService {
     ripple.className = 'cursor-ripple';
     ripple.style.left = x + 'px';
     ripple.style.top = y + 'px';
-    
+
     // إضافة الستايل المباشر
     ripple.style.cssText = `
       position: fixed;
       width: 10px;
       height: 10px;
-      border: 2px solid rgba(102, 126, 234, 0.6);
+      border: 2px solid rgba(180, 83, 9, 0.6);
       border-radius: 50%;
       pointer-events: none;
       z-index: 9997;
       transform: translate(-50%, -50%) scale(0);
       animation: rippleExpand 0.8s ease-out forwards;
     `;
-    
+
     this.document.body.appendChild(ripple);
-    
+
     // إزالة التأثير بعد انتهاء الانيميشن
     setTimeout(() => {
       if (ripple.parentNode) {
@@ -101,9 +101,9 @@ export class CursorEffectsService {
       transform: translate(-50%, -50%) scale(0);
       animation: starTwinkle 1s ease-out forwards;
     `;
-    
+
     this.document.body.appendChild(star);
-    
+
     setTimeout(() => {
       if (star.parentNode) {
         this.document.body.removeChild(star);
@@ -125,9 +125,9 @@ export class CursorEffectsService {
       transform: translate(-50%, -50%) scale(0);
       animation: heartFloat 1.2s ease-out forwards;
     `;
-    
+
     this.document.body.appendChild(heart);
-    
+
     setTimeout(() => {
       if (heart.parentNode) {
         this.document.body.removeChild(heart);
@@ -138,7 +138,7 @@ export class CursorEffectsService {
   // تأثير الانفجار للأزرار المهمة
   createExplosionEffect(x: number, y: number): void {
     const explosionCount = 12;
-    
+
     for (let i = 0; i < explosionCount; i++) {
       const fragment = this.document.createElement('div');
       fragment.style.cssText = `
@@ -147,18 +147,18 @@ export class CursorEffectsService {
         top: ${y}px;
         width: 4px;
         height: 4px;
-        background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+        background: linear-gradient(135deg, #b45309 0%, #f59e0b 100%);
         border-radius: 50%;
         pointer-events: none;
         z-index: 9996;
         transform: translate(-50%, -50%);
       `;
-      
+
       const angle = (Math.PI * 2 * i) / explosionCount;
       const velocity = 80 + Math.random() * 40;
       const randomX = Math.cos(angle) * velocity;
       const randomY = Math.sin(angle) * velocity;
-      
+
       fragment.animate([
         { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
         { transform: `translate(calc(-50% + ${randomX}px), calc(-50% + ${randomY}px)) scale(0)`, opacity: 0 }
@@ -166,9 +166,9 @@ export class CursorEffectsService {
         duration: 600,
         easing: 'ease-out'
       });
-      
+
       this.document.body.appendChild(fragment);
-      
+
       setTimeout(() => {
         if (fragment.parentNode) {
           this.document.body.removeChild(fragment);
@@ -182,13 +182,13 @@ export class CursorEffectsService {
     const rect = element.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
-    
+
     const deltaX = (x - centerX) * 0.1;
     const deltaY = (y - centerY) * 0.1;
-    
+
     element.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(1.05)`;
     element.style.transition = 'transform 0.3s ease';
-    
+
     // إعادة العنصر لموقعه الأصلي
     setTimeout(() => {
       element.style.transform = '';
@@ -200,7 +200,7 @@ export class CursorEffectsService {
     if (this.particleContainer && this.particleContainer.parentNode) {
       this.document.body.removeChild(this.particleContainer);
     }
-    
+
     // إزالة جميع التأثيرات المؤقتة
     const effects = this.document.querySelectorAll('.cursor-ripple, .particle, .cursor-particles');
     effects.forEach(effect => {

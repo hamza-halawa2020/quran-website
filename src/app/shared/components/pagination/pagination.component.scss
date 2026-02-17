@@ -1,6 +1,6 @@
-$primary-color: #667eea;
-$secondary-color: #764ba2;
-$text-color: #333;
+$primary-color: #064e3b;
+$secondary-color: #b45309;
+$text-color: #374151;
 
 :host {
     display: block;
@@ -36,9 +36,9 @@ $text-color: #333;
             text-decoration: none;
             
             &:hover {
-                background: #f0f0f0;
+                background: var(--creamBg);
                 transform: translateY(-3px);
-                color: $primary-color;
+                color: $secondary-color;
                 box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             }
             
@@ -49,9 +49,9 @@ $text-color: #333;
         }
 
         &.active .page-link {
-            background: linear-gradient(135deg, $primary-color, $secondary-color);
+            background: $secondary-color;
             color: #fff;
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 20px rgba(180, 83, 9, 0.3);
             transform: scale(1.05);
         }
 

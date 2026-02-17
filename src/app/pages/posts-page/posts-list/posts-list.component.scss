@@ -1,6 +1,6 @@
-$primary-color: #667eea;
-$secondary-color: #764ba2;
-$light-bg: #f9f9f9;
+$primary-color: #064e3b;
+$secondary-color: #b45309;
+$light-bg: #fdfbf7;
 
 .posts-area {
     padding: 80px 0;
@@ -13,10 +13,8 @@ $light-bg: #f9f9f9;
         font-size: 40px;
         font-weight: 800;
         margin-bottom: 20px;
-        background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
+        color: $primary-color;
+        font-family: var(--headingFontFamily);
     }
     p {
         color: #777;

@@ -1,10 +1,10 @@
-$primary-color: #667eea;
-$secondary-color: #764ba2;
-$text-color: #333;
+$primary-color: #064e3b;
+$secondary-color: #b45309;
+$text-color: #374151;
 
 .post-details-area {
     padding: 80px 0;
-    background-color: #fff;
+    background-color: var(--creamBg);
 }
 
 .details-header {
@@ -79,8 +79,10 @@ $text-color: #333;
         }
         
         &:hover {
-            background: linear-gradient(135deg, $primary-color, $secondary-color);
+            background: $secondary-color;
             color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
     }
 }

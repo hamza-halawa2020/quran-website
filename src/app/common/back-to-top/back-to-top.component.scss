@@ -1,15 +1,16 @@
 .go-top {
     z-index: 999;
     right: 30px;
-    width: 50px;
-    height: 50px;
-    bottom: 30px; // تحسين الموضع
+    width: 60px;
+    height: 60px;
+    bottom: 30px;
     cursor: pointer;
-    background: linear-gradient(135deg, #667eea, #764ba2) !important; // تحسين اللون
+    background: #b45309 !important; /* Gold */
     color: #ffffff !important;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-    border: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 25px rgba(180, 83, 9, 0.3);
+    border: 2px solid #f59e0b;
+    border-radius: 50%;
 
     i {
         left: 0;
@@ -18,15 +19,15 @@
         margin-top: 0;
         position: absolute;
         transform: translateY(-50%);
-        font-size: 16px;
+        font-size: 20px;
         color: #ffffff !important;
     }
     
     &:hover {
-        background: linear-gradient(135deg, #5a6fd8, #6a4190) !important;
-        transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-        color: #ffffff !important;
+        background: #064e3b !important; /* Deep Green */
+        border-color: #059669;
+        transform: translateY(-5px) scale(1.1);
+        box-shadow: 0 15px 30px rgba(6, 78, 59, 0.4);
     }
 }
 

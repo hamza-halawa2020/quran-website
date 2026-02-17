@@ -61,7 +61,8 @@
                         <div class="about-cta">
                             <a routerLink="/about" class="btn btn-primary">
                                 {{ 'READ_MORE' | translate }}
-                                <i class="fa-solid ms-2" [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
+                                <i class="fa-solid ms-2"
+                                    [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
                             </a>
                         </div>
                     </div>
@@ -99,7 +100,8 @@
                             <p>{{ service.description }}</p>
                             <a [routerLink]="service.link" class="service-link">
                                 {{ 'READ_MORE' | translate }}
-                                <i class="fa-solid ms-2" [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
+                                <i class="fa-solid ms-2"
+                                    [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
                             </a>
                         </div>
                     </div>
@@ -117,7 +119,7 @@
                     <i class="fa-solid fa-play"></i> {{ 'START_COUNTER' | translate }}
                 </button>
             </div>
-            
+
             <div class="row">
                 <div class="col-lg-3 col-md-6 mb-4">
                     <div class="stat-card text-center">
@@ -171,8 +173,8 @@
                 <div class="col-lg-4 col-md-6 mb-4" *ngFor="let sample of homeData.latestWorkSamples">
                     <div class="work-sample-card">
                         <div class="work-image">
-                            <img [src]="getImageUrl(sample.image_url, 'assets/images/work-sample-placeholder.jpg')" 
-                                 [alt]="sample.title" class="img-fluid">
+                            <img [src]="getImageUrl(sample.image_url, 'assets/images/work-sample-placeholder.jpg')"
+                                [alt]="sample.title" class="img-fluid">
                             <div class="work-overlay">
                                 <a [routerLink]="['/work-samples', sample.id]" class="work-link">
                                     <i class="fa-solid fa-eye"></i>
@@ -189,7 +191,8 @@
             <div class="text-center mt-4">
                 <a routerLink="/work-samples" class="btn btn-primary">
                     {{ 'VIEW_ALL_WORK' | translate }}
-                    <i class="fa-solid ms-2" [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
+                    <i class="fa-solid ms-2"
+                        [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
                 </a>
             </div>
         </div>
@@ -207,17 +210,19 @@
                 <div class="col-lg-4 col-md-6 mb-4" *ngFor="let member of homeData.teamMembers">
                     <div class="team-card text-center">
                         <div class="team-image">
-                            <img [src]="getImageUrl(member.image_url, 'assets/images/team-placeholder.jpg')" 
-                                 [alt]="member.name" class="img-fluid rounded-circle">
+                            <img [src]="getImageUrl(member.image_url, 'assets/images/team-placeholder.jpg')"
+                                [alt]="member.name" class="img-fluid rounded-circle">
                         </div>
                         <div class="team-content">
                             <h4>{{ member.name }}</h4>
                             <p class="team-position">{{ member.position }}</p>
                             <div class="team-social" *ngIf="member.social_links">
-                                <a [href]="member.social_links.linkedin" class="social-link" *ngIf="member.social_links.linkedin" target="_blank">
+                                <a [href]="member.social_links.linkedin" class="social-link"
+                                    *ngIf="member.social_links.linkedin" target="_blank">
                                     <i class="fa-brands fa-linkedin"></i>
                                 </a>
-                                <a [href]="member.social_links.twitter" class="social-link" *ngIf="member.social_links.twitter" target="_blank">
+                                <a [href]="member.social_links.twitter" class="social-link"
+                                    *ngIf="member.social_links.twitter" target="_blank">
                                     <i class="fa-brands fa-twitter"></i>
                                 </a>
                             </div>
@@ -234,14 +239,15 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section class="testimonials-section section-padding bg-light" *ngIf="homeData && homeData.testimonials && homeData.testimonials.length > 0">
+    <section class="testimonials-section section-padding bg-light"
+        *ngIf="homeData && homeData.testimonials && homeData.testimonials.length > 0">
         <div class="container">
             <div class="section-header text-center">
                 <span class="">{{ 'TESTIMONIALS' | translate }}</span>
                 <h2 class="section-title">{{ 'FEEDBACK_TITLE' | translate }}</h2>
                 <p class="section-description">{{ 'CLIENT_TESTIMONIALS_DESC' | translate }}</p>
             </div>
-            
+
             <div class="row">
                 <div class="col-lg-4 col-md-6 mb-4" *ngFor="let testimonial of homeData.testimonials | slice:0:3">
                     <div class="testimonial-card">
@@ -252,7 +258,7 @@
                             <p>"{{ testimonial.comment }}"</p>
                         </div>
                         <div class="testimonial-author">
-                           
+
                             <div class="author-info">
                                 <h5>{{ testimonial.client_name }}</h5>
                             </div>
@@ -260,11 +266,12 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="text-center mt-4">
                 <a routerLink="/testimonials" class="btn btn-primary">
                     {{ 'VIEW_ALL_TESTIMONIALS' | translate }}
-                    <i class="fa-solid ms-2" [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
+                    <i class="fa-solid ms-2"
+                        [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
                 </a>
             </div>
         </div>
@@ -282,22 +289,23 @@
                 <div class="col-lg-4 col-md-6 mb-4" *ngFor="let post of homeData.latestPosts">
                     <div class="post-card">
                         <div class="post-image">
-                            <img [src]="getImageUrl(post.image_url, 'assets/images/post-placeholder.jpg')" 
-                                 [alt]="post.title" class="img-fluid">
+                            <img [src]="getImageUrl(post.image_url, 'assets/images/post-placeholder.jpg')"
+                                [alt]="post.title" class="img-fluid">
                             <div class="post-date">
                                 <span class="date-day">{{ formatDate(post.created_at).split(' ')[0] }}</span>
                                 <span class="date-month">{{ formatDate(post.created_at).split(' ')[1] }}</span>
                             </div>
                         </div>
                         <div class="post-content">
-                           
+
                             <h4 class="post-title">
                                 <a [routerLink]="['/posts', post.id]">{{ post.title }}</a>
                             </h4>
                             <p class="post-excerpt">{{ truncateText(post.excerpt || post.content, 120) }}</p>
                             <a [routerLink]="['/posts', post.id]" class="post-link">
                                 {{ 'READ_MORE' | translate }}
-                                <i class="fa-solid ms-2" [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
+                                <i class="fa-solid ms-2"
+                                    [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
                             </a>
                         </div>
                     </div>
@@ -323,10 +331,6 @@
                 </div>
                 <div class="col-lg-4 text-center">
                     <div class="cta-buttons">
-                        <a routerLink="/request-feasibility-study" class="btn btn-light btn-lg me-3">
-                            {{ 'REQUEST_STUDY' | translate }}
-                            <i class="fa-solid ms-2" [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
-                        </a>
                         <a routerLink="/contacts" class="btn btn-outline-light btn-lg">
                             {{ 'CONTACT_US' | translate }}
                         </a>
@@ -337,30 +341,31 @@
     </section>
 
     <!-- Partners Section -->
-    <section class="partners-section section-padding" *ngIf="homeData && homeData.partners && homeData.partners.length > 0">
+    <section class="partners-section section-padding"
+        *ngIf="homeData && homeData.partners && homeData.partners.length > 0">
         <div class="container">
             <div class="section-header text-center">
                 <span class="">{{ 'PARTNERS' | translate }}</span>
                 <h2 class="section-title">{{ 'SUCCESS_PARTNERS' | translate }}</h2>
                 <p class="section-description">{{ 'PROUD_PARTNERSHIP' | translate }}</p>
             </div>
-            
+
             <div class="row justify-content-center">
                 <div class="col-lg-4 col-md-6 col-sm-6 mb-4" *ngFor="let partner of homeData.partners | slice:0:3">
                     <div class="partner-item text-center">
-                        <img [src]="getImageUrl(partner.logo_url, 'assets/images/partner-placeholder.png')" 
-                             [alt]="partner.name" class="img-fluid">
+                        <img [src]="getImageUrl(partner.logo_url, 'assets/images/partner-placeholder.png')"
+                            [alt]="partner.name" class="img-fluid">
                     </div>
                 </div>
             </div>
-            
+
             <div class="text-center mt-4">
                 <a routerLink="/partners" class="btn btn-primary">
                     {{ 'VIEW_ALL_PARTNERS' | translate }}
-                    <i class="fa-solid ms-2" [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
+                    <i class="fa-solid ms-2"
+                        [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
                 </a>
             </div>
         </div>
     </section>
 </div>
-

@@ -1,16 +1,16 @@
 // Colors
-$primary: #667eea;
-$secondary: #764ba2;
-$dark: #2c3e50;
+$primary: #064e3b; /* Deep Islamic Green */
+$secondary: #b45309; /* Gold */
+$dark: #022c22;
 $white: #ffffff;
-$gray-light: #f8f9fa;
-$gray: #6c757d;
+$gray-light: #fdfbf7;
+$gray: #4b5563;
 
 
 // Investment opportunities list styles will inherit from global styles
 .contact-area {
     padding: 80px 0;
-    background-color: #f8f9fa;
+    background-color: var(--creamBg);
 }
 
 .skeleton-loader {
@@ -32,8 +32,8 @@ $gray: #6c757d;
 
 // Page Banner (Same as About)
 .page-banner {
-    background: linear-gradient(135deg, $primary 0%, $secondary 100%);
-    padding: 120px 0 80px;
+    background: linear-gradient(135deg, $primary 0%, $dark 100%);
+    padding: 140px 0 100px;
     position: relative;
     overflow: hidden;
 
@@ -44,8 +44,8 @@ $gray: #6c757d;
         left: 0;
         right: 0;
         bottom: 0;
-        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="pattern" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23pattern)"/></svg>');
-        opacity: 0.3;
+        background-image: var(--islamicPattern);
+        opacity: 0.15;
     }
 
     .page-banner-content {
@@ -102,13 +102,12 @@ $gray: #6c757d;
     .section-title {
         .subtitle {
             display: inline-block;
-            background: linear-gradient(135deg, $primary, $secondary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 600;
+            color: $secondary;
+            font-weight: 700;
             font-size: 1.1rem;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         h2 {
@@ -121,24 +120,26 @@ $gray: #6c757d;
 
     .contact-info-card {
         background: $white;
-        padding: 40px 30px;
-        border-radius: 20px;
+        padding: 50px 35px;
+        border-radius: 30px;
         text-align: center;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
+        box-shadow: 0 15px 35px rgba(6, 78, 59, 0.05);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         height: 100%;
-        border: 1px solid rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(6, 78, 59, 0.05);
 
         &:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(180, 83, 9, 0.12);
+            border-color: $secondary;
 
             .contact-icon {
-                transform: scale(1.1);
-                background: linear-gradient(135deg, $primary, $secondary);
+                transform: scale(1.1) rotate(45deg);
+                background: $secondary;
 
                 i {
                     color: $white;
+                    transform: rotate(-45deg);
                 }
             }
         }
@@ -146,18 +147,20 @@ $gray: #6c757d;
         .contact-icon {
             width: 80px;
             height: 80px;
-            background: $gray-light;
-            border-radius: 50%;
+            background: var(--creamBg);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 25px;
-            transition: all 0.3s ease;
+            margin: 0 auto 30px;
+            transition: all 0.4s ease;
+            transform: rotate(45deg);
 
             i {
                 font-size: 32px;
-                color: $primary;
-                transition: color 0.3s ease;
+                color: $secondary;
+                transition: color 0.4s ease;
+                transform: rotate(-45deg);
             }
         }
 
@@ -197,21 +200,84 @@ $gray: #6c757d;
 
     .contact-form-wrapper {
         background: $gray-light;
-        border-radius: 20px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        padding: 60px;
+        border-radius: 30px;
+        box-shadow: 0 30px 60px rgba(6, 78, 59, 0.08);
+        border: 1px solid rgba(6, 78, 59, 0.05);
 
         .section-title {
+            margin-bottom: 40px;
             h2 {
-                font-size: 2.2rem;
-                font-weight: 700;
-                color: $dark;
+                font-size: 2.5rem;
+                font-weight: 800;
+                color: $primary;
                 margin-bottom: 15px;
             }
 
             p {
                 color: $gray;
-                font-size: 1rem;
+                font-size: 1.1rem;
                 margin-bottom: 0;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+
+            label {
+                display: block;
+                color: $dark;
+                font-weight: 600;
+                margin-bottom: 10px;
+                font-size: 0.95rem;
+            }
+
+            .form-control {
+                height: 60px;
+                background: $white;
+                border: 2px solid transparent;
+                border-radius: 12px;
+                padding: 0 25px;
+                color: $dark;
+                font-size: 1rem;
+                transition: all 0.3s ease;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.02);
+
+                &::placeholder {
+                    color: #9ca3af;
+                }
+
+                &:focus {
+                    border-color: $secondary;
+                    background: $white;
+                    box-shadow: 0 10px 25px rgba(180, 83, 9, 0.1);
+                    outline: none;
+                }
+            }
+
+            textarea.form-control {
+                height: 180px;
+                padding-top: 20px;
+                resize: none;
+            }
+        }
+
+        .default-btn {
+            background: $primary;
+            color: $white;
+            padding: 18px 45px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 25px rgba(6, 78, 59, 0.2);
+
+            &:hover {
+                background: $secondary;
+                transform: translateY(-5px);
+                box-shadow: 0 15px 35px rgba(180, 83, 9, 0.3);
             }
         }
     }

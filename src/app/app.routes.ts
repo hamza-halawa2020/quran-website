@@ -14,14 +14,6 @@ export const routes: Routes = [
     { path: 'terms-conditions', component: TermsConditionsPageComponent },
     { path: 'contacts', component: ContactPageComponent },
 
-    {
-        path: 'services',
-        loadComponent: () => import('./pages/services-page/services-list/services-list.component').then(m => m.ServicesListComponent)
-    },
-    {
-        path: 'services/:id',
-        loadComponent: () => import('./pages/services-page/service-details/service-details.component').then(m => m.ServiceDetailsComponent)
-    },
 
     {
         path: 'posts',
@@ -30,11 +22,6 @@ export const routes: Routes = [
     {
         path: 'posts/:id',
         loadComponent: () => import('./pages/posts-page/post-details/post-details.component').then(m => m.PostDetailsComponent)
-    },
-
-    {
-        path: 'faqs',
-        loadComponent: () => import('./pages/faqs-page/faqs-page.component').then(m => m.FaqsPageComponent)
     },
 
     {

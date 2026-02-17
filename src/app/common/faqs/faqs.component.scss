@@ -1,10 +1,10 @@
-$primary-color: #667eea;
-$secondary-color: #764ba2;
-$text-color: #333;
+$primary-color: #064e3b;
+$secondary-color: #b45309;
+$text-color: #374151;
 
 .faqs-area {
     padding: 80px 0;
-    background-color: #f8f9fa;
+    background-color: var(--creamBg);
 }
 
 .section-title {
@@ -47,11 +47,11 @@ $text-color: #333;
             }
             
             &:hover {
-                background: linear-gradient(135deg, $primary-color, $secondary-color);
+                background: linear-gradient(135deg, $primary-color, #022c22);
                 color: #fff;
                 
                 i {
-                    color: #fff;
+                    color: white;
                 }
             }
             
@@ -61,11 +61,12 @@ $text-color: #333;
             }
             
             &[aria-expanded="true"] {
-                background: linear-gradient(135deg, $primary-color, $secondary-color);
+                background: linear-gradient(135deg, $primary-color, #022c22);
                 color: #fff;
+                border-bottom: 2px solid $secondary-color;
                 
                 i {
-                    color: #fff;
+                    color: white;
                 }
             }
         }
