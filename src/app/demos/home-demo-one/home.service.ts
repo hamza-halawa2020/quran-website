@@ -146,7 +146,7 @@ export class HomeService {
   }
 
   getMediaItems(): Observable<any[]> {
-    return this.http.get<any>(`${this.apiUrl}/media-centers?limit=6`)
+    return this.http.get<any>(`${this.apiUrl}/media-center?limit=6`)
       .pipe(
         map(response => response.data || []),
         catchError(error => {
