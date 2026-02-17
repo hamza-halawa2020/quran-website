@@ -784,5 +784,11 @@
     "DOWNLOAD_IOS": "Download Zoom For iPhone/iPad",
     "DOWNLOAD_ANDROID": "Download Zoom For Android",
     "DOWNLOAD_PC": "Download Zoom For PC"
-  }
+  },
+  "SERVICE_COURSES_TITLE": "Educational Courses",
+  "SERVICE_COURSES_DESC": "Browse a wide range of Quran and Arabic language courses.",
+  "SERVICE_ARTICLES_TITLE": "Articles & Resources",
+  "SERVICE_ARTICLES_DESC": "Read the latest educational articles and tips from our experts.",
+  "SERVICE_TESTIMONIALS_TITLE": "Student Testimonials",
+  "SERVICE_TESTIMONIALS_DESC": "Discover our students' success stories and their learning experiences."
 }

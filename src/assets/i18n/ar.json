@@ -1051,5 +1051,11 @@
     "DOWNLOAD_IOS": "تحميل Zoom لـ iPhone/iPad",
     "DOWNLOAD_ANDROID": "تحميل Zoom لـ Android",
     "DOWNLOAD_PC": "تحميل Zoom لـ PC"
-  }
+  },
+  "SERVICE_COURSES_TITLE": "الدورات التعليمية",
+  "SERVICE_COURSES_DESC": "تصفح مجموعة واسعة من الدورات في القرآن واللغة العربية.",
+  "SERVICE_ARTICLES_TITLE": "المقالات والموارد",
+  "SERVICE_ARTICLES_DESC": "اقرأ أحدث المقالات والنصائح التعليمية من خبرائنا.",
+  "SERVICE_TESTIMONIALS_TITLE": "آراء الطلاب",
+  "SERVICE_TESTIMONIALS_DESC": "اكتشف قصص نجاح طلابنا وتجاربهم في التعلم معنا."
 }

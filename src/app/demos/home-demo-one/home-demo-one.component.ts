@@ -234,24 +234,24 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
         this.defaultServices = [
             {
                 id: 1,
-                title: this.translate.instant('DEFAULT_SERVICE_1_TITLE'),
-                description: this.translate.instant('DEFAULT_SERVICE_1_DESC'),
-                icon: 'fa-chart-bar',
-                link: '/feasibility-studies'
+                title: this.translate.instant('SERVICE_COURSES_TITLE'),
+                description: this.translate.instant('SERVICE_COURSES_DESC'),
+                icon: 'fa-book-quran', // Islamic icon for courses
+                link: '/courses'
             },
             {
                 id: 2,
-                title: this.translate.instant('DEFAULT_SERVICE_2_TITLE'),
-                description: this.translate.instant('DEFAULT_SERVICE_2_DESC'),
-                icon: 'fa-lightbulb',
-                link: '/investment-opportunities'
+                title: this.translate.instant('SERVICE_ARTICLES_TITLE'),
+                description: this.translate.instant('SERVICE_ARTICLES_DESC'),
+                icon: 'fa-scroll', // Islamic style icon for articles/knowledge
+                link: '/posts'
             },
             {
                 id: 3,
-                title: this.translate.instant('DEFAULT_SERVICE_3_TITLE'),
-                description: this.translate.instant('DEFAULT_SERVICE_3_DESC'),
-                icon: 'fa-handshake',
-                link: '/services'
+                title: this.translate.instant('SERVICE_TESTIMONIALS_TITLE'),
+                description: this.translate.instant('SERVICE_TESTIMONIALS_DESC'),
+                icon: 'fa-users-rays', // Community/Testimonials icon
+                link: '/testimonials'
             }
         ];
     }
