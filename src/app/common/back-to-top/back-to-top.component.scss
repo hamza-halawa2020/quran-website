@@ -1,0 +1,46 @@
+.go-top {
+    z-index: 999;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    bottom: 30px; // تحسين الموضع
+    cursor: pointer;
+    background: linear-gradient(135deg, #667eea, #764ba2) !important; // تحسين اللون
+    color: #ffffff !important;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    border: none;
+
+    i {
+        left: 0;
+        top: 50%;
+        right: 0;
+        margin-top: 0;
+        position: absolute;
+        transform: translateY(-50%);
+        font-size: 16px;
+        color: #ffffff !important;
+    }
+    
+    &:hover {
+        background: linear-gradient(135deg, #5a6fd8, #6a4190) !important;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        color: #ffffff !important;
+    }
+}
+
+/* Max width 767px */
+@media only screen and (max-width: 767px) {
+    .go-top {
+        right: 20px;
+        width: 45px;
+        bottom: 20px;
+        height: 45px;
+
+        i {
+            margin-top: 0;
+            font-size: 14px;
+        }
+    }
+}
