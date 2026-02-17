@@ -19,6 +19,7 @@ export interface HomeData {
   latestPosts: any[];
   latestCourses: any[];
   partners: any[];
+  mediaItems: any[];
 }
 
 @Injectable({
@@ -40,7 +41,8 @@ export class HomeService {
       posts: this.getLatestPosts(),
       courses: this.getLatestCourses(),
       partners: this.getPartners(),
-      stats: this.getStats()
+      stats: this.getStats(),
+      mediaItems: this.getMediaItems()
     }).pipe(
       map(data => ({
         stats: data.stats,
@@ -49,7 +51,8 @@ export class HomeService {
         testimonials: data.testimonials,
         latestPosts: data.posts,
         latestCourses: data.courses,
-        partners: data.partners
+        partners: data.partners,
+        mediaItems: data.mediaItems
       })),
 
     );
@@ -140,6 +143,16 @@ export class HomeService {
       yearsExperience: 20,
       successPartners: 75
     });
+  }
+
+  getMediaItems(): Observable<any[]> {
+    return this.http.get<any>(`${this.apiUrl}/media-centers?limit=6`)
+      .pipe(
+        map(response => response.data || []),
+        catchError(error => {
+          return of([]);
+        })
+      );
   }
 
   getFeaturedServices(): Observable<any[]> {

@@ -18,6 +18,7 @@ import { LatestPostsSectionComponent } from './components/latest-posts-section/l
 import { CtaSectionComponent } from './components/cta-section/cta-section.component';
 import { PartnersSectionComponent } from './components/partners-section/partners-section.component';
 import { PaymentMethodsComponent } from '../../common/payment-methods/payment-methods.component';
+import { MediaGallerySectionComponent } from './components/media-gallery-section/media-gallery-section.component';
 import { HomeService, HomeData } from './home.service';
 
 @Component({
@@ -41,6 +42,7 @@ import { HomeService, HomeData } from './home.service';
         CtaSectionComponent,
         PartnersSectionComponent,
         PaymentMethodsComponent,
+        MediaGallerySectionComponent,
         FooterComponent,
         BackToTopComponent,
     ],
@@ -54,10 +56,10 @@ export class HomeDemoOneComponent implements OnInit {
     error: string | null = null;
 
     defaultStats = {
-        completedStudies: 250,
-        satisfiedClients: 800,
-        yearsExperience: 20,
-        successPartners: 75
+        completedStudies: 1500,  // Students graduated
+        satisfiedClients: 3200,  // Active students
+        yearsExperience: 15,     // Years of teaching excellence
+        successPartners: 45      // Qualified teachers
     };
 
     constructor(
@@ -83,7 +85,8 @@ export class HomeDemoOneComponent implements OnInit {
                         testimonials: [],
                         latestPosts: [],
                         latestCourses: [],
-                        partners: []
+                        partners: [],
+                        mediaItems: []
                     };
                 }
 
@@ -108,6 +111,9 @@ export class HomeDemoOneComponent implements OnInit {
                 if (data.latestCourses && data.latestCourses.length > 0) {
                     this.homeData.latestCourses = data.latestCourses;
                 }
+                if (data.mediaItems && data.mediaItems.length > 0) {
+                    this.homeData.mediaItems = data.mediaItems;
+                }
 
                 this.isLoading = false;
             },
@@ -121,7 +127,8 @@ export class HomeDemoOneComponent implements OnInit {
                         testimonials: [],
                         latestPosts: [],
                         latestCourses: [],
-                        partners: []
+                        partners: [],
+                        mediaItems: []
                     };
                 }
                 this.isLoading = false;
