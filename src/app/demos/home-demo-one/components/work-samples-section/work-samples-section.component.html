@@ -1,0 +1,35 @@
+<section class="work-samples-section section-padding bg-light" *ngIf="workSamples.length > 0">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="">{{ 'WORK_SAMPLES' | translate }}</span>
+            <h2 class="section-title">{{ 'LATEST_WORK_SAMPLES' | translate }}</h2>
+            <p class="section-description">{{ 'WORK_SAMPLES_DESC' | translate }}</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let sample of workSamples">
+                <div class="work-sample-card">
+                    <div class="work-image">
+                        <img [src]="getImageUrl(sample.image_url, 'assets/images/work-sample-placeholder.jpg')"
+                            [alt]="sample.title" class="img-fluid">
+                        <div class="work-overlay">
+                            <a [routerLink]="['/work-samples', sample.id]" class="work-link">
+                                <i class="fa-solid fa-eye"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="work-content">
+                        <h4>{{ sample.title }}</h4>
+                        <p>{{ truncateText(sample.description, 80) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a routerLink="/work-samples" class="btn btn-primary">
+                {{ 'VIEW_ALL_WORK' | translate }}
+                <i class="fa-solid ms-2"
+                    [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
+            </a>
+        </div>
+    </div>
+</section>

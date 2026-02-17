@@ -785,6 +785,16 @@
     "DOWNLOAD_ANDROID": "Download Zoom For Android",
     "DOWNLOAD_PC": "Download Zoom For PC"
   },
+  "PAYMENT_METHODS": {
+    "TITLE": "Available Payment Methods",
+    "CASH": "Cash Payment",
+    "BANK_TRANSFER": "Bank Transfer",
+    "DEBIT_CARD": "Debit Card",
+    "MOBILE_WALLET": "Mobile Wallet",
+    "CHECK": "Check Payment",
+    "INSTALLMENT": "Installment Payment",
+    "ISLAMIC_NOTE": "All our financial transactions are compliant with Islamic Sharia law and free from usury (Riba)"
+  },
   "SERVICE_COURSES_TITLE": "Educational Courses",
   "SERVICE_COURSES_DESC": "Browse a wide range of Quran and Arabic language courses.",
   "SERVICE_ARTICLES_TITLE": "Articles & Resources",

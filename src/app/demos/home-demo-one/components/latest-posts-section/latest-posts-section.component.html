@@ -1,0 +1,39 @@
+<section class="posts-section section-padding" *ngIf="posts.length > 0">
+    <div class="container">
+        <div class="section-header text-center">
+            <span class="">{{ 'POSTS' | translate }}</span>
+            <h2 class="section-title">{{ 'LATEST_ARTICLES' | translate }}</h2>
+            <p class="section-description">{{ 'POSTS_DESC' | translate }}</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4" *ngFor="let post of posts">
+                <div class="post-card">
+                    <div class="post-image">
+                        <img [src]="getImageUrl(post.image_url, 'assets/images/post-placeholder.jpg')"
+                            [alt]="post.title" class="img-fluid">
+                        <div class="post-date">
+                            <span class="date-day">{{ formatDate(post.created_at).split(' ')[0] }}</span>
+                            <span class="date-month">{{ formatDate(post.created_at).split(' ')[1] }}</span>
+                        </div>
+                    </div>
+                    <div class="post-content">
+
+                        <h4 class="post-title">
+                            <a [routerLink]="['/posts', post.id]">{{ post.title }}</a>
+                        </h4>
+                        <a [routerLink]="['/posts', post.id]" class="post-link">
+                            {{ 'READ_MORE' | translate }}
+                            <i class="fa-solid ms-2"
+                                [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <a routerLink="/posts" class="btn btn-outline-primary">
+                {{ 'VIEW_ALL_ARTICLES' | translate }}
+            </a>
+        </div>
+    </div>
+</section>

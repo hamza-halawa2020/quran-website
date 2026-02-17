@@ -528,7 +528,6 @@
   "PAYMENTS": "المدفوعات",
   "CASH_ON_DELIVERY": "الدفع عند التسليم",
   "VISA_MASTER_CARD": "فيزا \/ ماستر كارد",
-  "PAYMENT_METHODS": "طرق الدفع",
   "PROCEED_TO_CHECKOUT": "الانتقال إلى الدفع",
   "NO_CHECKOUT_DATA": "لا توجد بيانات دفع متاحة.",
   "product1 hamza": "product1 ar",
@@ -1051,6 +1050,16 @@
     "DOWNLOAD_IOS": "تحميل Zoom لـ iPhone/iPad",
     "DOWNLOAD_ANDROID": "تحميل Zoom لـ Android",
     "DOWNLOAD_PC": "تحميل Zoom لـ PC"
+  },
+  "PAYMENT_METHODS": {
+    "TITLE": "طرق الدفع المتاحة",
+    "CASH": "الدفع النقدي",
+    "BANK_TRANSFER": "التحويل البنكي",
+    "DEBIT_CARD": "البطاقة البنكية",
+    "MOBILE_WALLET": "المحفظة الإلكترونية",
+    "CHECK": "الشيكات",
+    "INSTALLMENT": "الدفع بالتقسيط",
+    "ISLAMIC_NOTE": "جميع معاملاتنا المالية متوافقة مع أحكام الشريعة الإسلامية وخالية من الربا"
   },
   "SERVICE_COURSES_TITLE": "الدورات التعليمية",
   "SERVICE_COURSES_DESC": "تصفح مجموعة واسعة من الدورات في القرآن واللغة العربية.",

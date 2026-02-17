@@ -1,0 +1,40 @@
+.section-padding {
+    padding: 100px 0;
+    position: relative;
+}
+
+// CTA Section
+.cta-section {
+    background: linear-gradient(135deg, var(--primaryColor), #0a3a2e); /* Modern Green Gradient */
+    color: white;
+    
+    &.bg-gradient {
+        background: linear-gradient(135deg, var(--primaryColor), #0a3a2e);
+    }
+    
+    .cta-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+    
+    .cta-description {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        margin-bottom: 30px;
+    }
+    
+    .cta-buttons {
+        .btn-outline-light {
+            border-width: 2px;
+            font-weight: 700;
+            padding: 15px 35px;
+            border-radius: 50px;
+            
+            &:hover {
+                background: white;
+                color: var(--primaryColor);
+            }
+        }
+    }
+}

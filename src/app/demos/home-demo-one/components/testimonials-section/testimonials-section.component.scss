@@ -1,0 +1,102 @@
+.section-padding {
+    padding: 100px 0;
+    position: relative;
+}
+
+.section-header {
+    margin-bottom: 70px;
+    position: relative;
+    
+    &::before {
+        content: ''; /* Islamic Star motif placeholder or icon */
+        display: block;
+        font-size: 24px;
+        color: var(--secondaryColor);
+        margin-bottom: 15px;
+    }
+
+    .section-title {
+        font-size: 3rem;
+        font-weight: 800;
+        color: var(--primaryColor);
+        margin-bottom: 20px;
+        line-height: 1.2;
+    }
+    
+    .section-description {
+        font-size: 1.15rem;
+        color: #4b5563;
+        line-height: 1.8;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+}
+
+// Testimonials Section
+.testimonials-section {
+    .testimonial-card {
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(6, 78, 59, 0.05);
+        height: 100%;
+        transition: all 0.4s ease;
+        border: 1px solid rgba(6, 78, 59, 0.05);
+        
+        &:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 45px rgba(180, 83, 9, 0.1);
+            border-color: var(--secondaryColor);
+        }
+        
+        .testimonial-content {
+            margin-bottom: 25px;
+            
+            .testimonial-rating {
+                margin-bottom: 20px;
+                
+                i {
+                    color: var(--secondaryColor);
+                    margin-right: 2px;
+                }
+            }
+            
+            p {
+                font-style: italic;
+                color: #6c757d;
+                line-height: 1.6;
+                margin: 0;
+            }
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            
+            .author-image {
+                margin-right: 15px;
+                
+                img {
+                    width: 60px;
+                    height: 60px;
+                    object-fit: cover;
+                }
+            }
+            
+            .author-info {
+                h5 {
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                    color: var(--primaryColor);
+                    margin-bottom: 5px;
+                }
+                
+                p {
+                    color: #6c757d;
+                    margin: 0;
+                    font-size: 0.9rem;
+                }
+            }
+        }
+    }
+}
