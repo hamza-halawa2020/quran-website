@@ -186,7 +186,6 @@
   "EXPERIENCED_TEACHERS_DESC": "100% natural butter extracted from fresh milk, characterized by its authentic taste and distinctive aroma that adds a wonderful flavor to your dishes.",
   "LIFETIME_SUPPORT": "Healthy and Safe Products",
   "LIFETIME_SUPPORT_DESC": "All our products are natural and free from any artificial additives or preservatives, for better health for you and your family.",
-  "LEARN_NEW_SKILLS": "Discover the magic of nature in every product we offer you.",
   "ABOUT_US_DESC_1": "At quran Company, we take pride in placing nature's treasures in your hands. We started our passion from the land, to gather for you the best of what it offers from pure honey and original rural butter, with full commitment to the highest standards of quality and hygiene.",
   "ABOUT_US_DESC_2": "We are not just a store, but your partners in a journey towards a healthy and authentic lifestyle. Our products bring back the memories of true taste.",
   "WHY_CHOOSE_PENN": "Why Choose quran?",
@@ -770,5 +769,6 @@
   "DEFAULT_SERVICE_2_TITLE": "Investment Opportunities",
   "DEFAULT_SERVICE_2_DESC": "Discover the best available investment opportunities with detailed analysis of risks and returns",
   "DEFAULT_SERVICE_3_TITLE": "Financial Consulting",
-  "DEFAULT_SERVICE_3_DESC": "Get specialized financial consulting from a team of experts in the investment field"
+  "DEFAULT_SERVICE_3_DESC": "Get specialized financial consulting from a team of experts in the investment field",
+  "WHATSAPP_MESSAGE": "Hello, I would like to inquire about your services"
 }

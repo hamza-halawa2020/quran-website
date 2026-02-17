@@ -3,7 +3,7 @@
         <!-- Brand Logo -->
         <div class="navbar-brand">
             <a routerLink="/" (click)="closeMobileMenu()">
-                <img src="assets/images/logo.svg" alt="quran" class="logo">
+                <img [src]="settings.logo_url || 'assets/images/logo.svg'" alt="quran" class="logo">
                 <span class="brand-text">{{ 'quran' | translate }}</span>
             </a>
         </div>

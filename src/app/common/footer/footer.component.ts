@@ -2,6 +2,8 @@ import { NgClass, NgIf } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { SettingService, Settings } from '../../shared/services/setting.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-footer',
@@ -11,23 +13,38 @@ import { TranslateModule } from '@ngx-translate/core';
     styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent implements OnInit, OnDestroy {
-    email: string = 'info@quran.com';
-    phone: string = '+201034100565';
+    settings: Settings = {};
+    private subscription: Subscription = new Subscription();
 
-    constructor(public router: Router) { }
+    constructor(
+        public router: Router,
+        private settingService: SettingService
+    ) { }
 
     ngOnInit() {
-        // Initialize any setup if needed
+        this.fetchSettings();
+    }
+
+    fetchSettings() {
+        this.subscription.add(
+            this.settingService.getSettings().subscribe({
+                next: (data: Settings) => {
+                    this.settings = data;
+                },
+                error: (error: any) => {
+                    console.error('Error fetching settings:', error);
+                }
+            })
+        );
     }
 
     ngOnDestroy() {
-        // Cleanup if needed
+        this.subscription.unsubscribe();
     }
 
     subscribeNewsletter(email: string) {
         if (email && this.isValidEmail(email)) {
             // Handle newsletter subscription
-            // You can add actual subscription logic here
         }
     }
 

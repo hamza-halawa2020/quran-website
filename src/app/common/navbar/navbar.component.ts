@@ -5,6 +5,7 @@ import { fromEvent, Subscription } from 'rxjs';
 import { auditTime } from 'rxjs/operators';
 import { NgbCollapseModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { SettingService, Settings } from '../../shared/services/setting.service';
 
 @Component({
     selector: 'app-navbar',
@@ -26,6 +27,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     isCollapsed = true;
     isSticky: boolean = false;
     currentLanguage: string = 'en';
+    settings: Settings = {};
     private subscriptions = new Subscription();
 
     // Navigation menu items
@@ -62,6 +64,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     constructor(
         public router: Router,
         private translate: TranslateService,
+        private settingService: SettingService
     ) {
         // Initialize languages
         this.translate.addLangs(['en', 'ar']);
@@ -91,6 +94,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.translate.onLangChange.subscribe((event) => {
             this.currentLanguage = event.lang;
             this.applyLanguageDirection(event.lang);
+        });
+
+        this.fetchSettings();
+    }
+
+    fetchSettings() {
+        this.settingService.getSettings().subscribe({
+            next: (data) => {
+                this.settings = data;
+            }
         });
     }
 
