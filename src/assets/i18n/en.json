@@ -129,6 +129,9 @@
   "FAQS": "FAQ's",
   "EVENTS": "Event",
   "COURSES": "Courses",
+  "COURSES_DESC": "Explore our latest educational courses",
+  "NO_COURSES_FOUND": "No courses found.",
+  "BACK_TO_COURSES": "Back to Courses",
   "CERTIFICATIONS": "Certifications",
   "FACTORY": "Factory",
   "SHOP": "Shop",
@@ -768,5 +771,18 @@
   "DEFAULT_SERVICE_2_DESC": "Discover the best available investment opportunities with detailed analysis of risks and returns",
   "DEFAULT_SERVICE_3_TITLE": "Financial Consulting",
   "DEFAULT_SERVICE_3_DESC": "Get specialized financial consulting from a team of experts in the investment field",
-  "WHATSAPP_MESSAGE": "Hello, I would like to inquire about your services"
+  "WHATSAPP_MESSAGE": "Hello, I would like to inquire about your services",
+  "HOW_IT_WORKS": {
+    "READ_MORE": "Read more testimonials",
+    "TITLE": "How it works?",
+    "STEP1_TITLE": "Fill in The Free Trial Form",
+    "STEP1_DESC": "Fill in this form, so that our support could contact you, and confirm the appointment you selected for the free trial session.",
+    "STEP2_TITLE": "Confirm The Appointment",
+    "STEP2_DESC": "Once you submit your free trial request, the assigned tutor will contact you within 24Hrs via email, Phone Call, or WhatsApp to confirm the appointment and further details.",
+    "STEP3_TITLE": "Download Meeting App",
+    "STEP3_DESC": "Download Zoom app to start the class at the scheduled appointment.(Zoom Room Link is provided upon appointment confirmation)",
+    "DOWNLOAD_IOS": "Download Zoom For iPhone/iPad",
+    "DOWNLOAD_ANDROID": "Download Zoom For Android",
+    "DOWNLOAD_PC": "Download Zoom For PC"
+  }
 }

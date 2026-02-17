@@ -25,6 +25,15 @@ export const routes: Routes = [
     },
 
     {
+        path: 'courses',
+        loadComponent: () => import('./pages/courses-page/courses-list/courses-list.component').then(m => m.CoursesListComponent)
+    },
+    {
+        path: 'courses/:id',
+        loadComponent: () => import('./pages/courses-page/course-details/course-details.component').then(m => m.CourseDetailsComponent)
+    },
+
+    {
         path: 'testimonials',
         loadComponent: () => import('./pages/reviews-page/reviews-list/reviews-list.component').then(m => m.ReviewsListComponent)
     },

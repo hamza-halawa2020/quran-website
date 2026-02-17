@@ -7,6 +7,7 @@ import { CarouselModule, OwlOptions, CarouselComponent } from 'ngx-owl-carousel-
 import { FooterComponent } from '../../common/footer/footer.component';
 import { BackToTopComponent } from '../../common/back-to-top/back-to-top.component';
 import { MainSlider } from '../../common/main-slider/main-slider.component';
+import { HowItWorksComponent } from '../../common/how-it-works/how-it-works.component';
 import { HomeService, HomeData } from './home.service';
 
 @Component({
@@ -22,6 +23,7 @@ import { HomeService, HomeData } from './home.service';
         TranslateModule,
         CarouselModule,
         MainSlider,
+        HowItWorksComponent,
         FooterComponent,
         BackToTopComponent,
     ],
@@ -32,7 +34,7 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
     @ViewChild('statsSection', { static: false }) statsSection!: ElementRef;
     @ViewChild('testimonialsCarousel', { static: false }) testimonialsCarousel!: CarouselComponent;
     @ViewChild('partnersCarousel', { static: false }) partnersCarousel!: CarouselComponent;
-    
+
     homeData: HomeData | null = null;
     isLoading = true;
     error: string | null = null;
@@ -43,7 +45,7 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
         yearsExperience: 0,
         successPartners: 0
     };
-    
+
     hasAnimated = false;
 
     defaultStats = {
@@ -115,19 +117,19 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
         public translate: TranslateService,
         private homeService: HomeService,
         private cdr: ChangeDetectorRef
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.loadHomeData();
         this.updateDefaultServices();
-        
+
         // Subscribe to language changes
         this.translate.onLangChange.subscribe(() => {
             this.updateDefaultServices();
         });
     }
-    
-    
+
+
 
     ngAfterViewInit(): void {
         setTimeout(() => {
@@ -135,18 +137,18 @@ export class HomeDemoOneComponent implements OnInit, AfterViewInit {
                 this.startCounterAnimation();
             }
         }, 1000);
-        
+
         setTimeout(() => {
             this.setupScrollObserver();
         }, 100);
-        
+
         setTimeout(() => {
             this.reinitializeCarousels();
         }, 500);
     }
 
 
-loadHomeData(): void {
+    loadHomeData(): void {
         this.isLoading = true;
         this.error = null;
 
@@ -159,10 +161,11 @@ loadHomeData(): void {
                         teamMembers: [],
                         testimonials: [],
                         latestPosts: [],
+                        latestCourses: [],
                         partners: []
                     };
                 }
-                
+
                 if (data.stats) {
                     this.homeData.stats = data.stats;
                 }
@@ -181,15 +184,18 @@ loadHomeData(): void {
                 if (data.latestPosts && data.latestPosts.length > 0) {
                     this.homeData.latestPosts = data.latestPosts;
                 }
-                
+                if (data.latestCourses && data.latestCourses.length > 0) {
+                    this.homeData.latestCourses = data.latestCourses;
+                }
+
                 this.isLoading = false;
-                
+
                 this.updateCarouselOptions();
-                
+
                 setTimeout(() => {
                     this.reinitializeCarousels();
                 }, 300);
-                
+
                 setTimeout(() => {
                     if (!this.hasAnimated) {
                         this.startCounterAnimation();
@@ -205,11 +211,12 @@ loadHomeData(): void {
                         teamMembers: [],
                         testimonials: [],
                         latestPosts: [],
+                        latestCourses: [],
                         partners: []
                     };
                 }
                 this.isLoading = false;
-                
+
                 setTimeout(() => {
                     if (!this.hasAnimated) {
                         this.startCounterAnimation();
@@ -277,7 +284,7 @@ loadHomeData(): void {
                     dots: partnersCount > 1
                 };
             }
-            
+
             const testimonialsCount = this.homeData.testimonials?.length || 0;
             if (testimonialsCount > 0) {
                 this.testimonialsCarouselOptions = {
@@ -302,7 +309,7 @@ loadHomeData(): void {
     }
 
     private setupScrollObserver(): void {
-        
+
         if (!this.statsSection) {
             return;
         }
@@ -317,7 +324,7 @@ loadHomeData(): void {
                 });
             },
             {
-                threshold: 0.3, 
+                threshold: 0.3,
                 rootMargin: '0px 0px -50px 0px'
             }
         );
@@ -329,24 +336,24 @@ loadHomeData(): void {
         if (this.hasAnimated) {
             return;
         }
-        
+
         this.hasAnimated = true;
-        
+
         const stats = this.homeData?.stats || this.defaultStats;
-        
+
         if (this.statsSection) {
             const statCards = this.statsSection.nativeElement.querySelectorAll('.stat-card');
             statCards.forEach((card: HTMLElement) => {
                 card.classList.add('counting');
             });
-            
+
             setTimeout(() => {
                 statCards.forEach((card: HTMLElement) => {
                     card.classList.remove('counting');
                 });
             }, 3000);
         }
-        
+
         this.animateCounter('completedStudies', stats.completedStudies, 2000);
         this.animateCounter('satisfiedClients', stats.satisfiedClients, 2500);
         this.animateCounter('yearsExperience', stats.yearsExperience, 1500);
@@ -354,7 +361,7 @@ loadHomeData(): void {
     }
 
     testCounter(): void {
-        this.hasAnimated = false; 
+        this.hasAnimated = false;
         this.resetCounters();
         setTimeout(() => {
             this.startCounterAnimation();
@@ -370,35 +377,35 @@ loadHomeData(): void {
         };
     }
     private animateCounter(property: keyof typeof this.animatedStats, targetValue: number, duration: number): void {
-        
+
         if (targetValue <= 0) {
             return;
         }
-        
+
         const startValue = 0;
         const startTime = Date.now();
-        
+
         const animate = () => {
             const elapsed = Date.now() - startTime;
             const progress = Math.min(elapsed / duration, 1);
-            
+
             const easeOutQuart = 1 - Math.pow(1 - progress, 4);
             const currentValue = Math.floor(startValue + (targetValue - startValue) * easeOutQuart);
-            
+
             this.animatedStats[property] = currentValue;
-            
+
             if (Math.floor(progress * 10) !== Math.floor(((elapsed - 16) / duration) * 10)) {
             }
-            
+
             if (progress < 1) {
                 requestAnimationFrame(animate);
             } else {
                 this.animatedStats[property] = targetValue;
             }
         };
-        
+
         requestAnimationFrame(animate);
-        
+
         setTimeout(() => {
             if (this.animatedStats[property] === 0) {
                 let current = 0;

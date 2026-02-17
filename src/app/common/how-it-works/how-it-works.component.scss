@@ -1,0 +1,155 @@
+.how-it-works-section {
+    padding: 80px 0;
+    background-color: #064e3b;
+
+    .section-title {
+        margin-bottom: 60px;
+
+        .subtitle {
+            color: #ff6b35;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+        }
+    }
+
+    .steps-row {
+        margin-bottom: 60px;
+    }
+
+    .step-card {
+        text-align: center;
+        padding: 20px;
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            margin: 0 auto 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+            &.purple {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            }
+
+            &.blue {
+                background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+            }
+
+            &.green {
+                background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+            }
+        }
+
+        h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin: 0;
+        }
+    }
+
+    .download-section {
+        padding: 60px 0;
+        position: relative;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #12665077;
+        }
+
+        .row {
+            position: relative;
+            z-index: 1;
+        }
+    }
+
+    .download-card {
+        text-align: center;
+        padding: 20px;
+
+        .zoom-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            box-shadow: 0 10px 30px rgba(33, 150, 243, 0.4);
+
+            i {
+                font-size: 32px;
+                color: white;
+            }
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: #2196f3;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+
+            i {
+                margin-left: 8px;
+            }
+
+            &:hover {
+                background: #1976d2;
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .how-it-works-section {
+        padding: 50px 0;
+
+        .section-title {
+            h2 {
+                font-size: 28px;
+            }
+        }
+
+        .step-card,
+        .download-card {
+            margin-bottom: 30px;
+        }
+    }
+}

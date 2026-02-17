@@ -17,6 +17,7 @@ export interface HomeData {
   teamMembers: any[];
   testimonials: any[];
   latestPosts: any[];
+  latestCourses: any[];
   partners: any[];
 }
 
@@ -28,7 +29,7 @@ export class HomeService {
 
   constructor(
     private http: HttpClient,
-  ) {}
+  ) { }
 
 
   getHomeData(): Observable<HomeData> {
@@ -37,6 +38,7 @@ export class HomeService {
       teamMembers: this.getTeamMembers(),
       testimonials: this.getTestimonials(),
       posts: this.getLatestPosts(),
+      courses: this.getLatestCourses(),
       partners: this.getPartners(),
       stats: this.getStats()
     }).pipe(
@@ -46,6 +48,7 @@ export class HomeService {
         teamMembers: data.teamMembers,
         testimonials: data.testimonials,
         latestPosts: data.posts,
+        latestCourses: data.courses,
         partners: data.partners
       })),
 
@@ -93,6 +96,16 @@ export class HomeService {
 
   getLatestPosts(): Observable<any[]> {
     return this.http.get<any>(`${this.apiUrl}/posts?limit=3`)
+      .pipe(
+        map(response => response.data || []),
+        catchError(error => {
+          return of([]);
+        })
+      );
+  }
+
+  getLatestCourses(): Observable<any[]> {
+    return this.http.get<any>(`${this.apiUrl}/courses?limit=3`)
       .pipe(
         map(response => response.data || []),
         catchError(error => {
