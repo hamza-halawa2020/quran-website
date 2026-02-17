@@ -38,6 +38,11 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/reviews-page/reviews-list/reviews-list.component').then(m => m.ReviewsListComponent)
     },
 
+    {
+        path: 'media',
+        loadComponent: () => import('./pages/media-gallery-page/media-gallery-page.component').then(m => m.MediaGalleryPageComponent)
+    },
+
 
     { path: '**', component: ErrorPageComponent },
 ];

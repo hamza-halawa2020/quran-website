@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { SafePipe } from '../../../../shared/pipes/safe.pipe';
@@ -19,7 +19,7 @@ interface MediaItem {
     templateUrl: './media-gallery-section.component.html',
     styleUrls: ['./media-gallery-section.component.scss']
 })
-export class MediaGallerySectionComponent implements OnInit {
+export class MediaGallerySectionComponent implements OnInit, OnChanges {
     @Input() mediaItems: MediaItem[] = [];
 
     filteredItems: MediaItem[] = [];
@@ -29,6 +29,12 @@ export class MediaGallerySectionComponent implements OnInit {
 
     ngOnInit(): void {
         this.filterMedia('all');
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes['mediaItems'] && changes['mediaItems'].currentValue) {
+            this.filterMedia(this.selectedFilter);
+        }
     }
 
     filterMedia(type: 'all' | 'image' | 'video'): void {
@@ -62,5 +68,25 @@ export class MediaGallerySectionComponent implements OnInit {
         const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
         const match = url.match(regExp);
         return (match && match[2].length === 11) ? match[2] : null;
+    }
+
+    // Get video thumbnail - YouTube thumbnail or default image
+    getVideoThumbnail(item: MediaItem): string {
+        // If there's a file (uploaded thumbnail), use it
+        if (item.file) {
+            return item.file;
+        }
+
+        // If it's a YouTube video, get the thumbnail from YouTube
+        if (item.video_url) {
+            const videoId = this.extractYouTubeId(item.video_url);
+            if (videoId) {
+                // Use high quality thumbnail from YouTube
+                return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+            }
+        }
+
+        // Default fallback image (logo or placeholder)
+        return 'assets/images/logo.svg';
     }
 }

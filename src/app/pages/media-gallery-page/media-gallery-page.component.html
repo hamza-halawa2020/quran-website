@@ -1,0 +1,132 @@
+<!-- Page Banner -->
+<section class="page-banner">
+    <div class="container">
+        <div class="banner-content text-center">
+            <h1>{{ 'MEDIA_GALLERY.TITLE' | translate }}</h1>
+            <p>{{ 'MEDIA_GALLERY.SUBTITLE' | translate }}</p>
+        </div>
+    </div>
+</section>
+
+<!-- Media Gallery Section -->
+<section class="media-gallery-section section-padding">
+    <div class="container">
+        <!-- Filter Tabs -->
+        <div class="filter-tabs text-center mb-5">
+            <button class="filter-btn" [class.active]="activeFilter === 'all'" (click)="filterMedia('all')">
+                <i class="fa-solid fa-th"></i>
+                {{ 'MEDIA_GALLERY.ALL' | translate }}
+            </button>
+            <button class="filter-btn" [class.active]="activeFilter === 'image'" (click)="filterMedia('image')">
+                <i class="fa-solid fa-image"></i>
+                {{ 'MEDIA_GALLERY.IMAGES' | translate }}
+            </button>
+            <button class="filter-btn" [class.active]="activeFilter === 'video'" (click)="filterMedia('video')">
+                <i class="fa-solid fa-video"></i>
+                {{ 'MEDIA_GALLERY.VIDEOS' | translate }}
+            </button>
+            <button class="filter-btn" [class.active]="activeFilter === 'audio'" (click)="filterMedia('audio')">
+                <i class="fa-solid fa-headphones"></i>
+                {{ 'MEDIA_GALLERY.AUDIOS' | translate }}
+            </button>
+        </div>
+
+        <!-- Loading State -->
+        <div *ngIf="isLoading" class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">{{ 'LOADING' | translate }}</span>
+            </div>
+        </div>
+
+        <!-- Media Grid -->
+        <div *ngIf="!isLoading && filteredMedia.length > 0" class="media-grid">
+            <div class="media-item" *ngFor="let item of filteredMedia" [attr.data-type]="item.media_type">
+                <!-- Image Item -->
+                <div *ngIf="item.media_type === 'image'" class="media-card image-card">
+                    <div class="media-thumbnail">
+                        <img [src]="item.media_url" [alt]="item.title" class="img-fluid">
+                        <div class="media-overlay">
+                            <button class="view-btn" (click)="openLightbox(item)">
+                                <i class="fa-solid fa-search-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="media-info">
+                        <h4>{{ item.title }}</h4>
+                        <p>{{ truncateText(item.description, 80) }}</p>
+                    </div>
+                </div>
+
+                <!-- Video Item -->
+                <div *ngIf="item.media_type === 'video'" class="media-card video-card">
+                    <div class="media-thumbnail">
+                        <img [src]="getVideoThumbnail(item)" [alt]="item.title" class="img-fluid">
+                        <div class="media-overlay">
+                            <button class="play-btn" (click)="playVideo(item)">
+                                <i class="fa-solid fa-play"></i>
+                            </button>
+                        </div>
+                        <span class="media-badge video-badge">
+                            <i class="fa-solid fa-video"></i>
+                        </span>
+                    </div>
+                    <div class="media-info">
+                        <h4>{{ item.title }}</h4>
+                        <p>{{ truncateText(item.description, 80) }}</p>
+                    </div>
+                </div>
+
+                <!-- Audio Item -->
+                <div *ngIf="item.media_type === 'audio'" class="media-card audio-card">
+                    <div class="media-thumbnail audio-thumbnail">
+                        <div class="audio-icon">
+                            <i class="fa-solid fa-music"></i>
+                        </div>
+                        <span class="media-badge audio-badge">
+                            <i class="fa-solid fa-headphones"></i>
+                        </span>
+                    </div>
+                    <div class="media-info">
+                        <h4>{{ item.title }}</h4>
+                        <p>{{ truncateText(item.description, 80) }}</p>
+                        <audio controls class="audio-player">
+                            <source [src]="item.media_url" type="audio/mpeg">
+                            {{ 'MEDIA_GALLERY.AUDIO_NOT_SUPPORTED' | translate }}
+                        </audio>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="!isLoading && filteredMedia.length === 0" class="empty-state text-center py-5">
+            <i class="fa-solid fa-folder-open"></i>
+            <h3>{{ 'MEDIA_GALLERY.NO_MEDIA' | translate }}</h3>
+            <p>{{ 'MEDIA_GALLERY.NO_MEDIA_DESC' | translate }}</p>
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox Modal -->
+<div class="lightbox-modal" *ngIf="lightboxOpen" (click)="closeLightbox()">
+    <div class="lightbox-content">
+        <button class="close-btn" (click)="closeLightbox()">
+            <i class="fa-solid fa-times"></i>
+        </button>
+        <img [src]="selectedMedia?.media_url" [alt]="selectedMedia?.title" *ngIf="selectedMedia">
+    </div>
+</div>
+
+<!-- Video Modal -->
+<div class="video-modal" *ngIf="videoModalOpen" (click)="closeVideoModal()">
+    <div class="video-content" (click)="$event.stopPropagation()">
+        <button class="close-btn" (click)="closeVideoModal()">
+            <i class="fa-solid fa-times"></i>
+        </button>
+        <div class="video-wrapper" *ngIf="selectedMedia">
+            <iframe [src]="getVideoEmbedUrl(selectedMedia.media_url)" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        </div>
+    </div>
+</div>

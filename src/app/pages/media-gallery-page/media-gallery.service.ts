@@ -1,17 +1,43 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment.development';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+
+export interface MediaItem {
+  id: number;
+  title: string;
+  description: string;
+  media_type: 'image' | 'video' | 'audio';
+  media_url: string;
+  thumbnail_url?: string;
+  category?: string;
+  created_at: string;
+}
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class MediaGalleryService {
-    private apiUrl = environment.backEndUrl;
+  private apiUrl = `${environment.backEndUrl}/media`;
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-    getMediaList(page: number = 1): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/media-center?page=${page}`);
-    }
+  getAllMedia(): Observable<MediaItem[]> {
+    return this.http.get<MediaItem[]>(this.apiUrl).pipe(
+      catchError(error => {
+        console.error('Error fetching media:', error);
+        return of([]);
+      })
+    );
+  }
+
+  getMediaByType(type: string): Observable<MediaItem[]> {
+    return this.http.get<MediaItem[]>(`${this.apiUrl}?type=${type}`).pipe(
+      catchError(error => {
+        console.error('Error fetching media by type:', error);
+        return of([]);
+      })
+    );
+  }
 }

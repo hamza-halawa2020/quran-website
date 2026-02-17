@@ -39,7 +39,7 @@
 
                         <!-- Video Thumbnail -->
                         <div *ngIf="item.type === 'video'" class="video-thumbnail">
-                            <img *ngIf="item.file" [src]="item.file" [alt]="item.title" loading="lazy">
+                            <img [src]="getVideoThumbnail(item)" [alt]="item.title" loading="lazy">
                             <div class="play-button">
                                 <i class="fa-solid fa-play"></i>
                             </div>

@@ -795,6 +795,17 @@
     "INSTALLMENT": "Installment Payment",
     "ISLAMIC_NOTE": "All our financial transactions are compliant with Islamic Sharia law and free from usury (Riba)"
   },
+  "MEDIA_GALLERY": {
+    "TITLE": "Media Gallery",
+    "SUBTITLE": "Browse our collection of images, videos, and audio recordings",
+    "ALL": "All",
+    "IMAGES": "Images",
+    "VIDEOS": "Videos",
+    "AUDIOS": "Audio",
+    "NO_MEDIA": "No Media Available",
+    "NO_MEDIA_DESC": "No media found at the moment",
+    "AUDIO_NOT_SUPPORTED": "Your browser does not support audio playback"
+  },
   "SERVICE_COURSES_TITLE": "Educational Courses",
   "SERVICE_COURSES_DESC": "Browse a wide range of Quran and Arabic language courses.",
   "SERVICE_ARTICLES_TITLE": "Articles & Resources",
