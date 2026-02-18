@@ -1,5 +1,5 @@
 export const environment = {
-    backEndUrl: 'http://quran-dashboard.test/api',
-    imgUrl: 'http://quran-dashboard.test/',
+    backEndUrl: 'https://hamza.rimansan.net/public/api',
+    imgUrl: 'https://hamza.rimansan.net/public/',
 };
 
