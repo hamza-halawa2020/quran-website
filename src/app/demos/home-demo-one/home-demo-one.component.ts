@@ -10,7 +10,6 @@ import { HowItWorksComponent } from '../../common/how-it-works/how-it-works.comp
 import { AboutSectionComponent } from './components/about-section/about-section.component';
 import { ServicesSectionComponent } from './components/services-section/services-section.component';
 import { StatsSectionComponent } from './components/stats-section/stats-section.component';
-import { WorkSamplesSectionComponent } from './components/work-samples-section/work-samples-section.component';
 import { TeamSectionComponent } from './components/team-section/team-section.component';
 import { TestimonialsSectionComponent } from './components/testimonials-section/testimonials-section.component';
 import { LatestCoursesSectionComponent } from './components/latest-courses-section/latest-courses-section.component';
@@ -34,7 +33,6 @@ import { HomeService, HomeData } from './home.service';
         AboutSectionComponent,
         ServicesSectionComponent,
         StatsSectionComponent,
-        WorkSamplesSectionComponent,
         TeamSectionComponent,
         TestimonialsSectionComponent,
         LatestCoursesSectionComponent,
