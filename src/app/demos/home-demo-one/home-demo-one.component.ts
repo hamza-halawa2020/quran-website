@@ -18,7 +18,6 @@ import { LatestPostsSectionComponent } from './components/latest-posts-section/l
 import { CtaSectionComponent } from './components/cta-section/cta-section.component';
 import { PartnersSectionComponent } from './components/partners-section/partners-section.component';
 import { PaymentMethodsComponent } from '../../common/payment-methods/payment-methods.component';
-import { MediaGallerySectionComponent } from './components/media-gallery-section/media-gallery-section.component';
 import { HomeService, HomeData } from './home.service';
 
 @Component({
@@ -42,7 +41,6 @@ import { HomeService, HomeData } from './home.service';
         CtaSectionComponent,
         PartnersSectionComponent,
         PaymentMethodsComponent,
-        MediaGallerySectionComponent,
         FooterComponent,
         BackToTopComponent,
     ],
