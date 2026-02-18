@@ -19,14 +19,14 @@ export interface MediaItem {
   providedIn: 'root'
 })
 export class MediaGalleryService {
-  private apiUrl = `${environment.backEndUrl}/media`;
+  private apiUrl = `${environment.backEndUrl}/media-center`;
 
   constructor(private http: HttpClient) { }
 
   getAllMedia(): Observable<MediaItem[]> {
     return this.http.get<MediaItem[]>(this.apiUrl).pipe(
       catchError(error => {
-        console.error('Error fetching media:', error);
+        // console.error('Error fetching media:', error);
         return of([]);
       })
     );
@@ -35,7 +35,7 @@ export class MediaGalleryService {
   getMediaByType(type: string): Observable<MediaItem[]> {
     return this.http.get<MediaItem[]>(`${this.apiUrl}?type=${type}`).pipe(
       catchError(error => {
-        console.error('Error fetching media by type:', error);
+        // console.error('Error fetching media by type:', error);
         return of([]);
       })
     );

@@ -2,7 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { MediaGalleryService, MediaItem } from './media-gallery.service';
+import { MediaGalleryService } from './media-gallery.service';
+
+interface MediaItem {
+  id: number;
+  title: string;
+  type: 'image' | 'video';
+  file: string | null;
+  video_url: string | null;
+  created_at: string;
+}
 
 @Component({
   selector: 'app-media-gallery-page',
@@ -14,7 +23,7 @@ import { MediaGalleryService, MediaItem } from './media-gallery.service';
 export class MediaGalleryPageComponent implements OnInit {
   allMedia: MediaItem[] = [];
   filteredMedia: MediaItem[] = [];
-  activeFilter: string = 'all';
+  activeFilter: 'all' | 'image' | 'video' = 'all';
   isLoading: boolean = true;
   lightboxOpen: boolean = false;
   videoModalOpen: boolean = false;
@@ -32,9 +41,11 @@ export class MediaGalleryPageComponent implements OnInit {
   loadMedia(): void {
     this.isLoading = true;
     this.mediaService.getAllMedia().subscribe({
-      next: (data) => {
-        this.allMedia = data;
-        this.filteredMedia = data;
+      next: (response: any) => {
+        console.log('Media response:', response);
+        // Handle both array and object with data property
+        this.allMedia = Array.isArray(response) ? response : (response.data || []);
+        this.filteredMedia = this.allMedia;
         this.isLoading = false;
       },
       error: (error) => {
@@ -44,18 +55,13 @@ export class MediaGalleryPageComponent implements OnInit {
     });
   }
 
-  filterMedia(type: string): void {
+  filterMedia(type: 'all' | 'image' | 'video'): void {
     this.activeFilter = type;
     if (type === 'all') {
       this.filteredMedia = this.allMedia;
     } else {
-      this.filteredMedia = this.allMedia.filter(item => item.media_type === type);
+      this.filteredMedia = this.allMedia.filter(item => item.type === type);
     }
-  }
-
-  truncateText(text: string, maxLength: number = 100): string {
-    if (!text) return '';
-    return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
   }
 
   openLightbox(media: MediaItem): void {
@@ -83,43 +89,36 @@ export class MediaGalleryPageComponent implements OnInit {
   }
 
   getVideoEmbedUrl(url: string): SafeResourceUrl {
-    // Convert YouTube watch URL to embed URL
-    if (url.includes('youtube.com/watch')) {
-      const videoId = url.split('v=')[1]?.split('&')[0];
-      url = `https://www.youtube.com/embed/${videoId}`;
-    } else if (url.includes('youtu.be/')) {
-      const videoId = url.split('youtu.be/')[1]?.split('?')[0];
-      url = `https://www.youtube.com/embed/${videoId}`;
-    }
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    if (!url) return this.sanitizer.bypassSecurityTrustResourceUrl('');
+    
+    const videoId = this.extractYouTubeId(url);
+    const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
   }
 
-  // Get video thumbnail - YouTube thumbnail or default image
   getVideoThumbnail(item: MediaItem): string {
-    // If there's a thumbnail_url, use it
-    if (item.thumbnail_url) {
-      return item.thumbnail_url;
+    // If there's a file (uploaded thumbnail), use it
+    if (item.file) {
+      return item.file;
     }
 
     // If it's a YouTube video, get the thumbnail from YouTube
-    if (item.media_url) {
-      const videoId = this.extractYouTubeId(item.media_url);
+    if (item.video_url) {
+      const videoId = this.extractYouTubeId(item.video_url);
       if (videoId) {
-        // Use high quality thumbnail from YouTube
         return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
       }
     }
 
-    // Default fallback image (logo or placeholder)
+    // Default fallback image
     return 'assets/images/logo.svg';
   }
 
   private extractYouTubeId(url: string): string | null {
     if (!url) return null;
 
-    // Handle different YouTube URL formats
     const patterns = [
-      /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\?\/]+)/,
+      /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^#&?]*)/,
       /youtube\.com\/watch\?.*v=([^&]+)/
     ];
 

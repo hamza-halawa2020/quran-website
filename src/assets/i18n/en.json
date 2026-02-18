@@ -804,7 +804,9 @@
     "AUDIOS": "Audio",
     "NO_MEDIA": "No Media Available",
     "NO_MEDIA_DESC": "No media found at the moment",
-    "AUDIO_NOT_SUPPORTED": "Your browser does not support audio playback"
+    "AUDIO_NOT_SUPPORTED": "Your browser does not support audio playback",
+    "VIEW": "View",
+    "WATCH": "Watch"
   },
   "SERVICE_COURSES_TITLE": "Educational Courses",
   "SERVICE_COURSES_DESC": "Browse a wide range of Quran and Arabic language courses.",

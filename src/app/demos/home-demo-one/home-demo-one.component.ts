@@ -118,7 +118,7 @@ export class HomeDemoOneComponent implements OnInit {
                 this.isLoading = false;
             },
             error: (error) => {
-                console.error('Error loading home data:', error);
+                // console.error('Error loading home data:', error);
                 if (!this.homeData) {
                     this.homeData = {
                         stats: this.defaultStats,
