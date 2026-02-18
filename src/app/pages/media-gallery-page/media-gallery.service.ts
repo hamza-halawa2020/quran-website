@@ -23,20 +23,22 @@ export class MediaGalleryService {
 
   constructor(private http: HttpClient) { }
 
-  getAllMedia(): Observable<MediaItem[]> {
-    return this.http.get<MediaItem[]>(this.apiUrl).pipe(
-      catchError(error => {
-        // console.error('Error fetching media:', error);
-        return of([]);
+  getAllMedia(page: number = 1, type: string = 'all'): Observable<any> {
+    let url = `${this.apiUrl}?page=${page}`;
+    if (type !== 'all') {
+      url += `&type=${type}`;
+    }
+    return this.http.get<any>(url).pipe(
+      catchError(() => {
+        return of({ data: [], meta: null });
       })
     );
   }
 
-  getMediaByType(type: string): Observable<MediaItem[]> {
-    return this.http.get<MediaItem[]>(`${this.apiUrl}?type=${type}`).pipe(
-      catchError(error => {
-        // console.error('Error fetching media by type:', error);
-        return of([]);
+  getMediaByType(type: string, page: number = 1): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?type=${type}&page=${page}`).pipe(
+      catchError(() => {
+        return of({ data: [], meta: null });
       })
     );
   }

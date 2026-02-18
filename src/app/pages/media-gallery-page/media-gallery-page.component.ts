@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { MediaGalleryService } from './media-gallery.service';
+import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 
 interface MediaItem {
   id: number;
@@ -16,7 +17,7 @@ interface MediaItem {
 @Component({
   selector: 'app-media-gallery-page',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, PaginationComponent],
   templateUrl: './media-gallery-page.component.html',
   styleUrl: './media-gallery-page.component.scss'
 })
@@ -28,6 +29,8 @@ export class MediaGalleryPageComponent implements OnInit {
   lightboxOpen: boolean = false;
   videoModalOpen: boolean = false;
   selectedMedia: MediaItem | null = null;
+  meta: any = null;
+  currentPage: number = 1;
 
   constructor(
     private mediaService: MediaGalleryService,
@@ -38,15 +41,19 @@ export class MediaGalleryPageComponent implements OnInit {
     this.loadMedia();
   }
 
-  loadMedia(): void {
+  loadMedia(page: number = 1): void {
     this.isLoading = true;
-    this.mediaService.getAllMedia().subscribe({
+    this.currentPage = page;
+    
+    this.mediaService.getAllMedia(page, this.activeFilter).subscribe({
       next: (response: any) => {
         console.log('Media response:', response);
         // Handle both array and object with data property
         this.allMedia = Array.isArray(response) ? response : (response.data || []);
         this.filteredMedia = this.allMedia;
+        this.meta = response.meta || null;
         this.isLoading = false;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       },
       error: (error) => {
         console.error('Error loading media:', error);
@@ -57,10 +64,13 @@ export class MediaGalleryPageComponent implements OnInit {
 
   filterMedia(type: 'all' | 'image' | 'video'): void {
     this.activeFilter = type;
-    if (type === 'all') {
-      this.filteredMedia = this.allMedia;
-    } else {
-      this.filteredMedia = this.allMedia.filter(item => item.type === type);
+    this.currentPage = 1;
+    this.loadMedia(1);
+  }
+
+  onPageChange(page: number): void {
+    if (this.meta && page >= 1 && page <= this.meta.last_page && page !== this.meta.current_page) {
+      this.loadMedia(page);
     }
   }
 

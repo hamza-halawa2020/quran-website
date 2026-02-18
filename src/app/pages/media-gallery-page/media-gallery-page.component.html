@@ -77,6 +77,11 @@
             <i class="fa-solid fa-folder-open"></i>
             <p>{{ 'MEDIA_GALLERY.NO_MEDIA' | translate }}</p>
         </div>
+
+        <!-- Pagination -->
+        <div class="pagination-wrapper" *ngIf="!isLoading && meta">
+            <app-pagination [meta]="meta" (pageChange)="onPageChange($event)"></app-pagination>
+        </div>
     </div>
 
     <div class="decorative-border bottom"></div>
