@@ -17,6 +17,7 @@ import { LatestCoursesSectionComponent } from './components/latest-courses-secti
 import { LatestPostsSectionComponent } from './components/latest-posts-section/latest-posts-section.component';
 import { CtaSectionComponent } from './components/cta-section/cta-section.component';
 import { PartnersSectionComponent } from './components/partners-section/partners-section.component';
+import { MediaGallerySectionComponent } from './components/media-gallery-section/media-gallery-section.component';
 import { PaymentMethodsComponent } from '../../common/payment-methods/payment-methods.component';
 import { HomeService, HomeData } from './home.service';
 
@@ -38,6 +39,7 @@ import { HomeService, HomeData } from './home.service';
         TestimonialsSectionComponent,
         LatestCoursesSectionComponent,
         LatestPostsSectionComponent,
+        MediaGallerySectionComponent,
         CtaSectionComponent,
         PartnersSectionComponent,
         PaymentMethodsComponent,

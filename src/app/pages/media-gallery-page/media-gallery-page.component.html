@@ -14,15 +14,15 @@
 
         <!-- Filter Buttons -->
         <div class="filter-buttons text-center mb-5">
-            <button class="filter-btn" [class.active]="activeFilter === 'all'" (click)="filterMedia('all')">
+            <button type="button" class="filter-btn" [class.active]="activeFilter === 'all'" (click)="filterMedia('all')">
                 <i class="fa-solid fa-th"></i>
                 {{ 'MEDIA_GALLERY.ALL' | translate }}
             </button>
-            <button class="filter-btn" [class.active]="activeFilter === 'image'" (click)="filterMedia('image')">
+            <button type="button" class="filter-btn" [class.active]="activeFilter === 'image'" (click)="filterMedia('image')">
                 <i class="fa-solid fa-image"></i>
                 {{ 'MEDIA_GALLERY.IMAGES' | translate }}
             </button>
-            <button class="filter-btn" [class.active]="activeFilter === 'video'" (click)="filterMedia('video')">
+            <button type="button" class="filter-btn" [class.active]="activeFilter === 'video'" (click)="filterMedia('video')">
                 <i class="fa-solid fa-video"></i>
                 {{ 'MEDIA_GALLERY.VIDEOS' | translate }}
             </button>
