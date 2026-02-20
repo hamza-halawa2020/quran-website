@@ -1,6 +1,6 @@
 .how-it-works-section {
     padding: 80px 0;
-    background-color: #064e3b;
+    background-color: #1e3a5f; /* Navy Blue from Logo */
     position: relative;
     overflow: hidden;
 
@@ -22,7 +22,7 @@
         z-index: 2;
 
         .subtitle {
-            color: #d4af37; // Gold
+            color: #c9a961; /* Gold from Logo */
             font-size: 14px;
             font-weight: 600;
             text-transform: uppercase;
@@ -50,14 +50,14 @@
         padding: 20px;
         background: rgba(255, 255, 255, 0.05); // Slight glass effect
         border-radius: 15px;
-        border: 1px solid rgba(212, 175, 55, 0.2); // Subtle gold border
+        border: 1px solid rgba(201, 169, 97, 0.2); /* Gold border */
         height: 100%;
         transition: transform 0.3s ease;
 
         &:hover {
             transform: translateY(-5px);
             background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(212, 175, 55, 0.5);
+            border-color: rgba(201, 169, 97, 0.5);
         }
 
         .step-number {
@@ -75,25 +75,25 @@
             border: 2px solid rgba(255, 255, 255, 0.2);
 
             &.purple {
-                // Gold Gradient
-                background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+                // Gold Gradient from Logo
+                background: linear-gradient(135deg, #c9a961 0%, #b8935a 100%);
             }
 
             &.blue {
-                // Emerald Gradient
-                background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+                // Navy Blue Gradient
+                background: linear-gradient(135deg, #2c5282 0%, #1e3a5f 100%);
             }
 
             &.green {
-                // Bronze/Copper Gradient or Dark Green
-                background: linear-gradient(135deg, #b45309 0%, #78350f 100%);
+                // Light Gold Gradient
+                background: linear-gradient(135deg, #d4b574 0%, #c9a961 100%);
             }
         }
 
         h3 {
             font-size: 20px;
             font-weight: 600;
-            color: #d4af37; // Gold
+            color: #c9a961; /* Gold from Logo */
             margin-bottom: 15px;
         }
 
@@ -135,12 +135,12 @@
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%); // Gold Gradient
+            background: linear-gradient(135deg, #c9a961 0%, #b8935a 100%); /* Gold Gradient from Logo */
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 25px;
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 30px rgba(201, 169, 97, 0.3);
             border: 2px solid rgba(255, 255, 255, 0.2);
 
             i {
@@ -151,8 +151,8 @@
 
         .download-btn {
             display: inline-block;
-            background: #d4af37; // Gold
-            color: #064e3b; // Deep Green text for contrast
+            background: #c9a961; /* Gold from Logo */
+            color: #1e3a5f; /* Navy Blue text for contrast */
             padding: 12px 30px;
             border-radius: 5px;
             text-decoration: none;
@@ -166,10 +166,10 @@
             }
 
             &:hover {
-                background: #f1c40f; // Brighter Gold
+                background: #d4b574; /* Light Gold */
                 transform: translateY(-2px);
-                box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
-                color: #000;
+                box-shadow: 0 5px 15px rgba(201, 169, 97, 0.4);
+                color: #1e3a5f;
             }
         }
     }

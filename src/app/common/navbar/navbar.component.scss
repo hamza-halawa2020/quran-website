@@ -1,8 +1,8 @@
 // Colors
-$primary: #b45309; /* Gold */
-$secondary: #f59e0b;
+$primary: #c9a961; /* Gold from Logo */
+$secondary: #d4b574; /* Light Gold */
 $white: #ffffff;
-$dark: #064e3b; /* Deep Green */
+$dark: #1e3a5f; /* Navy Blue from Logo */
 $gray-light: #fdfbf7;
 $gray: #9ca3af;
 
@@ -166,12 +166,12 @@ $gray: #9ca3af;
             background: $white;
             border-color: $primary;
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba($primary, 0.2);
+            box-shadow: 0 4px 15px rgba(201, 169, 97, 0.2);
         }
 
         &:focus {
             outline: none;
-            box-shadow: 0 0 0 3px rgba($primary, 0.2);
+            box-shadow: 0 0 0 3px rgba(201, 169, 97, 0.2);
         }
 
         .flag {
@@ -258,11 +258,11 @@ $gray: #9ca3af;
     &.btn-primary {
         background: linear-gradient(135deg, $primary, $secondary);
         color: $white;
-        box-shadow: 0 4px 15px rgba($primary, 0.3);
+        box-shadow: 0 4px 15px rgba(201, 169, 97, 0.3);
 
         &:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba($primary, 0.4);
+            box-shadow: 0 8px 30px rgba(201, 169, 97, 0.4);
             color: $white;
         }
 
@@ -280,7 +280,7 @@ $gray: #9ca3af;
             background: $primary;
             color: $white;
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba($primary, 0.3);
+            box-shadow: 0 4px 15px rgba(201, 169, 97, 0.3);
         }
 
         &:active {

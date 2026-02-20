@@ -1,10 +1,10 @@
 // Colors
-$primary: #064e3b; /* Deep Islamic Green */
-$secondary: #b45309; /* Gold */
-$dark: #022c22;
+$primary: var(--primaryColor); /* Navy Blue from Logo */
+$secondary: var(--secondaryColor); /* Gold from Logo */
+$dark: var(--accentColor);
 $white: #ffffff;
-$gray-light: #fdfbf7;
-$gray: #4b5563;
+$gray-light: var(--creamBg);
+$gray: var(--paragraphColor);
 
 
 // Investment opportunities list styles will inherit from global styles

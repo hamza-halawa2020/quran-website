@@ -1,8 +1,8 @@
 // Colors
-$primary: #b45309; /* Gold */
-$secondary: #f59e0b; /* Light Gold */
-$dark: #064e3b; /* Deep Islamic Green */
-$darker: #022c22; /* Even deeper green */
+$primary: #c9a961; /* Gold from Logo */
+$secondary: #d4b574; /* Light Gold */
+$dark: #1e3a5f; /* Navy Blue from Logo */
+$darker: #152a47; /* Darker Navy */
 $white: #ffffff;
 $gray-light: #fdfbf7;
 $gray: #9ca3af;
@@ -23,8 +23,8 @@ $gray-dark: #374151;
         left: 0;
         right: 0;
         bottom: 0;
-        background: radial-gradient(circle at 20% 50%, rgba(180, 83, 9, 0.1) 0%, transparent 50%),
-                    radial-gradient(circle at 80% 20%, rgba(6, 78, 59, 0.2) 0%, transparent 50%);
+        background: radial-gradient(circle at 20% 50%, rgba(201, 169, 97, 0.1) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(30, 58, 95, 0.2) 0%, transparent 50%);
         z-index: 0;
     }
 
@@ -144,7 +144,7 @@ $gray-dark: #374151;
                 background: $primary;
                 border-color: $primary;
                 transform: translateY(-3px);
-                box-shadow: 0 5px 15px rgba($primary, 0.4);
+                box-shadow: 0 5px 15px rgba(201, 169, 97, 0.4);
             }
 
             i {

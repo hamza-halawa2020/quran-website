@@ -1,6 +1,6 @@
-$primary-color: #064e3b; /* Deep Islamic Green */
-$secondary-color: #b45309; /* Gold */
-$text-color: #022c22;
+$primary-color: var(--primaryColor); /* Navy Blue from Logo */
+$secondary-color: var(--secondaryColor); /* Gold from Logo */
+$text-color: var(--paragraphColor);
 
 .contact-area {
     padding: 60px 0;

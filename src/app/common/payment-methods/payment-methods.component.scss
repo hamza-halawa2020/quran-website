@@ -12,7 +12,7 @@
         h3 {
             font-size: 3rem;
             font-weight: 800;
-            color: var(--primaryColor);
+            color: #1e3a5f;
             margin-bottom: 20px;
             line-height: 1.2;
             position: relative;
@@ -22,11 +22,11 @@
                 content: ''; /* Islamic Star motif placeholder or icon */
                 display: block;
                 font-size: 24px;
-                color: var(--secondaryColor);
+                color: #c9a961;
                 margin: 10px auto 0;
                 width: 60px;
                 height: 3px;
-                background: var(--secondaryColor);
+                background: #c9a961;
             }
         }
     }
@@ -45,8 +45,8 @@
         border-radius: 20px;
         text-align: center;
         transition: all 0.4s ease;
-        box-shadow: 0 10px 30px rgba(6, 78, 59, 0.05);
-        border: 1px solid rgba(6, 78, 59, 0.1);
+        box-shadow: 0 10px 30px rgba(30, 58, 95, 0.05);
+        border: 1px solid rgba(30, 58, 95, 0.1);
         position: relative;
         overflow: hidden;
         height: 100%;
@@ -58,27 +58,27 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, var(--secondaryColor), var(--goldLight));
+            background: linear-gradient(90deg, #c9a961, #d4b574);
             opacity: 0;
             transition: 0.4s;
         }
 
         &:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(6, 78, 59, 0.15);
-            border-color: var(--goldLight);
+            box-shadow: 0 20px 40px rgba(30, 58, 95, 0.15);
+            border-color: #d4b574;
 
             &::before {
                 opacity: 1;
             }
 
             .payment-icon {
-                background: var(--primaryColor);
+                background: #1e3a5f;
                 transform: rotate(0deg);
-                border-color: var(--goldLight);
+                border-color: #d4b574;
                 
                 i {
-                    color: var(--goldLight);
+                    color: #d4b574;
                     transform: rotate(0deg);
                 }
             }
@@ -89,7 +89,7 @@
             height: 70px;
             margin: 0 auto 20px;
             background: #f0fdf4;
-            border: 1px solid var(--secondaryColor);
+            border: 1px solid #c9a961;
             border-radius: 15px; /* Squarish */
             display: flex;
             align-items: center;
@@ -99,7 +99,7 @@
 
             i {
                 font-size: 28px;
-                color: var(--primaryColor);
+                color: #1e3a5f;
                 transition: all 0.5s ease;
                 transform: rotate(-45deg);
             }
@@ -108,7 +108,7 @@
         p {
             font-size: 1.1rem;
             font-weight: 700;
-            color: var(--primaryColor);
+            color: #1e3a5f;
             margin: 0;
             line-height: 1.4;
         }
@@ -123,7 +123,7 @@
         max-width: 800px;
         margin-left: auto;
         margin-right: auto;
-        border-left: 5px solid var(--secondaryColor);
+        border-left: 5px solid #c9a961;
 
         .islamic-note {
             font-size: 1.05rem;
@@ -136,7 +136,7 @@
             justify-content: center;
 
             i {
-                color: var(--secondaryColor);
+                color: #c9a961;
                 margin: 0 10px;
                 font-size: 24px;
             }

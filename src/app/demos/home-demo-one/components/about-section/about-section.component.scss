@@ -151,11 +151,11 @@
         align-items: center;
         gap: 10px;
         padding: 14px 34px;
-        background: linear-gradient(90deg, var(--secondaryColor) 0%, var(--primaryColor) 100%);
+        background: var(--secondaryColor);
         color: #fff;
         border: none;
-        box-shadow: 0 12px 30px rgba(6,78,59,0.15);
-        transition: transform .18s ease, box-shadow .18s ease;
+        box-shadow: 0 12px 30px rgba(201, 169, 97, 0.3);
+        transition: all 0.3s ease;
         font-weight: 700;
 
         i {
@@ -163,8 +163,9 @@
         }
 
         &:hover {
+            background: var(--primaryColor);
             transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(6,78,59,0.2);
+            box-shadow: 0 20px 40px rgba(30, 58, 95, 0.3);
             text-decoration: none;
         }
     }
