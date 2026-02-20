@@ -809,6 +809,21 @@
     "VIEW": "View",
     "WATCH": "Watch"
   },
+  "ADD_REVIEW": {
+    "TITLE": "Share Your Experience",
+    "SUBTITLE": "We value your feedback and would love to hear about your experience with us",
+    "NAME": "Your Name",
+    "NAME_PLACEHOLDER": "Enter your full name",
+    "NAME_REQUIRED": "Name is required",
+    "NAME_MAX_LENGTH": "Name must not exceed 255 characters",
+    "REVIEW": "Your Testimonial",
+    "REVIEW_PLACEHOLDER": "Share your thoughts and experience with us...",
+    "REVIEW_REQUIRED": "Testimonial is required",
+    "REVIEW_MIN_LENGTH": "Testimonial must be at least 10 characters",
+    "SUBMIT": "Submit Testimonial",
+    "SUBMITTING": "Submitting...",
+    "SUCCESS_MESSAGE": "Thank you! Your review has been submitted successfully and is pending approval."
+  },
   "SERVICE_COURSES_TITLE": "Educational Courses",
   "SERVICE_COURSES_DESC": "Browse a wide range of Quran and Arabic language courses.",
   "SERVICE_ARTICLES_TITLE": "Articles & Resources",

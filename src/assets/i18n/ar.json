@@ -1074,6 +1074,21 @@
     "VIEW": "عرض",
     "WATCH": "مشاهدة"
   },
+  "ADD_REVIEW": {
+    "TITLE": "شارك تجربتك",
+    "SUBTITLE": "نحن نقدر ملاحظاتك ونود أن نسمع عن تجربتك معنا",
+    "NAME": "اسمك",
+    "NAME_PLACEHOLDER": "أدخل اسمك الكامل",
+    "NAME_REQUIRED": "الاسم مطلوب",
+    "NAME_MAX_LENGTH": "يجب ألا يتجاوز الاسم 255 حرفاً",
+    "REVIEW": "تقييمك",
+    "REVIEW_PLACEHOLDER": "شاركنا أفكارك وتجربتك معنا...",
+    "REVIEW_REQUIRED": "التقييم مطلوب",
+    "REVIEW_MIN_LENGTH": "يجب أن يكون التقييم 10 أحرف على الأقل",
+    "SUBMIT": "إرسال التقييم",
+    "SUBMITTING": "جاري الإرسال...",
+    "SUCCESS_MESSAGE": "شكراً لك! تم إرسال تقييمك بنجاح وهو قيد المراجعة."
+  },
   "SERVICE_COURSES_TITLE": "الدورات التعليمية",
   "SERVICE_COURSES_DESC": "تصفح مجموعة واسعة من الدورات في القرآن واللغة العربية.",
   "SERVICE_ARTICLES_TITLE": "المقالات والموارد",
