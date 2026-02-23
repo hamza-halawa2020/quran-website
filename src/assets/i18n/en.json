@@ -777,6 +777,20 @@
   "DEFAULT_SERVICE_3_TITLE": "Tafseer & Islamic Studies",
   "DEFAULT_SERVICE_3_DESC": "Understand the meanings of Quran and deepen your Islamic knowledge",
   "WHATSAPP_MESSAGE": "Hello, I would like to inquire about your services",
+  "ADD_REVIEW_TITLE": "Add Your Testimonial",
+  "ADD_REVIEW_SUBTITLE": "Share your experience with us",
+  "ADD_REVIEW_SUCCESS_MESSAGE": "Thank you! Your review has been submitted successfully and is pending approval.",
+  "ADD_REVIEW_NAME": "Your Name",
+  "ADD_REVIEW_NAME_PLACEHOLDER": "Enter your full name",
+  "ADD_REVIEW_NAME_REQUIRED": "Name is required",
+  "ADD_REVIEW_NAME_MAX_LENGTH": "Name must not exceed 255 characters",
+  "ADD_REVIEW_REVIEW": "Your Testimonial",
+  "ADD_REVIEW_REVIEW_PLACEHOLDER": "Share your thoughts and experience with us...",
+  "ADD_REVIEW_REVIEW_REQUIRED": "Testimonial is required",
+  "ADD_REVIEW_REVIEW_MIN_LENGTH": "Testimonial must be at least 10 characters",
+  "ADD_REVIEW_SUBMIT": "Submit Testimonial",
+  "ADD_REVIEW_SUBMITTING": "Submitting...",
+  
   "HOW_IT_WORKS": {
     "READ_MORE": "Read more testimonials",
     "TITLE": "How it works?",
@@ -800,6 +814,9 @@
     "INSTALLMENT": "Installment Payment",
     "ISLAMIC_NOTE": "All our financial transactions are compliant with Islamic Sharia law and free from usury (Riba)"
   },
+
+
+
   "MEDIA_GALLERY": {
     "TITLE": "Media Gallery",
     "SUBTITLE": "Browse our collection of images, videos, and audio recordings",
