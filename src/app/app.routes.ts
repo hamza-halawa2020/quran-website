@@ -48,6 +48,10 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/media-gallery-page/media-gallery-page.component').then(m => m.MediaGalleryPageComponent)
     },
 
+    {
+        path: 'certificates',
+        loadComponent: () => import('./pages/certificates-page/certificates-list/certificates-list.component').then(m => m.CertificatesListComponent)
+    },
 
     { path: '**', component: ErrorPageComponent },
 ];

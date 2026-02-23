@@ -131,6 +131,9 @@
   "COURSES": "Courses",
   "COURSES_DESC": "Explore our latest educational courses",
   "NO_COURSES_FOUND": "No courses found.",
+  "OUR_CERTIFICATES": "Our Certificates",
+  "CERTIFICATES_DESC": "View our collection of awarded certificates",
+  "NO_CERTIFICATES_FOUND": "No certificates found.",
   "BACK_TO_COURSES": "Back to Courses",
   "CERTIFICATIONS": "Certifications",
   "FACTORY": "Factory",
@@ -809,6 +812,8 @@
     "VIEW": "View",
     "WATCH": "Watch"
   },
+  "APPROVED": "Approved",
+  "PENDING": "Pending",
   "ADD_REVIEW": {
     "TITLE": "Share Your Experience",
     "SUBTITLE": "We value your feedback and would love to hear about your experience with us",
