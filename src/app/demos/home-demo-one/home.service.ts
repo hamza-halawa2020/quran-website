@@ -18,6 +18,7 @@ export interface HomeData {
   testimonials: any[];
   latestPosts: any[];
   latestCourses: any[];
+  certificates: any[];
   partners: any[];
   mediaItems: any[];
 }
@@ -40,6 +41,7 @@ export class HomeService {
       testimonials: this.getTestimonials(),
       posts: this.getLatestPosts(),
       courses: this.getLatestCourses(),
+      certificates: this.getCertificates(),
       partners: this.getPartners(),
       stats: this.getStats(),
       mediaItems: this.getMediaItems()
@@ -51,6 +53,7 @@ export class HomeService {
         testimonials: data.testimonials,
         latestPosts: data.posts,
         latestCourses: data.courses,
+        certificates: data.certificates,
         partners: data.partners,
         mediaItems: data.mediaItems
       })),
@@ -147,6 +150,16 @@ export class HomeService {
 
   getMediaItems(): Observable<any[]> {
     return this.http.get<any>(`${this.apiUrl}/media-center?limit=6`)
+      .pipe(
+        map(response => response.data || []),
+        catchError(error => {
+          return of([]);
+        })
+      );
+  }
+
+  getCertificates(): Observable<any[]> {
+    return this.http.get<any>(`${this.apiUrl}/certificates?limit=6`)
       .pipe(
         map(response => response.data || []),
         catchError(error => {

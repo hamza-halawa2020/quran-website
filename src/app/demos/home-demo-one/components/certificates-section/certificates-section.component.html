@@ -1,0 +1,41 @@
+<section class="certificates-section">
+    <div class="container">
+        <div class="section-title text-center mb-5">
+            <h2>{{ 'OUR_CERTIFICATES' | translate }}</h2>
+            <p class="section-description">{{ 'CERTIFICATES_DESC' | translate }}</p>
+            <a routerLink="/certificates" class="btn btn-outline-primary mt-4">
+                {{ 'EXPLORE_ALL_CERTIFICATES' | translate }}
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="certificates-grid">
+            <div class="certificate-item animate__animated animate__fadeInUp"
+                *ngFor="let cert of certificates.slice(0, 6); let i = index"
+                [style.animation-delay]="i * 0.1 + 's'">
+                <div class="certificate-image-wrapper">
+                    <img [src]="cert.file_url" 
+                         [alt]="cert.title" 
+                         class="certificate-img"
+                         (error)="onImageError($event)">
+                    <div class="certificate-hover">
+                        <a [href]="cert.file_url" target="_blank" class="btn btn-sm btn-light">
+                            <i class="fa-solid fa-eye"></i> {{ 'VIEW' | translate }}
+                        </a>
+                    </div>
+                </div>
+                <div class="certificate-info">
+                    <h4>{{ cert.title }}</h4>
+                    <p class="cert-date">{{ cert.created_at | date:'shortDate' }}</p>
+                    <span class="badge" [ngClass]="cert.status === 1 ? 'bg-success' : 'bg-warning'">
+                        {{ cert.status === 1 ? ('APPROVED' | translate) : ('PENDING' | translate) }}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-5" *ngIf="certificates.length === 0">
+            <p class="text-muted">{{ 'NO_CERTIFICATES_FOUND' | translate }}</p>
+        </div>
+    </div>
+</section>

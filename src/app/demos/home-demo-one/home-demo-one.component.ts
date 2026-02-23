@@ -14,6 +14,7 @@ import { TeamSectionComponent } from './components/team-section/team-section.com
 import { TestimonialsSectionComponent } from './components/testimonials-section/testimonials-section.component';
 import { LatestCoursesSectionComponent } from './components/latest-courses-section/latest-courses-section.component';
 import { LatestPostsSectionComponent } from './components/latest-posts-section/latest-posts-section.component';
+import { CertificatesSectionComponent } from './components/certificates-section/certificates-section.component';
 import { CtaSectionComponent } from './components/cta-section/cta-section.component';
 import { PartnersSectionComponent } from './components/partners-section/partners-section.component';
 import { MediaGallerySectionComponent } from './components/media-gallery-section/media-gallery-section.component';
@@ -37,6 +38,7 @@ import { HomeService, HomeData } from './home.service';
         TestimonialsSectionComponent,
         LatestCoursesSectionComponent,
         LatestPostsSectionComponent,
+        CertificatesSectionComponent,
         MediaGallerySectionComponent,
         CtaSectionComponent,
         PartnersSectionComponent,
@@ -83,6 +85,7 @@ export class HomeDemoOneComponent implements OnInit {
                         testimonials: [],
                         latestPosts: [],
                         latestCourses: [],
+                        certificates: [],
                         partners: [],
                         mediaItems: []
                     };
@@ -109,6 +112,9 @@ export class HomeDemoOneComponent implements OnInit {
                 if (data.latestCourses && data.latestCourses.length > 0) {
                     this.homeData.latestCourses = data.latestCourses;
                 }
+                if (data.certificates && data.certificates.length > 0) {
+                    this.homeData.certificates = data.certificates;
+                }
                 if (data.mediaItems && data.mediaItems.length > 0) {
                     this.homeData.mediaItems = data.mediaItems;
                 }
@@ -125,6 +131,7 @@ export class HomeDemoOneComponent implements OnInit {
                         testimonials: [],
                         latestPosts: [],
                         latestCourses: [],
+                        certificates: [],
                         partners: [],
                         mediaItems: []
                     };
