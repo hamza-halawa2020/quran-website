@@ -1,11 +1,9 @@
 .section-padding {
-    padding: 100px 0;
     position: relative;
 }
 
 
 .section-header {
-    margin-bottom: 70px;
     position: relative;
     
     &::before {
@@ -13,7 +11,6 @@
         display: block;
         font-size: 24px;
         color: var(--secondaryColor);
-        margin-bottom: 15px;
     }
 
     .section-title {
@@ -149,8 +146,6 @@
     .about-btn {
         display: inline-flex;
         align-items: center;
-        gap: 10px;
-        padding: 14px 34px;
         background: var(--secondaryColor);
         color: #fff;
         border: none;
@@ -171,7 +166,6 @@
     }
 }
 .section-padding {
-    padding: 100px 0;
     position: relative;
 }
 
@@ -262,7 +256,6 @@
     
     .about-image {
         position: relative;
-        padding: 20px;
         
         &::before {
             content: '';
@@ -270,7 +263,6 @@
             top: 0;
             right: 0;
             width: 80%;
-            height: 80%;
             border: 10px solid var(--secondaryColor);
             opacity: 0.1;
             z-index: 0;

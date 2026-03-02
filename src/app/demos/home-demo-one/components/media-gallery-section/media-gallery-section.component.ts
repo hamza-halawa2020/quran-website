@@ -19,7 +19,7 @@ interface MediaItem {
   standalone: true,
   imports: [CommonModule, TranslateModule, PaginationComponent],
   templateUrl: './media-gallery-section.component.html',
-  styleUrls: ['../../../../pages/media-gallery-page/media-gallery-page.component.scss']
+  styleUrls: ['./media-gallery-section.component.scss']
 })
 export class MediaGallerySectionComponent implements OnInit {
   @Input() items: MediaItem[] = [];
@@ -53,10 +53,10 @@ export class MediaGallerySectionComponent implements OnInit {
         this.meta = response.meta || null;
         this.isLoading = false;
       },
-        error: (error: any) => {
-          console.error('Error loading media:', error);
-          this.isLoading = false;
-        }
+      error: (error: any) => {
+        console.error('Error loading media:', error);
+        this.isLoading = false;
+      }
     });
   }
 

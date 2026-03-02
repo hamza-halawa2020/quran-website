@@ -37,7 +37,8 @@
 
     <!-- Media Grid -->
     <div class="media-grid" *ngIf="!isLoading && filteredMedia.length > 0">
-      <div class="media-item" *ngFor="let item of filteredMedia" (click)="item.type === 'image' ? openLightbox(item) : playVideo(item)">
+      <div class="media-item" *ngFor="let item of filteredMedia"
+        (click)="item.type === 'image' ? openLightbox(item) : playVideo(item)">
         <div class="media-card">
           <div class="media-thumbnail">
             <!-- Image -->
@@ -94,7 +95,8 @@
       </button>
 
       <div class="lightbox-media" *ngIf="selectedMedia">
-        <img *ngIf="selectedMedia.type === 'image' && selectedMedia.file" [src]="selectedMedia.file" [alt]="selectedMedia.title">
+        <img *ngIf="selectedMedia.type === 'image' && selectedMedia.file" [src]="selectedMedia.file"
+          [alt]="selectedMedia.title">
 
         <div class="lightbox-title">
           <h3>{{ selectedMedia.title }}</h3>

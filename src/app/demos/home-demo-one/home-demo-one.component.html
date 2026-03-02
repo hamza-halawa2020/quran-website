@@ -1,10 +1,19 @@
 <app-main-slider />
 
-<!-- About Section -->
-<app-about-section [stats]="homeData?.stats || defaultStats"></app-about-section>
-
 <!-- Services Section -->
 <app-services-section></app-services-section>
+
+<!-- Media Gallery -->
+<app-media-gallery-section [items]="homeData?.mediaItems || []"></app-media-gallery-section>
+
+<!-- Testimonials Section -->
+<app-testimonials-section [testimonials]="homeData?.testimonials || []"></app-testimonials-section>
+
+<!-- Certificates Section -->
+<app-certificates-section [certificates]="homeData?.certificates || []"></app-certificates-section>
+
+<!-- About Section -->
+<app-about-section [stats]="homeData?.stats || defaultStats"></app-about-section>
 
 <!-- Stats Section -->
 <app-stats-section [stats]="homeData?.stats || defaultStats"></app-stats-section>
@@ -12,23 +21,15 @@
 <!-- Team Section -->
 <app-team-section [teamMembers]="homeData?.teamMembers || []"></app-team-section>
 
-<!-- Testimonials Section -->
-<app-testimonials-section [testimonials]="homeData?.testimonials || []"></app-testimonials-section>
+<!-- Latest Courses -->
+<app-latest-courses-section [courses]="homeData?.latestCourses || []"></app-latest-courses-section>
 
 <!-- How It Works Section -->
 <app-how-it-works />
 
-<!-- Latest Courses -->
-<app-latest-courses-section [courses]="homeData?.latestCourses || []"></app-latest-courses-section>
 
 <!-- Latest Posts -->
 <app-latest-posts-section [posts]="homeData?.latestPosts || []"></app-latest-posts-section>
-
-<!-- Certificates Section -->
-<app-certificates-section [certificates]="homeData?.certificates || []"></app-certificates-section>
-
-<!-- Media Gallery -->
-<app-media-gallery-section [items]="homeData?.mediaItems || []"></app-media-gallery-section>
 
 <!-- Payment Methods Section -->
 <app-payment-methods></app-payment-methods>
