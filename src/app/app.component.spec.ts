@@ -14,16 +14,16 @@ describe('AppComponent', () => {
         expect(app).toBeTruthy();
     });
 
-    it(`should have the 'quran' title`, () => {
+    it(`should have the 'onlineislamicmadrasah' title`, () => {
         const fixture = TestBed.createComponent(AppComponent);
         const app = fixture.componentInstance;
-        expect(app.title).toEqual('quran');
+        expect(app.title).toEqual('onlineislamicmadrasah');
     });
 
     it('should render title', () => {
         const fixture = TestBed.createComponent(AppComponent);
         fixture.detectChanges();
         const compiled = fixture.nativeElement as HTMLElement;
-        expect(compiled.querySelector('h1')?.textContent).toContain('Hello, quran');
+        expect(compiled.querySelector('h1')?.textContent).toContain('Hello, onlineislamicmadrasah');
     });
 });

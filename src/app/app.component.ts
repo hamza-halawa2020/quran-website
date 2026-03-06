@@ -11,12 +11,12 @@ import { BackToTopComponent } from './common/back-to-top/back-to-top.component';
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [RouterOutlet, NavbarComponent, WhatsappFloatComponent, CustomCursorComponent,FooterComponent,BackToTopComponent],
+    imports: [RouterOutlet, NavbarComponent, WhatsappFloatComponent, CustomCursorComponent, FooterComponent, BackToTopComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
 })
 export class AppComponent {
-    title = 'quran';
+    title = 'onlineislamicmadrasah';
 
     constructor(
         private router: Router,

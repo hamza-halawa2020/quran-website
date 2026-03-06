@@ -1,6 +1,6 @@
 {
     "/public/i18n": {
-        "target": "https://new-backend.quran.net",
+        "target": "https://dashboard.onlineislamicmadrasah.com/",
         "secure": true,
         "changeOrigin": true,
         "logLevel": "debug"

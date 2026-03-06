@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "quran": {
+    "onlineislamicmadrasah": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/quran",
+            "outputPath": "dist/onlineislamicmadrasah",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -95,10 +95,10 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "quran:build:production"
+              "buildTarget": "onlineislamicmadrasah:build:production"
             },
             "development": {
-              "buildTarget": "quran:build:development"
+              "buildTarget": "onlineislamicmadrasah:build:development"
             }
           },
           "defaultConfiguration": "development"

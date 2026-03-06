@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://quran.com/sitemap.xml
+Sitemap: https://onlineislamicmadrasah.com/sitemap.xml
