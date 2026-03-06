@@ -28,7 +28,7 @@ export class ServicesSectionComponent implements OnInit {
                 id: 1,
                 title: this.translate.instant('SERVICE_COURSES_TITLE'),
                 description: this.translate.instant('SERVICE_COURSES_DESC'),
-                icon: 'fa-book-onlineislamicmadrasah', // Islamic icon for courses
+                icon: 'fa-book-quran', // Islamic icon for courses
                 link: '/courses'
             },
             {
