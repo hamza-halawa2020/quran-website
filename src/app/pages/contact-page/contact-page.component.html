@@ -1,7 +1,5 @@
 <section class="contact-area">
-    <div class="">
-
-
+    <div class="container">
         <div class="row" *ngIf="isLoading">
             <div class="col-lg-4 col-md-6 mb-4" *ngFor="let item of [1,2,3,4,5,6]">
                 <div class="skeleton-loader"></div>
@@ -12,71 +10,69 @@
             <h2>{{ 'GET_IN_TOUCH' | translate }}</h2>
             <p class="mt-3">{{ 'CONTACT_INFO_TITLE' | translate }}</p>
         </div>
-        <!-- Contact Form Section -->
-        <section class="contact-form-section">
-            <div class="">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <div class="contact-form-wrapper">
-                            <div class="section-title text-center mb-4">
-                                <h2>{{ 'CONTACT_FORM_TITLE' | translate }}</h2>
-                                <p>{{ 'EMAIL_DISCLAIMER' | translate }}</p>
-                            </div>
-
-                            <app-contact />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- Contact Info Cards -->
-        <section class="contact-info-section section-padding">
-            <div class="container">
-                <div class="section-title text-center mb-4">
-                    <p>{{ 'CONTACT_INFO_TITLE' | translate }}</p>
-                </div>
-                <div class="row" *ngIf="!isLoading">
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="contact-info-card">
-                            <div class="contact-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <h4>{{ 'OUR_LOCATION' | translate }}</h4>
-                            <p>{{ settings.address || ('LOCATION_ADDRESS' | translate) }}</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="contact-info-card">
-                            <div class="contact-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <h4>{{ 'TELEPHONE' | translate }}</h4>
-                            <p *ngIf="settings.phone"><a href="tel:{{ settings.phone }}">{{ settings.phone }}</a></p>
-                            <p *ngIf="settings.whatsapp"><a href="tel:{{ settings.whatsapp }}">{{
-                                    settings.whatsapp}}</a></p>
-                            <p *ngIf="!settings.phone && !settings.whatsapp"></p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="contact-info-card">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <h4>{{ 'SEND_EMAIL' | translate }}</h4>
-                            <p *ngIf="settings.email"><a href="mailto:{{ settings.email }}">{{ settings.email }}</a></p>
-                            <p *ngIf="!settings.email">info&#64;onlineislamicmadrasah.com</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
     </div>
+
+    <!-- Contact Form Section -->
+    <section class="contact-form-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="contact-form-wrapper">
+                        <div class="section-title text-center mb-4">
+                            <h2>{{ 'CONTACT_FORM_TITLE' | translate }}</h2>
+                            <p>{{ 'EMAIL_DISCLAIMER' | translate }}</p>
+                        </div>
+
+                        <app-contact class="embedded-contact" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Info Cards -->
+    <section class="contact-info-section section-padding">
+        <div class="container">
+            <div class="section-title text-center mb-4">
+                <p>{{ 'CONTACT_INFO_TITLE' | translate }}</p>
+            </div>
+            <div class="row" *ngIf="!isLoading">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="contact-info-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h4>{{ 'OUR_LOCATION' | translate }}</h4>
+                        <p>{{ settings.address || ('LOCATION_ADDRESS' | translate) }}</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="contact-info-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h4>{{ 'TELEPHONE' | translate }}</h4>
+                        <p *ngIf="settings.phone"><a href="tel:{{ settings.phone }}">{{ settings.phone }}</a></p>
+                        <p *ngIf="settings.whatsapp"><a href="tel:{{ settings.whatsapp }}">{{ settings.whatsapp }}</a></p>
+                        <p *ngIf="!settings.phone && !settings.whatsapp"></p>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="contact-info-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h4>{{ 'SEND_EMAIL' | translate }}</h4>
+                        <p *ngIf="settings.email"><a href="mailto:{{ settings.email }}">{{ settings.email }}</a></p>
+                        <p *ngIf="!settings.email">info&#64;onlineislamicmadrasah.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Map Section (Optional) -->
     <section class="map-section">
         <div class="container-fluid p-0">

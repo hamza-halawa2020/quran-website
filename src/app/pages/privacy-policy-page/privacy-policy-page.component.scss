@@ -104,6 +104,21 @@ $gray: var(--paragraphColor);
         padding: 60px 50px;
         border-radius: 20px;
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        overflow-wrap: anywhere;
+        word-break: break-word;
+
+        // Content may come from the backend via [innerHTML].
+        ::ng-deep table {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        ::ng-deep pre {
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
 
         .policy-header {
             text-align: center;

@@ -11,6 +11,9 @@ interface MediaItem {
   type: 'image' | 'video';
   file: string | null;
   video_url: string | null;
+  // Backwards/forwards compatibility with API variants.
+  media_url?: string | null;
+  thumbnail_url?: string | null;
   created_at: string;
 }
 
@@ -31,6 +34,7 @@ export class MediaGallerySectionComponent implements OnInit {
   lightboxOpen: boolean = false;
   videoModalOpen: boolean = false;
   selectedMedia: MediaItem | null = null;
+  selectedVideoUrl: string | null = null;
   meta: any = null;
   currentPage: number = 1;
 
@@ -86,6 +90,7 @@ export class MediaGallerySectionComponent implements OnInit {
 
   playVideo(media: MediaItem): void {
     this.selectedMedia = media;
+    this.selectedVideoUrl = this.getVideoUrl(media);
     this.videoModalOpen = true;
     document.body.style.overflow = 'hidden';
   }
@@ -93,13 +98,16 @@ export class MediaGallerySectionComponent implements OnInit {
   closeVideoModal(): void {
     this.videoModalOpen = false;
     this.selectedMedia = null;
+    this.selectedVideoUrl = null;
     document.body.style.overflow = 'auto';
   }
 
   getVideoEmbedUrl(url: string | null | undefined): SafeResourceUrl {
     if (!url) return this.sanitizer.bypassSecurityTrustResourceUrl('');
-    const videoId = this.extractYouTubeId(url);
-    const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+
+    const trimmedUrl = url.trim();
+    const videoId = this.extractYouTubeId(trimmedUrl);
+    const embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : trimmedUrl;
     return this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
   }
 
@@ -107,8 +115,18 @@ export class MediaGallerySectionComponent implements OnInit {
     if (item.file) {
       return item.file;
     }
+    if (item.thumbnail_url) {
+      return item.thumbnail_url;
+    }
     if (item.video_url) {
       const videoId = this.extractYouTubeId(item.video_url);
+      if (videoId) {
+        return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+      }
+    }
+    const fallbackVideoUrl = this.getVideoUrl(item);
+    if (fallbackVideoUrl) {
+      const videoId = this.extractYouTubeId(fallbackVideoUrl);
       if (videoId) {
         return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
       }
@@ -116,21 +134,68 @@ export class MediaGallerySectionComponent implements OnInit {
     return 'assets/images/logo.svg';
   }
 
-  private extractYouTubeId(url: string): string | null {
-    if (!url) return null;
+  private getVideoUrl(item: MediaItem | null): string | null {
+    if (!item) return null;
+    return (item.video_url || item.media_url || null);
+  }
 
+  private extractYouTubeId(url: string): string | null {
+    const trimmedUrl = (url || '').trim();
+    if (!trimmedUrl) return null;
+
+    // Raw video id (11 chars).
+    if (/^[a-zA-Z0-9_-]{11}$/.test(trimmedUrl)) {
+      return trimmedUrl;
+    }
+
+    try {
+      const parsedUrl = new URL(trimmedUrl);
+      const hostname = parsedUrl.hostname.replace(/^www\./, '').replace(/^m\./, '');
+
+      // https://youtu.be/<id>
+      if (hostname === 'youtu.be') {
+        return this.cleanYouTubeId(parsedUrl.pathname.split('/').filter(Boolean)[0] || null);
+      }
+
+      // https://youtube.com/watch?v=<id>
+      if (hostname === 'youtube.com' || hostname === 'youtube-nocookie.com') {
+        if (parsedUrl.pathname === '/watch') {
+          return this.cleanYouTubeId(parsedUrl.searchParams.get('v'));
+        }
+
+        // https://youtube.com/embed/<id>, /shorts/<id>, /live/<id>, /v/<id>
+        const pathParts = parsedUrl.pathname.split('/').filter(Boolean);
+        const prefix = pathParts[0];
+        const candidateId = pathParts[1] || null;
+        if (prefix && ['embed', 'shorts', 'live', 'v'].includes(prefix)) {
+          return this.cleanYouTubeId(candidateId);
+        }
+      }
+    } catch {
+      // Ignore invalid URLs and fall back to regex.
+    }
+
+    // Regex fallback: supports watch/embed/shorts/live/v and youtu.be.
     const patterns = [
-      /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^#&?]*)/,
-      /youtube\.com\/watch\?.*v=([^&]+)/
+      /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:embed\/|shorts\/|live\/|v\/)|youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})(?:[?&#/]|$)/,
+      /youtube\.com\/watch\?.*v=([a-zA-Z0-9_-]{11})(?:[?&#]|$)/,
     ];
 
     for (const pattern of patterns) {
-      const match = url.match(pattern);
-      if (match && match[1]) {
-        return match[1];
-      }
+      const match = trimmedUrl.match(pattern);
+      const id = match?.[1] || null;
+      const cleaned = this.cleanYouTubeId(id);
+      if (cleaned) return cleaned;
     }
 
     return null;
+  }
+
+  private cleanYouTubeId(candidate: string | null | undefined): string | null {
+    if (!candidate) return null;
+
+    // Remove any trailing slashes or query/hash fragments.
+    const cleaned = candidate.split('?')[0].split('&')[0].split('#')[0].replace(/\/+$/, '');
+    return /^[a-zA-Z0-9_-]{11}$/.test(cleaned) ? cleaned : null;
   }
 }

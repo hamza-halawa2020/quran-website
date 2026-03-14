@@ -114,7 +114,7 @@
 
       <div class="lightbox-media" *ngIf="selectedMedia">
         <div class="video-container">
-          <iframe *ngIf="selectedMedia.video_url" [src]="getVideoEmbedUrl(selectedMedia.video_url)" frameborder="0"
+          <iframe *ngIf="selectedVideoUrl" [src]="getVideoEmbedUrl(selectedVideoUrl)" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen>
           </iframe>

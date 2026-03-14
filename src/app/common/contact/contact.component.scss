@@ -26,6 +26,17 @@ $text-color: var(--paragraphColor);
     }
 }
 
+/* The contact form is embedded inside a padded card on Contact Us page. */
+:host(.embedded-contact) {
+    .contact-area {
+        padding: 0;
+    }
+
+    .contact-form {
+        padding: 0;
+    }
+}
+
 .contact-form {
     background: transparent;
     padding: 0;
@@ -190,6 +201,10 @@ $text-color: var(--paragraphColor);
             padding: 12px 30px;
             font-size: 15px;
         }
+    }
+
+    :host(.embedded-contact) .contact-form {
+        padding: 0;
     }
 }
 
