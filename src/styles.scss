@@ -57,7 +57,9 @@ body.loaded #loading-screen {
 body {
     margin: 0;
     padding: 0;
-    padding-top: 70px; /* Add padding for fixed navbar */
+    /* Add padding for fixed navbar (with iOS safe-area support). */
+    padding-top: 70px;
+    padding-top: calc(70px + env(safe-area-inset-top));
     color: var(--primaryColor);
     background-color: var(--creamBg);
     font-family: var(--fontFamily);
@@ -67,6 +69,7 @@ body {
 @media (max-width: 767px) {
     body {
         padding-top: 60px;
+        padding-top: calc(60px + env(safe-area-inset-top));
     }
 }
 @font-face {
@@ -127,9 +130,14 @@ a {
         vertical-align: middle;
     }
 }
-img {
+img,
+video {
     max-width: 100%;
     height: auto;
+}
+
+iframe {
+    max-width: 100%;
 }
 p {
     color: var(--paragraphColor);
@@ -635,4 +643,61 @@ p {
   * {
     cursor: auto !important;
   }
+}
+
+/* Global mobile overrides (keep pages consistent on small screens). */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px; /* accounts for fixed navbar */
+}
+@media (max-width: 767px) {
+    html {
+        scroll-padding-top: 75px;
+    }
+}
+
+/* Avoid horizontal scroll caused by decorative elements/overflows. */
+html,
+body {
+    max-width: 100%;
+}
+
+/* Template/common utilities used across pages */
+.section-padding {
+    padding: 80px 0;
+}
+@media (max-width: 767px) {
+    .section-padding {
+        padding: 60px 0 !important;
+    }
+}
+
+/* Common page wrappers (lists/details/policies) */
+@media (max-width: 767px) {
+    .posts-area,
+    .courses-area,
+    .post-details-area,
+    .course-details-area,
+    .certificates-area,
+    .about-area,
+    .contact-area,
+    .team-area {
+        padding: 60px 0 !important;
+    }
+}
+
+/* Section headers used in many components (h2 has `.section-title`). */
+@media (max-width: 767px) {
+    .section-header .section-title,
+    .section-title h1,
+    .section-title h2 {
+        font-size: clamp(1.75rem, 6vw, 2.5rem) !important;
+        line-height: 1.2 !important;
+    }
+
+    .section-header .section-description,
+    .section-title p {
+        font-size: 1rem !important;
+        line-height: 1.7 !important;
+    }
 }

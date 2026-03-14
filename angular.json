@@ -38,13 +38,13 @@
               "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "node_modules/magnific-popup/dist/magnific-popup.css",
-              "src/styles.scss",
               "src/assets/css/animate.css",
               "src/assets/css/magnific-popup.css",
               "src/assets/css/niceselect.css",
               "src/assets/css/shop.css",
               "src/assets/css/style.css",
-              "src/assets/css/placeholder-images.css"
+              "src/assets/css/placeholder-images.css",
+              "src/styles.scss"
             ],
             "scripts": [
               "node_modules/@popperjs/core/dist/umd/popper.min.js",
