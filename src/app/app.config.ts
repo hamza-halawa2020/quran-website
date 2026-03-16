@@ -1,5 +1,5 @@
 import { ApplicationConfig } from '@angular/core';
-import { provideRouter, withInMemoryScrolling } from '@angular/router';
+import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { tokenInterceptor } from './token.interceptor';
@@ -20,13 +20,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 export const appConfig: ApplicationConfig = {
     providers: [
         provideHttpClient(withInterceptors([tokenInterceptor])),
-        provideRouter(
-            routes,
-            withInMemoryScrolling({
-                scrollPositionRestoration: 'top',
-                anchorScrolling: 'enabled',
-            })
-        ),
+        provideRouter(routes),
         importProvidersFrom(
             TranslateModule.forRoot({
                 loader: {
