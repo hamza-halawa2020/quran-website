@@ -35,14 +35,20 @@ export class HomeService {
 
 
   getHomeData(): Observable<HomeData> {
+    const features = environment.features || {
+      workSamples: false,
+      staff: false,
+      successPartners: false,
+    };
+
     return forkJoin({
-      workSamples: this.getLatestWorkSamples(),
-      teamMembers: this.getTeamMembers(),
+      workSamples: features.workSamples ? this.getLatestWorkSamples() : of([]),
+      teamMembers: features.staff ? this.getTeamMembers() : of([]),
       testimonials: this.getTestimonials(),
       posts: this.getLatestPosts(),
       courses: this.getLatestCourses(),
       certificates: this.getCertificates(),
-      partners: this.getPartners(),
+      partners: features.successPartners ? this.getPartners() : of([]),
       stats: this.getStats(),
       mediaItems: this.getMediaItems()
     }).pipe(
