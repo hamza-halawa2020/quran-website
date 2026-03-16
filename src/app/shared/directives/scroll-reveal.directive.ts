@@ -32,6 +32,15 @@ export class ScrollRevealDirective implements OnInit, OnDestroy {
               el.style.opacity = '1';
               el.style.transform = 'translateY(0) scale(1)';
               el.style.filter = 'blur(0px)';
+
+              // After animation completes, remove transform & filter entirely
+              // so they don't break position:fixed children (modals, lightboxes)
+              el.addEventListener('transitionend', () => {
+                el.style.transform = '';
+                el.style.filter = '';
+                el.style.transition = '';
+              }, { once: true });
+
             }, this.revealDelay);
             this.observer.unobserve(entry.target);
           }
