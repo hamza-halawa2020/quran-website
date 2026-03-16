@@ -12,29 +12,35 @@ export class ScrollRevealDirective implements OnInit, OnDestroy {
   constructor(private el: ElementRef) {}
 
   ngOnInit() {
-    // Start hidden
-    this.el.nativeElement.style.opacity = '0';
-    this.el.nativeElement.style.transform = 'translateY(70px) scale(0.93)';
-    this.el.nativeElement.style.transition = 'none';
+    const el = this.el.nativeElement;
+
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(120px) scale(0.88)';
+    el.style.filter = 'blur(6px)';
+    el.style.transition = 'none';
 
     this.observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setTimeout(() => {
-              this.el.nativeElement.style.transition =
-                'opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1)';
-              this.el.nativeElement.style.opacity = '1';
-              this.el.nativeElement.style.transform = 'translateY(0) scale(1)';
+              el.style.transition = [
+                'opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1)',
+                'transform 1.1s cubic-bezier(0.16, 1, 0.3, 1)',
+                'filter 1.1s cubic-bezier(0.16, 1, 0.3, 1)',
+              ].join(', ');
+              el.style.opacity = '1';
+              el.style.transform = 'translateY(0) scale(1)';
+              el.style.filter = 'blur(0px)';
             }, this.revealDelay);
             this.observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.08, rootMargin: '0px 0px -60px 0px' }
+      { threshold: 0.05, rootMargin: '0px 0px -50px 0px' }
     );
 
-    this.observer.observe(this.el.nativeElement);
+    this.observer.observe(el);
   }
 
   ngOnDestroy() {
