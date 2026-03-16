@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 })
 export class FooterComponent implements OnInit, OnDestroy {
     settings: Settings = {};
+    currentYear: number = new Date().getFullYear();
     private subscription: Subscription = new Subscription();
 
     constructor(
