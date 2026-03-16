@@ -20,6 +20,7 @@ import { PartnersSectionComponent } from './components/partners-section/partners
 import { MediaGallerySectionComponent } from './components/media-gallery-section/media-gallery-section.component';
 import { PaymentMethodsComponent } from '../../common/payment-methods/payment-methods.component';
 import { HomeService, HomeData } from './home.service';
+import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
 
 @Component({
     selector: 'app-home-demo-one',
@@ -45,6 +46,7 @@ import { HomeService, HomeData } from './home.service';
         PaymentMethodsComponent,
         FooterComponent,
         BackToTopComponent,
+        ScrollRevealDirective,
     ],
     templateUrl: './home-demo-one.component.html',
     styleUrl: './home-demo-one.component.scss',

@@ -1,8 +1,7 @@
 <app-main-slider />
 
 @defer (on viewport; prefetch on idle) {
-    <div class="home-defer-reveal">
-        <!-- Services Section -->
+    <div scrollReveal>
         <app-services-section></app-services-section>
     </div>
 } @placeholder {
@@ -10,8 +9,7 @@
 }
 
 @defer (on viewport; prefetch on idle) {
-    <div class="home-defer-reveal">
-        <!-- Media Gallery -->
+    <div scrollReveal [revealDelay]="60">
         <app-media-gallery-section [items]="homeData?.mediaItems || []"></app-media-gallery-section>
     </div>
 } @placeholder {
@@ -19,8 +17,7 @@
 }
 
 @defer (on viewport; prefetch on idle) {
-    <div class="home-defer-reveal">
-        <!-- Testimonials Section -->
+    <div scrollReveal [revealDelay]="60">
         <app-testimonials-section [testimonials]="homeData?.testimonials || []"></app-testimonials-section>
     </div>
 } @placeholder {
@@ -28,8 +25,7 @@
 }
 
 @defer (on viewport; prefetch on idle) {
-    <div class="home-defer-reveal">
-        <!-- Certificates Section -->
+    <div scrollReveal [revealDelay]="60">
         <app-certificates-section [certificates]="homeData?.certificates || []"></app-certificates-section>
     </div>
 } @placeholder {
@@ -37,8 +33,7 @@
 }
 
 @defer (on viewport; prefetch on idle) {
-    <div class="home-defer-reveal">
-        <!-- About Section -->
+    <div scrollReveal [revealDelay]="60">
         <app-about-section [stats]="homeData?.stats || defaultStats"></app-about-section>
     </div>
 } @placeholder {
@@ -46,8 +41,7 @@
 }
 
 @defer (on viewport; prefetch on idle) {
-    <div class="home-defer-reveal">
-        <!-- Stats Section -->
+    <div scrollReveal [revealDelay]="60">
         <app-stats-section [stats]="homeData?.stats || defaultStats"></app-stats-section>
     </div>
 } @placeholder {
@@ -55,8 +49,7 @@
 }
 
 @defer (on viewport; prefetch on idle) {
-    <div class="home-defer-reveal">
-        <!-- Team Section -->
+    <div scrollReveal [revealDelay]="60">
         <app-team-section [teamMembers]="homeData?.teamMembers || []"></app-team-section>
     </div>
 } @placeholder {
@@ -64,8 +57,7 @@
 }
 
 @defer (on viewport; prefetch on idle) {
-    <div class="home-defer-reveal">
-        <!-- Latest Courses -->
+    <div scrollReveal [revealDelay]="60">
         <app-latest-courses-section [courses]="homeData?.latestCourses || []"></app-latest-courses-section>
     </div>
 } @placeholder {
@@ -73,8 +65,7 @@
 }
 
 @defer (on viewport; prefetch on idle) {
-    <div class="home-defer-reveal">
-        <!-- How It Works Section -->
+    <div scrollReveal [revealDelay]="60">
         <app-how-it-works />
     </div>
 } @placeholder {
@@ -82,8 +73,7 @@
 }
 
 @defer (on viewport; prefetch on idle) {
-    <div class="home-defer-reveal">
-        <!-- Latest Posts -->
+    <div scrollReveal [revealDelay]="60">
         <app-latest-posts-section [posts]="homeData?.latestPosts || []"></app-latest-posts-section>
     </div>
 } @placeholder {
@@ -91,8 +81,7 @@
 }
 
 @defer (on viewport; prefetch on idle) {
-    <div class="home-defer-reveal">
-        <!-- Payment Methods Section -->
+    <div scrollReveal [revealDelay]="60">
         <app-payment-methods></app-payment-methods>
     </div>
 } @placeholder {
@@ -100,8 +89,7 @@
 }
 
 @defer (on viewport; prefetch on idle) {
-    <div class="home-defer-reveal">
-        <!-- Partners Section -->
+    <div scrollReveal [revealDelay]="60">
         <app-partners-section [partners]="homeData?.partners || []"></app-partners-section>
     </div>
 } @placeholder {
@@ -109,8 +97,7 @@
 }
 
 @defer (on viewport; prefetch on idle) {
-    <div class="home-defer-reveal">
-        <!-- CTA Section -->
+    <div scrollReveal [revealDelay]="60">
         <app-cta-section></app-cta-section>
     </div>
 } @placeholder {
