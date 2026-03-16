@@ -46,4 +46,10 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.html [L]
+
+    # Force Angular routes even if a directory with same name exists
+    # Exclude real asset directories only
+    RewriteCond %{REQUEST_URI} !^/assets/
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ index.html [L]
 </IfModule>
