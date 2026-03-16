@@ -51,7 +51,7 @@ export class MediaGalleryPageComponent implements OnInit {
     
     this.mediaService.getAllMedia(page, this.activeFilter).subscribe({
       next: (response: any) => {
-        console.log('Media response:', response);
+        
         // Handle both array and object with data property
         this.allMedia = Array.isArray(response) ? response : (response.data || []);
         this.filteredMedia = this.allMedia;
@@ -59,7 +59,7 @@ export class MediaGalleryPageComponent implements OnInit {
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error loading media:', error);
+
         this.isLoading = false;
       }
     });

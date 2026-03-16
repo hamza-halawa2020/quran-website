@@ -1,43 +1,120 @@
 <app-main-slider />
 
-<!-- Services Section -->
-<app-services-section></app-services-section>
+@defer (on viewport; prefetch on idle) {
+    <div class="home-defer-reveal">
+        <!-- Services Section -->
+        <app-services-section></app-services-section>
+    </div>
+} @placeholder {
+    <div class="home-defer-placeholder" style="--home-defer-min-h: 420px"></div>
+}
 
-<!-- Media Gallery -->
-<app-media-gallery-section [items]="homeData?.mediaItems || []"></app-media-gallery-section>
+@defer (on viewport; prefetch on idle) {
+    <div class="home-defer-reveal">
+        <!-- Media Gallery -->
+        <app-media-gallery-section [items]="homeData?.mediaItems || []"></app-media-gallery-section>
+    </div>
+} @placeholder {
+    <div class="home-defer-placeholder" style="--home-defer-min-h: 520px"></div>
+}
 
-<!-- Testimonials Section -->
-<app-testimonials-section [testimonials]="homeData?.testimonials || []"></app-testimonials-section>
+@defer (on viewport; prefetch on idle) {
+    <div class="home-defer-reveal">
+        <!-- Testimonials Section -->
+        <app-testimonials-section [testimonials]="homeData?.testimonials || []"></app-testimonials-section>
+    </div>
+} @placeholder {
+    <div class="home-defer-placeholder" style="--home-defer-min-h: 460px"></div>
+}
 
-<!-- Certificates Section -->
-<app-certificates-section [certificates]="homeData?.certificates || []"></app-certificates-section>
+@defer (on viewport; prefetch on idle) {
+    <div class="home-defer-reveal">
+        <!-- Certificates Section -->
+        <app-certificates-section [certificates]="homeData?.certificates || []"></app-certificates-section>
+    </div>
+} @placeholder {
+    <div class="home-defer-placeholder" style="--home-defer-min-h: 520px"></div>
+}
 
-<!-- About Section -->
-<app-about-section [stats]="homeData?.stats || defaultStats"></app-about-section>
+@defer (on viewport; prefetch on idle) {
+    <div class="home-defer-reveal">
+        <!-- About Section -->
+        <app-about-section [stats]="homeData?.stats || defaultStats"></app-about-section>
+    </div>
+} @placeholder {
+    <div class="home-defer-placeholder" style="--home-defer-min-h: 520px"></div>
+}
 
-<!-- Stats Section -->
-<app-stats-section [stats]="homeData?.stats || defaultStats"></app-stats-section>
+@defer (on viewport; prefetch on idle) {
+    <div class="home-defer-reveal">
+        <!-- Stats Section -->
+        <app-stats-section [stats]="homeData?.stats || defaultStats"></app-stats-section>
+    </div>
+} @placeholder {
+    <div class="home-defer-placeholder" style="--home-defer-min-h: 360px"></div>
+}
 
-<!-- Team Section -->
-<app-team-section [teamMembers]="homeData?.teamMembers || []"></app-team-section>
+@defer (on viewport; prefetch on idle) {
+    <div class="home-defer-reveal">
+        <!-- Team Section -->
+        <app-team-section [teamMembers]="homeData?.teamMembers || []"></app-team-section>
+    </div>
+} @placeholder {
+    <div class="home-defer-placeholder" style="--home-defer-min-h: 520px"></div>
+}
 
-<!-- Latest Courses -->
-<app-latest-courses-section [courses]="homeData?.latestCourses || []"></app-latest-courses-section>
+@defer (on viewport; prefetch on idle) {
+    <div class="home-defer-reveal">
+        <!-- Latest Courses -->
+        <app-latest-courses-section [courses]="homeData?.latestCourses || []"></app-latest-courses-section>
+    </div>
+} @placeholder {
+    <div class="home-defer-placeholder" style="--home-defer-min-h: 520px"></div>
+}
 
-<!-- How It Works Section -->
-<app-how-it-works />
+@defer (on viewport; prefetch on idle) {
+    <div class="home-defer-reveal">
+        <!-- How It Works Section -->
+        <app-how-it-works />
+    </div>
+} @placeholder {
+    <div class="home-defer-placeholder" style="--home-defer-min-h: 420px"></div>
+}
 
+@defer (on viewport; prefetch on idle) {
+    <div class="home-defer-reveal">
+        <!-- Latest Posts -->
+        <app-latest-posts-section [posts]="homeData?.latestPosts || []"></app-latest-posts-section>
+    </div>
+} @placeholder {
+    <div class="home-defer-placeholder" style="--home-defer-min-h: 520px"></div>
+}
 
-<!-- Latest Posts -->
-<app-latest-posts-section [posts]="homeData?.latestPosts || []"></app-latest-posts-section>
+@defer (on viewport; prefetch on idle) {
+    <div class="home-defer-reveal">
+        <!-- Payment Methods Section -->
+        <app-payment-methods></app-payment-methods>
+    </div>
+} @placeholder {
+    <div class="home-defer-placeholder" style="--home-defer-min-h: 320px"></div>
+}
 
-<!-- Payment Methods Section -->
-<app-payment-methods></app-payment-methods>
+@defer (on viewport; prefetch on idle) {
+    <div class="home-defer-reveal">
+        <!-- Partners Section -->
+        <app-partners-section [partners]="homeData?.partners || []"></app-partners-section>
+    </div>
+} @placeholder {
+    <div class="home-defer-placeholder" style="--home-defer-min-h: 360px"></div>
+}
 
-<!-- Partners Section -->
-<app-partners-section [partners]="homeData?.partners || []"></app-partners-section>
-
-<!-- CTA Section -->
-<app-cta-section></app-cta-section>
+@defer (on viewport; prefetch on idle) {
+    <div class="home-defer-reveal">
+        <!-- CTA Section -->
+        <app-cta-section></app-cta-section>
+    </div>
+} @placeholder {
+    <div class="home-defer-placeholder" style="--home-defer-min-h: 320px"></div>
+}
 
 <app-back-to-top />

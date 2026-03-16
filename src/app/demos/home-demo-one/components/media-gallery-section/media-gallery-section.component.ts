@@ -58,7 +58,7 @@ export class MediaGallerySectionComponent implements OnInit {
         this.isLoading = false;
       },
       error: (error: any) => {
-        console.error('Error loading media:', error);
+        
         this.isLoading = false;
       }
     });

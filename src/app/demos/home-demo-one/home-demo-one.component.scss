@@ -1,11 +1,180 @@
-// Styles have been moved to their respective component SCSS files.
-// - about-section/about-section.component.scss
-// - services-section/services-section.component.scss
-// - stats-section/stats-section.component.scss
-// - work-samples-section/work-samples-section.component.scss
-// - team-section/team-section.component.scss
-// - testimonials-section/testimonials-section.component.scss
-// - latest-courses-section/latest-courses-section.component.scss
-// - latest-posts-section/latest-posts-section.component.scss
-// - cta-section/cta-section.component.scss
-// - partners-section/partners-section.component.scss
+.home-defer-reveal {
+    position: relative;
+    isolation: isolate;
+    transform-origin: 50% 0%;
+    animation: homeDeferReveal 2.05s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both;
+    will-change: transform, opacity, filter;
+
+    > * {
+        position: relative;
+        z-index: 1;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: radial-gradient(
+            700px 260px at 50% 0%,
+            rgba(212, 181, 116, 0.28) 0%,
+            rgba(201, 169, 97, 0.14) 30%,
+            rgba(30, 58, 95, 0) 70%
+        );
+        opacity: 0;
+        animation: homeDeferHalo 2.05s cubic-bezier(0.22, 1, 0.36, 1) 0.06s both;
+        z-index: 2;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(
+            90deg,
+            rgba(201, 169, 97, 0) 0%,
+            rgba(201, 169, 97, 0.28) 38%,
+            rgba(212, 181, 116, 0.18) 50%,
+            rgba(201, 169, 97, 0.28) 62%,
+            rgba(201, 169, 97, 0) 100%
+        );
+        opacity: 0;
+        transform: translateX(-70%) skewX(-16deg);
+        animation: homeDeferSweep 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+        z-index: 3;
+    }
+}
+
+.home-defer-placeholder {
+    min-height: var(--home-defer-min-h, 320px);
+    border-radius: 26px;
+    margin: 30px auto;
+    max-width: 1200px;
+    width: calc(100% - 40px);
+    background: linear-gradient(
+        90deg,
+        rgba(30, 58, 95, 0.05) 0%,
+        rgba(201, 169, 97, 0.10) 50%,
+        rgba(30, 58, 95, 0.05) 100%
+    );
+    background-size: 200% 100%;
+    animation: homeDeferShimmer 1.3s ease-in-out infinite;
+}
+
+@media (max-width: 767px) {
+    .home-defer-reveal {
+        animation-name: homeDeferRevealMobile;
+    }
+
+    .home-defer-placeholder {
+        margin: 20px auto;
+        width: calc(100% - 30px);
+        border-radius: 18px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .home-defer-reveal {
+        animation: none;
+
+        &::before {
+            animation: none;
+            opacity: 0;
+        }
+
+        &::after {
+            animation: none;
+            opacity: 0;
+            transform: none;
+        }
+    }
+
+    .home-defer-placeholder {
+        animation: none;
+    }
+}
+
+@keyframes homeDeferReveal {
+    0% {
+        opacity: 0;
+        transform: perspective(1050px) translate3d(0, 96px, 0) scale(0.9) rotateX(18deg) rotateZ(-1.2deg);
+        filter: blur(22px) saturate(0.85);
+    }
+    58% {
+        opacity: 1;
+        transform: perspective(1050px) translate3d(0, -14px, 0) scale(1.02) rotateX(0deg) rotateZ(0.8deg);
+        filter: blur(0) saturate(1);
+    }
+    78% {
+        opacity: 1;
+        transform: perspective(1050px) translate3d(0, 6px, 0) scale(0.995) rotateX(0deg) rotateZ(-0.25deg);
+        filter: blur(0) saturate(1);
+    }
+    100% {
+        opacity: 1;
+        transform: perspective(1050px) translate3d(0, 0, 0) scale(1) rotateX(0deg) rotateZ(0deg);
+        filter: blur(0) saturate(1);
+    }
+}
+
+@keyframes homeDeferRevealMobile {
+    0% {
+        opacity: 0;
+        transform: perspective(900px) translate3d(0, 66px, 0) scale(0.92) rotateX(16deg) rotateZ(-1deg);
+        filter: blur(18px) saturate(0.88);
+    }
+    58% {
+        opacity: 1;
+        transform: perspective(900px) translate3d(0, -10px, 0) scale(1.02) rotateX(0deg) rotateZ(0.7deg);
+        filter: blur(0) saturate(1);
+    }
+    78% {
+        opacity: 1;
+        transform: perspective(900px) translate3d(0, 5px, 0) scale(0.995) rotateX(0deg) rotateZ(-0.2deg);
+        filter: blur(0) saturate(1);
+    }
+    100% {
+        opacity: 1;
+        transform: perspective(900px) translate3d(0, 0, 0) scale(1) rotateX(0deg) rotateZ(0deg);
+        filter: blur(0) saturate(1);
+    }
+}
+
+@keyframes homeDeferHalo {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 26px, 0) scale(0.98);
+    }
+    30% {
+        opacity: 0.75;
+        transform: translate3d(0, 8px, 0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+}
+
+@keyframes homeDeferSweep {
+    0% {
+        opacity: 0;
+        transform: translateX(-90%) skewX(-16deg);
+    }
+    24% {
+        opacity: 0.6;
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(90%) skewX(-16deg);
+    }
+}
+
+@keyframes homeDeferShimmer {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 200% 50%;
+    }
+}
