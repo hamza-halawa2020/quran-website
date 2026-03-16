@@ -8,9 +8,9 @@
     <div class="home-defer-placeholder" style="--home-defer-min-h: 420px"></div>
 }
 
-@defer (on viewport; prefetch on idle) {
+@defer (on idle) {
     <div scrollReveal [revealDelay]="60">
-        <app-media-gallery-section [items]="homeData?.mediaItems || []"></app-media-gallery-section>
+        <app-media-gallery-section [items]="homeData?.mediaItems || []" [openInPage]="true"></app-media-gallery-section>
     </div>
 } @placeholder {
     <div class="home-defer-placeholder" style="--home-defer-min-h: 520px"></div>

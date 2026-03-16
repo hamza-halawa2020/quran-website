@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
+import { Router } from '@angular/router';
 import { MediaGalleryService } from '../../../../pages/media-gallery-page/media-gallery.service';
 
 interface MediaItem {
@@ -26,6 +27,9 @@ interface MediaItem {
 })
 export class MediaGallerySectionComponent implements OnInit {
   @Input() items: MediaItem[] = [];
+  // When true (e.g. on home page), clicking a media item
+  // will navigate to the full media gallery page instead of opening a modal.
+  @Input() openInPage: boolean = false;
 
   allMedia: MediaItem[] = [];
   filteredMedia: MediaItem[] = [];
@@ -40,7 +44,8 @@ export class MediaGallerySectionComponent implements OnInit {
 
   constructor(
     private mediaService: MediaGalleryService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -76,31 +81,39 @@ export class MediaGallerySectionComponent implements OnInit {
     }
   }
 
-  openLightbox(media: MediaItem): void {
-    this.selectedMedia = media;
-    this.lightboxOpen = true;
-    document.body.style.overflow = 'hidden';
-  }
-
-  closeLightbox(): void {
-    this.lightboxOpen = false;
-    this.selectedMedia = null;
-    document.body.style.overflow = 'auto';
+  navigateToMediaPage(item: MediaItem): void {
+    // Navigate to media page and pass the clicked item's id
+    // so it can be auto-opened there.
+    this.router.navigate(
+      ['/media'],
+      { queryParams: { mediaId: item.id } }
+    );
   }
 
   playVideo(media: MediaItem): void {
     this.selectedMedia = media;
     this.selectedVideoUrl = this.getVideoUrl(media);
     this.videoModalOpen = true;
-    document.body.style.overflow = 'hidden';
   }
 
   closeVideoModal(): void {
     this.videoModalOpen = false;
     this.selectedMedia = null;
     this.selectedVideoUrl = null;
-    document.body.style.overflow = 'auto';
   }
+
+  openLightbox(media: MediaItem): void {
+    this.selectedMedia = media;
+    this.lightboxOpen = true;
+  }
+
+  closeLightbox(): void {
+    this.lightboxOpen = false;
+    this.selectedMedia = null;
+  }
+
+  // Scroll locking removed to avoid any interference with video playback,
+  // especially inside deferred/animated sections on mobile browsers.
 
   getVideoEmbedUrl(url: string | null | undefined): SafeResourceUrl {
     if (!url) return this.sanitizer.bypassSecurityTrustResourceUrl('');

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { MediaGalleryService } from './media-gallery.service';
+import { ActivatedRoute } from '@angular/router';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 
 interface MediaItem {
@@ -35,14 +36,21 @@ export class MediaGalleryPageComponent implements OnInit {
   selectedVideoUrl: string | null = null;
   meta: any = null;
   currentPage: number = 1;
+  private initialMediaId: number | null = null;
 
   constructor(
     private mediaService: MediaGalleryService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.loadMedia();
+    // Read query param (if coming from home page)
+    this.route.queryParamMap.subscribe(params => {
+      const idParam = params.get('mediaId');
+      this.initialMediaId = idParam ? Number(idParam) : null;
+      this.loadMedia();
+    });
   }
 
   loadMedia(page: number = 1): void {
@@ -57,6 +65,19 @@ export class MediaGalleryPageComponent implements OnInit {
         this.filteredMedia = this.allMedia;
         this.meta = response.meta || null;
         this.isLoading = false;
+
+        // If we came with a specific mediaId from home page, auto-open it once.
+        if (this.initialMediaId) {
+          const target = this.allMedia.find(m => m.id === this.initialMediaId);
+          if (target) {
+            if (target.type === 'video') {
+              this.playVideo(target);
+            } else {
+              this.openLightbox(target);
+            }
+          }
+          this.initialMediaId = null;
+        }
       },
       error: (error) => {
 
@@ -80,28 +101,27 @@ export class MediaGalleryPageComponent implements OnInit {
   openLightbox(media: MediaItem): void {
     this.selectedMedia = media;
     this.lightboxOpen = true;
-    document.body.style.overflow = 'hidden';
   }
 
   closeLightbox(): void {
     this.lightboxOpen = false;
     this.selectedMedia = null;
-    document.body.style.overflow = 'auto';
   }
 
   playVideo(media: MediaItem): void {
     this.selectedMedia = media;
     this.selectedVideoUrl = this.getVideoUrl(media);
     this.videoModalOpen = true;
-    document.body.style.overflow = 'hidden';
   }
 
   closeVideoModal(): void {
     this.videoModalOpen = false;
     this.selectedMedia = null;
     this.selectedVideoUrl = null;
-    document.body.style.overflow = 'auto';
   }
+
+  // Scroll locking removed to avoid any interference with video playback,
+  // especially on mobile browsers.
 
   getVideoEmbedUrl(url: string | null | undefined): SafeResourceUrl {
     if (!url) return this.sanitizer.bypassSecurityTrustResourceUrl('');
