@@ -10,7 +10,7 @@
         </div>
 
         <!-- Desktop Navigation Menu -->
-        <div class="navbar-menu" [class.active]="!isCollapsed">
+        <div id="primary-navigation" class="navbar-menu" [class.active]="!isCollapsed">
             <ul class="nav-links">
                 <li *ngFor="let item of menuItems">
                     <a [routerLink]="item.route" routerLinkActive="active"
@@ -47,7 +47,15 @@
         </div>
 
         <!-- Mobile Menu Toggle -->
-        <button class="mobile-toggle" (click)="toggleMobileMenu()" [class.active]="!isCollapsed">
+        <button
+            type="button"
+            class="mobile-toggle"
+            (click)="toggleMobileMenu()"
+            [class.active]="!isCollapsed"
+            [attr.aria-expanded]="!isCollapsed"
+            aria-controls="primary-navigation"
+            [attr.aria-label]="currentLanguage === 'ar' ? (!isCollapsed ? 'إغلاق القائمة الرئيسية' : 'فتح القائمة الرئيسية') : (!isCollapsed ? 'Close main menu' : 'Open main menu')"
+        >
             <span></span>
             <span></span>
             <span></span>

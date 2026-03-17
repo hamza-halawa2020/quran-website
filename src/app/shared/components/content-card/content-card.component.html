@@ -11,7 +11,7 @@
 
         <div class="card-footer">
             <a [routerLink]="[routePath, item.id]" class="read-more-btn">
-                {{ 'READ_MORE' | translate }}
+                {{ 'READ_MORE' | translate }}: {{ item.title }}
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>

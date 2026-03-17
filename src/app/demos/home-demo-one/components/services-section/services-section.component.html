@@ -10,10 +10,10 @@
                         <i class="fa-solid" [ngClass]="service.icon"></i>
                     </div>
                     <div class="service-content">
-                        <h4>{{ service.title }}</h4>
+                        <h3>{{ service.title }}</h3>
                         <p>{{ service.description }}</p>
                         <a [routerLink]="service.link" class="service-link">
-                            {{ 'READ_MORE' | translate }}
+                            {{ 'READ_MORE' | translate }}: {{ service.title }}
                             <i class="fa-solid ms-2"
                                 [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
                         </a>

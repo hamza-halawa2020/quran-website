@@ -22,7 +22,7 @@
                             <a [routerLink]="['/courses', course.id]">{{ course.title }}</a>
                         </p>
                         <a [routerLink]="['/courses', course.id]" class="post-link">
-                            {{ 'READ_MORE' | translate }}
+                            {{ 'READ_MORE' | translate }}: {{ course.title }}
                             <i class="fa-solid ms-2"
                                 [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
                         </a>
