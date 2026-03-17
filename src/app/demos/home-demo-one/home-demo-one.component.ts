@@ -1,4 +1,4 @@
-import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -49,7 +49,9 @@ type IdleWindow = Window & {
     templateUrl: './home-demo-one.component.html',
     styleUrl: './home-demo-one.component.scss',
 })
-export class HomeDemoOneComponent implements OnInit, OnDestroy {
+export class HomeDemoOneComponent implements OnInit, AfterViewInit, OnDestroy {
+    @ViewChild('homeDataTrigger')
+    private homeDataTrigger?: ElementRef<HTMLElement>;
 
     homeData: HomeData | null = null;
     isLoading = false;
@@ -59,6 +61,7 @@ export class HomeDemoOneComponent implements OnInit, OnDestroy {
     private idleCallbackId: number | null = null;
     private idleTimeoutId: number | null = null;
     private hasRequestedHomeData = false;
+    private homeDataObserver?: IntersectionObserver;
 
     defaultStats = {
         completedStudies: 1500,  // Students graduated
@@ -74,10 +77,19 @@ export class HomeDemoOneComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit(): void {
-        this.scheduleHomeDataLoad();
+        if (typeof window === 'undefined') {
+            this.loadHomeData();
+        }
+    }
+
+    ngAfterViewInit(): void {
+        if (typeof window !== 'undefined') {
+            this.scheduleHomeDataLoad();
+        }
     }
 
     ngOnDestroy(): void {
+        this.homeDataObserver?.disconnect();
         this.removeLoadListener?.();
         this.homeDataSubscription?.unsubscribe();
 
@@ -181,6 +193,38 @@ export class HomeDemoOneComponent implements OnInit, OnDestroy {
             return;
         }
 
+        const triggerElement = this.homeDataTrigger?.nativeElement;
+        if (!triggerElement || typeof IntersectionObserver !== 'function') {
+            this.scheduleFallbackHomeDataLoad();
+            return;
+        }
+
+        this.ngZone.runOutsideAngular(() => {
+            this.homeDataObserver = new IntersectionObserver((entries) => {
+                if (!entries.some((entry) => entry.isIntersecting || entry.intersectionRatio > 0)) {
+                    return;
+                }
+
+                this.homeDataObserver?.disconnect();
+                this.homeDataObserver = undefined;
+
+                if (this.hasRequestedHomeData) {
+                    return;
+                }
+
+                this.ngZone.run(() => {
+                    this.loadHomeData();
+                });
+            }, {
+                rootMargin: '500px 0px 900px',
+                threshold: 0,
+            });
+
+            this.homeDataObserver.observe(triggerElement);
+        });
+    }
+
+    private scheduleFallbackHomeDataLoad(): void {
         this.ngZone.runOutsideAngular(() => {
             const startLoading = () => {
                 if (this.hasRequestedHomeData) {

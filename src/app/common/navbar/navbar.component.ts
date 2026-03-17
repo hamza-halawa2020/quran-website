@@ -4,7 +4,6 @@ import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { fromEvent, Subscription } from 'rxjs';
 import { auditTime } from 'rxjs/operators';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { SettingService, Settings } from '../../shared/services/setting.service';
 
 @Component({
     selector: 'app-navbar',
@@ -24,7 +23,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     isCollapsed = true;
     isSticky: boolean = false;
     currentLanguage: string = 'en';
-    settings: Settings = {};
     private subscriptions = new Subscription();
 
     // Navigation menu items
@@ -83,7 +81,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
     constructor(
         public router: Router,
         private translate: TranslateService,
-        private settingService: SettingService,
         private ngZone: NgZone
     ) {
         // Initialize languages
@@ -119,20 +116,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
         });
 
         // Update currentLanguage when language changes
-        this.translate.onLangChange.subscribe((event) => {
-            this.currentLanguage = event.lang;
-            this.applyLanguageDirection(event.lang);
-        });
-
-        this.fetchSettings();
-    }
-
-    fetchSettings() {
-        this.settingService.getSettings().subscribe({
-            next: (data) => {
-                this.settings = data;
-            }
-        });
+        this.subscriptions.add(
+            this.translate.onLangChange.subscribe((event) => {
+                this.currentLanguage = event.lang;
+                this.applyLanguageDirection(event.lang);
+            })
+        );
     }
 
     ngOnDestroy() {
@@ -141,10 +130,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     private getScrollPosition(): number {
         return window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    }
-
-    checkScroll() {
-        this.isSticky = this.getScrollPosition() >= 50;
     }
 
     switchLanguage(lang: string) {

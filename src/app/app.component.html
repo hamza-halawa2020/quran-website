@@ -3,7 +3,7 @@
     <router-outlet />
 </main>
 
-@defer (on idle) {
+@defer (when showFloatingUi) {
     <app-whatsapp-float />
 }
 
@@ -17,6 +17,6 @@
     <div class="app-footer-placeholder" aria-hidden="true"></div>
 }
 
-@defer (on idle) {
+@defer (when showFloatingUi) {
     <app-back-to-top />
 }

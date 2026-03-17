@@ -7,14 +7,10 @@ import {
     TranslateModule,
     TranslateLoader
 } from '@ngx-translate/core';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { HttpClient } from '@angular/common/http';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { LazyChunkErrorHandler } from './shared/errors/lazy-chunk-error.handler';
-
-export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { InlineTranslateLoader } from './shared/i18n/inline-translate.loader';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -26,11 +22,11 @@ export const appConfig: ApplicationConfig = {
             TranslateModule.forRoot({
                 loader: {
                     provide: TranslateLoader,
-                    useFactory: HttpLoaderFactory,
+                    useClass: InlineTranslateLoader,
                     deps: [HttpClient]
                 }
             })
         ),
-        provideAnimations(),
+        provideAnimationsAsync(),
     ]
 };

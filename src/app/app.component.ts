@@ -17,7 +17,10 @@ import { BackToTopComponent } from './common/back-to-top/back-to-top.component';
 export class AppComponent implements OnInit, OnDestroy {
     title = 'onlineislamicmadrasah';
     showCustomCursor = false;
+    showFloatingUi = false;
     private removeCursorBootstrapListener?: () => void;
+    private removeFloatingUiBootstrapListeners?: () => void;
+    private floatingUiTimeoutId: number | null = null;
 
     constructor(
         private router: Router,
@@ -36,6 +39,8 @@ export class AppComponent implements OnInit, OnDestroy {
         if (typeof window === 'undefined') {
             return;
         }
+
+        this.bootstrapFloatingUi();
 
         const supportsFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -62,5 +67,50 @@ export class AppComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.removeCursorBootstrapListener?.();
+        this.removeFloatingUiBootstrapListeners?.();
+
+        if (this.floatingUiTimeoutId !== null) {
+            window.clearTimeout(this.floatingUiTimeoutId);
+            this.floatingUiTimeoutId = null;
+        }
+    }
+
+    private bootstrapFloatingUi(): void {
+        this.ngZone.runOutsideAngular(() => {
+            const enableFloatingUi = () => {
+                this.removeFloatingUiBootstrapListeners?.();
+
+                if (this.floatingUiTimeoutId !== null) {
+                    window.clearTimeout(this.floatingUiTimeoutId);
+                    this.floatingUiTimeoutId = null;
+                }
+
+                this.ngZone.run(() => {
+                    this.showFloatingUi = true;
+                });
+            };
+
+            const pointerHandler = () => enableFloatingUi();
+            const scrollHandler = () => enableFloatingUi();
+            const keydownHandler = () => enableFloatingUi();
+
+            window.addEventListener('pointerdown', pointerHandler, { passive: true, once: true });
+            window.addEventListener('touchstart', pointerHandler, { passive: true, once: true });
+            window.addEventListener('scroll', scrollHandler, { passive: true, once: true });
+            window.addEventListener('keydown', keydownHandler, { once: true });
+
+            this.removeFloatingUiBootstrapListeners = () => {
+                window.removeEventListener('pointerdown', pointerHandler);
+                window.removeEventListener('touchstart', pointerHandler);
+                window.removeEventListener('scroll', scrollHandler);
+                window.removeEventListener('keydown', keydownHandler);
+                this.removeFloatingUiBootstrapListeners = undefined;
+            };
+
+            this.floatingUiTimeoutId = window.setTimeout(() => {
+                this.floatingUiTimeoutId = null;
+                enableFloatingUi();
+            }, 12000);
+        });
     }
 }

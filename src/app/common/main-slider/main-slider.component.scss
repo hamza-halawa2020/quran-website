@@ -9,55 +9,6 @@
     min-height: 400px;
 }
 
-// ============================================
-// Loading State
-// ============================================
-.slider-loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 500px;
-    background: linear-gradient(135deg, #1e3a5f 0%, #152a47 100%);
-
-    .spinner-border {
-        width: 3rem;
-        height: 3rem;
-        border-width: 0.3rem;
-        color: #ffffff !important;
-    }
-}
-
-// ============================================
-// Empty State
-// ============================================
-.slider-empty {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 500px;
-    background: linear-gradient(135deg, #1e3a5f 0%, #152a47 100%);
-
-    .empty-content {
-        text-align: center;
-        color: #ffffff;
-
-        i {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            opacity: 0.7;
-        }
-
-        p {
-            font-size: 1.2rem;
-            margin: 0;
-            font-weight: 500;
-        }
-    }
-}
-
-// ============================================
-// Main Slider Container
-// ============================================
 .main-slider {
     position: relative;
     width: 100%;
@@ -190,7 +141,6 @@
     gap: 0.5rem;
     padding: 1rem 2.5rem;
     background: linear-gradient(135deg, #c9a961 0%, #d4b574 100%);
-    backdrop-filter: blur(10px);
     border: 2px solid #d4b574;
     border-radius: 50px;
     color: #ffffff;
@@ -215,7 +165,6 @@
         top: 50%;
         transform: translateY(-50%);
         background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(10px);
         color: #ffffff;
         border: 2px solid rgba(255, 255, 255, 0.2);
         padding: 1rem 1.2rem;
@@ -272,7 +221,6 @@
     padding: 0.25rem;
     border-radius: 999px;
     background: rgba(0, 0, 0, 0.16);
-    backdrop-filter: blur(8px);
 
     .slider-dot {
         width: 32px;
@@ -443,11 +391,6 @@
         min-height: 300px;
     }
 
-    .slider-loading,
-    .slider-empty {
-        min-height: 350px;
-    }
-
     .image-container {
         aspect-ratio: 4 / 3;
         min-height: 200px;
@@ -528,5 +471,22 @@
 
     .slide-cta {
         display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .slide-item,
+    .carousel-image,
+    .slide-title,
+    .slide-description,
+    .slide-cta,
+    .animate-fade-in,
+    .custom-nav .nav-btn,
+    .slider-dots .slider-dot,
+    .slider-dots .slider-dot::before,
+    .cta-button {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
     }
 }
