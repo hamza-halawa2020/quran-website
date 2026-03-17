@@ -1,58 +1,56 @@
-import { Directive, ElementRef, OnInit, OnDestroy, Input } from '@angular/core';
+import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 
 @Directive({
-  selector: '[scrollReveal]',
-  standalone: true,
+    selector: '[scrollReveal]',
+    standalone: true,
 })
 export class ScrollRevealDirective implements OnInit, OnDestroy {
-  @Input() revealDelay = 0;
+    @Input() revealDelay = 0;
 
-  private observer!: IntersectionObserver;
+    private observer!: IntersectionObserver;
 
-  constructor(private el: ElementRef) {}
+    constructor(private el: ElementRef<HTMLElement>) { }
 
-  ngOnInit() {
-    const el = this.el.nativeElement;
+    ngOnInit(): void {
+        const element = this.el.nativeElement;
 
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(120px) scale(0.88)';
-    el.style.filter = 'blur(6px)';
-    el.style.transition = 'none';
+        element.style.opacity = '0';
+        element.style.transform = 'translate3d(0, 80px, 0) scale(0.96)';
+        element.style.transition = 'none';
+        element.style.willChange = 'opacity, transform';
 
-    this.observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setTimeout(() => {
-              el.style.transition = [
-                'opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1)',
-                'transform 1.1s cubic-bezier(0.16, 1, 0.3, 1)',
-                'filter 1.1s cubic-bezier(0.16, 1, 0.3, 1)',
-              ].join(', ');
-              el.style.opacity = '1';
-              el.style.transform = 'translateY(0) scale(1)';
-              el.style.filter = 'blur(0px)';
+        this.observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
 
-              // After animation completes, remove transform & filter entirely
-              // so they don't break position:fixed children (modals, lightboxes)
-              el.addEventListener('transitionend', () => {
-                el.style.transform = '';
-                el.style.filter = '';
-                el.style.transition = '';
-              }, { once: true });
+                    window.setTimeout(() => {
+                        element.style.transition = [
+                            'opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1)',
+                            'transform 1.1s cubic-bezier(0.16, 1, 0.3, 1)',
+                        ].join(', ');
+                        element.style.opacity = '1';
+                        element.style.transform = 'translate3d(0, 0, 0) scale(1)';
 
-            }, this.revealDelay);
-            this.observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.05, rootMargin: '0px 0px -50px 0px' }
-    );
+                        element.addEventListener('transitionend', () => {
+                            element.style.transform = '';
+                            element.style.transition = '';
+                            element.style.willChange = '';
+                        }, { once: true });
+                    }, this.revealDelay);
 
-    this.observer.observe(el);
-  }
+                    this.observer.unobserve(entry.target);
+                });
+            },
+            { threshold: 0.05, rootMargin: '0px 0px -50px 0px' }
+        );
 
-  ngOnDestroy() {
-    this.observer?.disconnect();
-  }
+        this.observer.observe(element);
+    }
+
+    ngOnDestroy(): void {
+        this.observer?.disconnect();
+    }
 }

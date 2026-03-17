@@ -17,12 +17,14 @@ export function app(): express.Express {
     server.set('view engine', 'html');
     server.set('views', browserDistFolder);
 
-    // Serve static files from /browser with 1 year cache
+    // Serve hashed assets aggressively, but never let missing asset requests fall through to SSR.
     server.get(
-        '**',
+        '*.*',
         express.static(browserDistFolder, {
+            fallthrough: false,
+            immutable: true,
+            index: false,
             maxAge: '1y',
-            index: 'index.html',
         })
     );
 
@@ -38,7 +40,10 @@ export function app(): express.Express {
                 publicPath: browserDistFolder,
                 providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
             })
-            .then((html) => res.send(html))
+            .then((html) => {
+                res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+                res.send(html);
+            })
             .catch((err) => next(err));
     });
 

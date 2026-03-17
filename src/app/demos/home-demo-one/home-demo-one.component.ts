@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 import { MainSlider } from '../../common/main-slider/main-slider.component';
 import { HowItWorksComponent } from '../../common/how-it-works/how-it-works.component';
 import { AboutSectionComponent } from './components/about-section/about-section.component';
@@ -17,6 +18,11 @@ import { MediaGallerySectionComponent } from './components/media-gallery-section
 import { PaymentMethodsComponent } from '../../common/payment-methods/payment-methods.component';
 import { HomeService, HomeData } from './home.service';
 import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.directive';
+
+type IdleWindow = Window & {
+    requestIdleCallback?: (callback: (_deadline: unknown) => void, options?: { timeout: number }) => number;
+    cancelIdleCallback?: (handle: number) => void;
+};
 
 @Component({
     selector: 'app-home-demo-one',
@@ -43,11 +49,16 @@ import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.dir
     templateUrl: './home-demo-one.component.html',
     styleUrl: './home-demo-one.component.scss',
 })
-export class HomeDemoOneComponent implements OnInit {
+export class HomeDemoOneComponent implements OnInit, OnDestroy {
 
     homeData: HomeData | null = null;
-    isLoading = true;
+    isLoading = false;
     error: string | null = null;
+    private homeDataSubscription?: Subscription;
+    private removeLoadListener?: () => void;
+    private idleCallbackId: number | null = null;
+    private idleTimeoutId: number | null = null;
+    private hasRequestedHomeData = false;
 
     defaultStats = {
         completedStudies: 1500,  // Students graduated
@@ -58,18 +69,41 @@ export class HomeDemoOneComponent implements OnInit {
 
     constructor(
         public translate: TranslateService,
-        private homeService: HomeService
+        private homeService: HomeService,
+        private ngZone: NgZone
     ) { }
 
     ngOnInit(): void {
-        this.loadHomeData();
+        this.scheduleHomeDataLoad();
+    }
+
+    ngOnDestroy(): void {
+        this.removeLoadListener?.();
+        this.homeDataSubscription?.unsubscribe();
+
+        if (typeof window === 'undefined') {
+            return;
+        }
+
+        const idleWindow = window as IdleWindow;
+        if (this.idleCallbackId !== null) {
+            idleWindow.cancelIdleCallback?.(this.idleCallbackId);
+            this.idleCallbackId = null;
+        }
+
+        if (this.idleTimeoutId !== null) {
+            window.clearTimeout(this.idleTimeoutId);
+            this.idleTimeoutId = null;
+        }
     }
 
     loadHomeData(): void {
+        this.hasRequestedHomeData = true;
         this.isLoading = true;
         this.error = null;
 
-        this.homeService.getHomeData().subscribe({
+        this.homeDataSubscription?.unsubscribe();
+        this.homeDataSubscription = this.homeService.getHomeData().subscribe({
             next: (data) => {
                 if (!this.homeData) {
                     this.homeData = {
@@ -136,6 +170,79 @@ export class HomeDemoOneComponent implements OnInit {
     }
 
     retryLoadData(): void {
+        this.clearScheduledHomeDataLoad();
+        this.hasRequestedHomeData = false;
         this.loadHomeData();
+    }
+
+    private scheduleHomeDataLoad(): void {
+        if (typeof window === 'undefined') {
+            this.loadHomeData();
+            return;
+        }
+
+        this.ngZone.runOutsideAngular(() => {
+            const startLoading = () => {
+                if (this.hasRequestedHomeData) {
+                    return;
+                }
+
+                this.ngZone.run(() => {
+                    this.loadHomeData();
+                });
+            };
+
+            const queueIdleLoad = () => {
+                this.removeLoadListener?.();
+
+                const idleWindow = window as IdleWindow;
+                if (typeof idleWindow.requestIdleCallback === 'function') {
+                    this.idleCallbackId = idleWindow.requestIdleCallback(() => {
+                        this.idleCallbackId = null;
+                        startLoading();
+                    }, { timeout: 1500 });
+                    return;
+                }
+
+                this.idleTimeoutId = window.setTimeout(() => {
+                    this.idleTimeoutId = null;
+                    startLoading();
+                }, 600);
+            };
+
+            if (document.readyState === 'complete') {
+                queueIdleLoad();
+                return;
+            }
+
+            const onWindowLoad = () => {
+                queueIdleLoad();
+            };
+
+            window.addEventListener('load', onWindowLoad, { once: true });
+            this.removeLoadListener = () => {
+                window.removeEventListener('load', onWindowLoad);
+                this.removeLoadListener = undefined;
+            };
+        });
+    }
+
+    private clearScheduledHomeDataLoad(): void {
+        this.removeLoadListener?.();
+
+        if (typeof window === 'undefined') {
+            return;
+        }
+
+        const idleWindow = window as IdleWindow;
+        if (this.idleCallbackId !== null) {
+            idleWindow.cancelIdleCallback?.(this.idleCallbackId);
+            this.idleCallbackId = null;
+        }
+
+        if (this.idleTimeoutId !== null) {
+            window.clearTimeout(this.idleTimeoutId);
+            this.idleTimeoutId = null;
+        }
     }
 }

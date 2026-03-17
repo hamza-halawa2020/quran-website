@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -25,7 +25,7 @@ interface MediaItem {
   templateUrl: './media-gallery-section.component.html',
   styleUrls: ['./media-gallery-section.component.scss']
 })
-export class MediaGallerySectionComponent implements OnInit {
+export class MediaGallerySectionComponent implements OnInit, OnChanges {
   @Input() items: MediaItem[] = [];
   // When true (e.g. on home page), clicking a media item
   // will navigate to the full media gallery page instead of opening a modal.
@@ -49,7 +49,18 @@ export class MediaGallerySectionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    if (this.shouldUseInputItems()) {
+      this.syncInputItems();
+      return;
+    }
+
     this.loadMedia();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['items'] && this.shouldUseInputItems()) {
+      this.syncInputItems();
+    }
   }
 
   loadMedia(page: number = 1): void {
@@ -72,6 +83,12 @@ export class MediaGallerySectionComponent implements OnInit {
   filterMedia(type: 'all' | 'image' | 'video'): void {
     this.activeFilter = type;
     this.currentPage = 1;
+
+    if (this.shouldUseInputItems()) {
+      this.syncInputItems();
+      return;
+    }
+
     this.loadMedia(1);
   }
 
@@ -210,5 +227,18 @@ export class MediaGallerySectionComponent implements OnInit {
     // Remove any trailing slashes or query/hash fragments.
     const cleaned = candidate.split('?')[0].split('&')[0].split('#')[0].replace(/\/+$/, '');
     return /^[a-zA-Z0-9_-]{11}$/.test(cleaned) ? cleaned : null;
+  }
+
+  private shouldUseInputItems(): boolean {
+    return this.openInPage || this.items.length > 0;
+  }
+
+  private syncInputItems(): void {
+    this.isLoading = false;
+    this.meta = null;
+    this.allMedia = [...this.items];
+    this.filteredMedia = this.activeFilter === 'all'
+      ? this.allMedia
+      : this.allMedia.filter((item) => item.type === this.activeFilter);
   }
 }

@@ -5,11 +5,11 @@
     <app-whatsapp-float />
 }
 
-@defer (when showCustomCursor; prefetch on idle) {
+@defer (when showCustomCursor) {
     <app-custom-cursor />
 }
 
-@defer (on viewport; prefetch on idle) {
+@defer (on viewport) {
     <app-footer />
 } @placeholder {
     <div class="app-footer-placeholder" aria-hidden="true"></div>

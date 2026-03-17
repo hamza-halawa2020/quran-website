@@ -15,50 +15,75 @@
     </div>
 
     <!-- Main Slider -->
-    <div class="main-slider mx-auto" *ngIf="sliderData && sliderData.length > 0">
-        <owl-carousel-o [options]="currentOptions" #owlCarousel>
-            <ng-template carouselSlide *ngFor="let slide of sliderData; let i = index">
-                <div class="slide-item">
-                    <a [href]="slide.link || '#'" class="slide-link">
-                        <div class="image-container">
-                            <!-- Main Image -->
-                            <img [ngSrc]="slide.image_url" class="carousel-image" [alt]="slide.title || 'Slider Image'"
-                                [priority]="i === 0" fill sizes="100vw" />
+    <div
+        class="main-slider mx-auto"
+        *ngIf="sliderData && sliderData.length > 0"
+        (mouseenter)="pauseAutoplay()"
+        (mouseleave)="resumeAutoplay()"
+    >
+        <div class="slides-viewport" role="region" [attr.aria-label]="'MAIN_SLIDER' | translate">
+            <article
+                *ngFor="let slide of sliderData; let i = index; trackBy: trackBySlide"
+                class="slide-item"
+                [class.is-active]="isSlideActive(i)"
+                [attr.aria-hidden]="!isSlideActive(i)"
+            >
+                <a [href]="slide.link || '#'" class="slide-link" [attr.tabindex]="isSlideActive(i) ? 0 : -1">
+                    <div class="image-container">
+                        <img
+                            [ngSrc]="slide.image_url"
+                            class="carousel-image"
+                            [alt]="slide.title || 'Slider Image'"
+                            [priority]="i === 0"
+                            [loading]="i === 0 ? 'eager' : 'lazy'"
+                            fill
+                            sizes="100vw"
+                        />
 
-                            <!-- Gradient Overlay -->
-
-                            <!-- Content Overlay -->
-                            <div class="overlay-content">
-                                <div class="content-wrapper animate-fade-in">
-                                    <h2 class="slide-title" *ngIf="slide.title">
-                                        {{ slide.title }}
-                                    </h2>
-                                    <p class="slide-description" *ngIf="slide.description">
-                                        {{ slide.description }}
-                                    </p>
-                                    <div class="slide-cta" *ngIf="slide.link">
-                                        <span class="cta-button">
-                                            {{ 'READ_MORE' | translate }}
-                                            <i class="fa-solid ms-2"
-                                                [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"></i>
-                                        </span>
-                                    </div>
+                        <div class="overlay-content">
+                            <div class="content-wrapper" [class.animate-fade-in]="isSlideActive(i)">
+                                <h2 class="slide-title" *ngIf="slide.title">
+                                    {{ slide.title }}
+                                </h2>
+                                <p class="slide-description" *ngIf="slide.description">
+                                    {{ slide.description }}
+                                </p>
+                                <div class="slide-cta" *ngIf="slide.link">
+                                    <span class="cta-button">
+                                        {{ 'READ_MORE' | translate }}
+                                        <i
+                                            class="fa-solid ms-2"
+                                            [ngClass]="{'fa-arrow-right': translate.currentLang === 'en', 'fa-arrow-left': translate.currentLang === 'ar'}"
+                                        ></i>
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                    </a>
-                </div>
-            </ng-template>
-        </owl-carousel-o>
+                    </div>
+                </a>
+            </article>
+        </div>
 
         <!-- Custom Navigation Buttons -->
-        <div class="custom-nav">
+        <div class="custom-nav" *ngIf="sliderData.length > 1">
             <button class="nav-btn prev-btn" (click)="prevSlide()" [attr.aria-label]="'PREVIOUS' | translate">
                 <i class="fa-solid fa-chevron-left"></i>
             </button>
             <button class="nav-btn next-btn" (click)="nextSlide()" [attr.aria-label]="'NEXT' | translate">
                 <i class="fa-solid fa-chevron-right"></i>
             </button>
+        </div>
+
+        <div class="slider-dots" *ngIf="sliderData.length > 1">
+            <button
+                *ngFor="let slide of sliderData; let i = index; trackBy: trackBySlide"
+                type="button"
+                class="slider-dot"
+                [class.is-active]="isSlideActive(i)"
+                [attr.aria-label]="'Go to slide ' + (i + 1)"
+                [attr.aria-current]="isSlideActive(i)"
+                (click)="goToSlide(i)"
+            ></button>
         </div>
     </div>
 </div>

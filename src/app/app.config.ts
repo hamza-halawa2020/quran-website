@@ -1,10 +1,8 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, ErrorHandler, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { tokenInterceptor } from './token.interceptor';
-import { importProvidersFrom } from '@angular/core';
-
 import {
     TranslateModule,
     TranslateLoader
@@ -12,6 +10,7 @@ import {
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { LazyChunkErrorHandler } from './shared/errors/lazy-chunk-error.handler';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -22,6 +21,7 @@ export const appConfig: ApplicationConfig = {
         provideZoneChangeDetection({ eventCoalescing: true, runCoalescing: true }),
         provideHttpClient(withInterceptors([tokenInterceptor])),
         provideRouter(routes),
+        { provide: ErrorHandler, useClass: LazyChunkErrorHandler },
         importProvidersFrom(
             TranslateModule.forRoot({
                 loader: {

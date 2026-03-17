@@ -1,8 +1,6 @@
-import { RouterLink, Router } from '@angular/router';
-import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
+import { RouterLink } from '@angular/router';
 import { CommonModule, NgClass, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { FaqsService } from './faqs.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -13,12 +11,10 @@ import { PaginationComponent } from '../../shared/components/pagination/paginati
     standalone: true,
     imports: [
         RouterLink,
-        CarouselModule,
         CommonModule,
         NgIf,
         NgClass,
         NgbModule,
-        HttpClientModule,
         TranslateModule,
         PaginationComponent
     ],

@@ -1,11 +1,5 @@
 import { CommonModule, NgClass, NgIf, NgOptimizedImage } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import {
-    CarouselComponent,
-    CarouselModule,
-    OwlOptions,
-} from 'ngx-owl-carousel-o';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { MainSliderService } from './main-slider.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
@@ -14,7 +8,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     standalone: true,
     imports: [
         CommonModule,
-        CarouselModule,
         NgIf,
         NgClass,
         NgOptimizedImage,
@@ -24,93 +17,105 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     styleUrls: ['./main-slider.component.scss'],
     providers: [MainSliderService],
 })
-export class MainSlider implements OnInit {
-    sliderData: any;
-
-    // Reference to the OwlCarousel component
-    @ViewChild('owlCarousel', { static: false })
-    owlCarousel!: CarouselComponent;
-
-    currentOptions: OwlOptions;
-
-    feedbackSlides: OwlOptions = {
-        items: 1,
-        nav: false, // Disable default nav buttons
-        loop: true,
-        // margin: 25,
-        dots: true,
-        autoplay: true,
-        autoplayHoverPause: true,
-        autoHeight: false,
-        responsive: {
-            0: {
-                autoHeight: false,
-                autoplay: true,
-            },
-        },
-    };
-
-    feedbackSlides2: OwlOptions = {
-        items: 1,
-        nav: false, // Disable default nav buttons
-        loop: true,
-        // margin: 25,
-        dots: true,
-        autoplay: true,
-        autoplayHoverPause: true,
-        rtl: true,
-        autoHeight: false,
-        responsive: {
-            0: {
-                autoHeight: false,
-                autoplay: true,
-            },
-        },
-    };
+export class MainSlider implements OnInit, OnDestroy {
+    sliderData: any[] | null = null;
+    currentSlideIndex = 0;
+    private autoplayTimeoutId: number | null = null;
+    private isAutoplayPaused = false;
+    private readonly autoplayDelay = 5000;
+    private readonly prefersReducedMotion =
+        typeof window !== 'undefined'
+            && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     constructor(
-        public router: Router,
         private mainSliderService: MainSliderService,
-        public translate: TranslateService
-    ) {
-        this.currentOptions =
-            this.translate.currentLang === 'ar'
-                ? this.feedbackSlides2
-                : this.feedbackSlides;
-        this.translate.onLangChange.subscribe((event) => {
-            this.currentOptions =
-                event.lang === 'ar'
-                    ? this.feedbackSlides2
-                    : this.feedbackSlides;
-        });
-    }
+        public translate: TranslateService,
+        private ngZone: NgZone
+    ) { }
 
     ngOnInit(): void {
         this.fetchSliderData();
     }
 
-    fetchSliderData() {
+    ngOnDestroy(): void {
+        this.clearAutoplay();
+    }
+
+    fetchSliderData(): void {
         this.mainSliderService.index().subscribe({
             next: (response: any) => {
-                // The API returns data in response.data
                 this.sliderData = response.data || [];
+                this.currentSlideIndex = 0;
+                this.startAutoplay();
             },
-            error: (error) => {
+            error: () => {
                 this.sliderData = [];
+                this.clearAutoplay();
             }
         });
     }
 
-    // Methods to navigate the carousel
-    prevSlide() {
-        if (this.owlCarousel) {
-            this.owlCarousel.prev();
-        }
+    prevSlide(): void {
+        this.moveToSlide(this.currentSlideIndex - 1);
     }
 
-    nextSlide() {
-        if (this.owlCarousel) {
-            this.owlCarousel.next();
+    nextSlide(): void {
+        this.moveToSlide(this.currentSlideIndex + 1);
+    }
+
+    goToSlide(index: number): void {
+        this.moveToSlide(index);
+    }
+
+    pauseAutoplay(): void {
+        this.isAutoplayPaused = true;
+        this.clearAutoplay();
+    }
+
+    resumeAutoplay(): void {
+        this.isAutoplayPaused = false;
+        this.startAutoplay();
+    }
+
+    trackBySlide(index: number, slide: any): string | number {
+        return slide?.id || slide?.image_url || index;
+    }
+
+    isSlideActive(index: number): boolean {
+        return index === this.currentSlideIndex;
+    }
+
+    private moveToSlide(index: number): void {
+        if (!this.sliderData?.length) {
+            return;
+        }
+
+        const slideCount = this.sliderData.length;
+        this.currentSlideIndex = (index + slideCount) % slideCount;
+        this.startAutoplay();
+    }
+
+    private startAutoplay(): void {
+        this.clearAutoplay();
+
+        if (this.prefersReducedMotion || this.isAutoplayPaused || !this.sliderData || this.sliderData.length < 2) {
+            return;
+        }
+
+        this.ngZone.runOutsideAngular(() => {
+            this.autoplayTimeoutId = window.setTimeout(() => {
+                this.autoplayTimeoutId = null;
+                this.ngZone.run(() => {
+                    this.nextSlide();
+                });
+            }, this.autoplayDelay);
+        });
+    }
+
+    private clearAutoplay(): void {
+        if (this.autoplayTimeoutId !== null) {
+            window.clearTimeout(this.autoplayTimeoutId);
+            this.autoplayTimeoutId = null;
         }
     }
 }
