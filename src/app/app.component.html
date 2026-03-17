@@ -5,7 +5,7 @@
     <app-whatsapp-float />
 }
 
-@defer (on idle) {
+@defer (when showCustomCursor; prefetch on idle) {
     <app-custom-cursor />
 }
 

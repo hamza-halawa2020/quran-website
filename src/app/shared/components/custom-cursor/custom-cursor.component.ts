@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Renderer2, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2, Inject, NgZone } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { CursorEffectsService } from './cursor-effects.service';
 
@@ -11,9 +11,9 @@ import { CursorEffectsService } from './cursor-effects.service';
 })
 export class CustomCursorComponent implements OnInit, OnDestroy {
   private cursor!: HTMLElement;
-  private cursorDot!: HTMLElement;
   private cursorOutline!: HTMLElement;
   private trailElements: HTMLElement[] = [];
+  private removeListeners: Array<() => void> = [];
 
   private mousePosition = { x: 0, y: 0 };
   private cursorPosition = { x: 0, y: 0 };
@@ -24,7 +24,8 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
   constructor(
     private renderer: Renderer2,
     @Inject(DOCUMENT) private document: Document,
-    private cursorEffects: CursorEffectsService
+    private cursorEffects: CursorEffectsService,
+    private ngZone: NgZone
   ) { }
 
   ngOnInit(): void {
@@ -33,15 +34,19 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.createCursor();
-    this.addEventListeners();
-    this.startAnimation();
+    this.ngZone.runOutsideAngular(() => {
+      this.createCursor();
+      this.addEventListeners();
+      this.startAnimation();
+    });
   }
 
   ngOnDestroy(): void {
     if (this.animationId) {
       cancelAnimationFrame(this.animationId);
     }
+    this.removeListeners.forEach(removeListener => removeListener());
+    this.removeListeners = [];
     this.removeCursor();
     this.cursorEffects.cleanup();
   }
@@ -59,6 +64,7 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
     this.renderer.setStyle(this.cursor, 'pointer-events', 'none');
     this.renderer.setStyle(this.cursor, 'z-index', '99999');
     this.renderer.setStyle(this.cursor, 'opacity', '1');
+    this.renderer.setStyle(this.cursor, 'will-change', 'transform');
 
     // Create cursor outline only (no dot - keep default cursor)
     this.cursorOutline = this.renderer.createElement('div');
@@ -69,9 +75,10 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
     this.renderer.setStyle(this.cursorOutline, 'position', 'absolute');
     this.renderer.setStyle(this.cursorOutline, 'top', '-20px');
     this.renderer.setStyle(this.cursorOutline, 'left', '-20px');
-    this.renderer.setStyle(this.cursorOutline, 'transition', 'all 0.3s ease');
+    this.renderer.setStyle(this.cursorOutline, 'transition', 'transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease');
     this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(102, 126, 234, 0.1)');
     this.renderer.setStyle(this.cursorOutline, 'backdrop-filter', 'blur(5px)');
+    this.renderer.setStyle(this.cursorOutline, 'will-change', 'transform');
 
     // Append only the outline
     this.renderer.appendChild(this.cursor, this.cursorOutline);
@@ -107,15 +114,31 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
       this.renderer.setStyle(trail, 'transform', `scale(${1 - i * 0.15})`);
       this.renderer.setStyle(trail, 'top', `${-10 + i}px`);
       this.renderer.setStyle(trail, 'left', `${-10 + i}px`);
+      this.renderer.setStyle(trail, 'will-change', 'transform');
 
       this.renderer.appendChild(this.document.body, trail);
       this.trailElements.push(trail);
     }
   }
 
+  private registerListener(
+    target: 'document' | 'window' | HTMLElement,
+    eventName: string,
+    callback: (event?: Event) => void
+  ): void {
+    const listenerTarget = target === 'document'
+      ? this.document
+      : target === 'window'
+        ? window
+        : target;
+
+    this.removeListeners.push(this.renderer.listen(listenerTarget, eventName, callback));
+  }
+
   private addEventListeners(): void {
     // Mouse move
-    this.renderer.listen(this.document, 'mousemove', (e: MouseEvent) => {
+    this.registerListener('document', 'mousemove', (event?: Event) => {
+      const e = event as MouseEvent;
       this.mousePosition.x = e.clientX;
       this.mousePosition.y = e.clientY;
 
@@ -127,7 +150,8 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
     });
 
     // Mouse down - Enhanced click animation
-    this.renderer.listen(this.document, 'mousedown', (e: MouseEvent) => {
+    this.registerListener('document', 'mousedown', (event?: Event) => {
+      const e = event as MouseEvent;
       this.isClicking = true;
 
       // Animate the outline with a beautiful click effect
@@ -148,7 +172,7 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
     });
 
     // Mouse up - Return to normal state
-    this.renderer.listen(this.document, 'mouseup', () => {
+    this.registerListener('document', 'mouseup', () => {
       this.isClicking = false;
       this.renderer.setStyle(this.cursorOutline, 'transform', 'scale(1)');
       this.renderer.setStyle(this.cursorOutline, 'border-color', 'rgba(180, 83, 9, 0.6)');
@@ -160,11 +184,11 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
     this.setupInteractiveElements();
 
     // Mouse enter/leave window
-    this.renderer.listen(this.document, 'mouseenter', () => {
+    this.registerListener('document', 'mouseenter', () => {
       this.renderer.setStyle(this.cursor, 'opacity', '1');
     });
 
-    this.renderer.listen(this.document, 'mouseleave', () => {
+    this.registerListener('document', 'mouseleave', () => {
       this.renderer.setStyle(this.cursor, 'opacity', '0');
     });
   }
@@ -173,14 +197,14 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
     // Links
     const links = this.document.querySelectorAll('a');
     links.forEach(link => {
-      this.renderer.listen(link, 'mouseenter', () => {
+      this.registerListener(link as HTMLElement, 'mouseenter', () => {
         this.isHovering = true;
         this.renderer.setStyle(this.cursorOutline, 'transform', 'scale(1.5)');
         this.renderer.setStyle(this.cursorOutline, 'border-color', '#064e3b');
         this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(6, 78, 59, 0.15)');
       });
 
-      this.renderer.listen(link, 'mouseleave', () => {
+      this.registerListener(link as HTMLElement, 'mouseleave', () => {
         this.isHovering = false;
         this.renderer.setStyle(this.cursorOutline, 'transform', 'scale(1)');
         this.renderer.setStyle(this.cursorOutline, 'border-color', 'rgba(180, 83, 9, 0.6)');
@@ -191,21 +215,22 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
     // Buttons
     const buttons = this.document.querySelectorAll('button, .btn, [role="button"]');
     buttons.forEach(button => {
-      this.renderer.listen(button, 'mouseenter', () => {
+      this.registerListener(button as HTMLElement, 'mouseenter', () => {
         this.isHovering = true;
         this.renderer.setStyle(this.cursorOutline, 'transform', 'scale(1.3)');
         this.renderer.setStyle(this.cursorOutline, 'border-color', '#b45309');
         this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(180, 83, 9, 0.15)');
       });
 
-      this.renderer.listen(button, 'mouseleave', () => {
+      this.registerListener(button as HTMLElement, 'mouseleave', () => {
         this.isHovering = false;
         this.renderer.setStyle(this.cursorOutline, 'transform', 'scale(1)');
         this.renderer.setStyle(this.cursorOutline, 'border-color', 'rgba(180, 83, 9, 0.6)');
         this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(6, 78, 59, 0.1)');
       });
 
-      this.renderer.listen(button, 'click', (e: MouseEvent) => {
+      this.registerListener(button as HTMLElement, 'click', (event?: Event) => {
+        const e = event as MouseEvent;
         this.cursorEffects.createExplosionEffect(e.clientX, e.clientY);
       });
     });
@@ -213,13 +238,13 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
     // Input fields
     const inputs = this.document.querySelectorAll('input, textarea, select');
     inputs.forEach(input => {
-      this.renderer.listen(input, 'mouseenter', () => {
+      this.registerListener(input as HTMLElement, 'mouseenter', () => {
         this.isHovering = true;
         this.renderer.setStyle(this.cursorOutline, 'border-color', '#059669');
         this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(5, 150, 105, 0.15)');
       });
 
-      this.renderer.listen(input, 'mouseleave', () => {
+      this.registerListener(input as HTMLElement, 'mouseleave', () => {
         this.isHovering = false;
         this.renderer.setStyle(this.cursorOutline, 'border-color', 'rgba(180, 83, 9, 0.6)');
         this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(6, 78, 59, 0.1)');
@@ -229,12 +254,12 @@ export class CustomCursorComponent implements OnInit, OnDestroy {
     // Images
     const images = this.document.querySelectorAll('img');
     images.forEach(image => {
-      this.renderer.listen(image, 'mouseenter', () => {
+      this.registerListener(image as HTMLElement, 'mouseenter', () => {
         this.renderer.setStyle(this.cursorOutline, 'border-color', '#f59e0b');
         this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(245, 158, 11, 0.15)');
       });
 
-      this.renderer.listen(image, 'mouseleave', () => {
+      this.registerListener(image as HTMLElement, 'mouseleave', () => {
         this.renderer.setStyle(this.cursorOutline, 'border-color', 'rgba(180, 83, 9, 0.6)');
         this.renderer.setStyle(this.cursorOutline, 'background', 'rgba(6, 78, 59, 0.1)');
       });

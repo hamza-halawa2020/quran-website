@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { fromEvent, Subscription } from 'rxjs';
 import { auditTime } from 'rxjs/operators';
 
@@ -16,23 +16,36 @@ export class BackToTopComponent implements OnInit, OnDestroy {
     topPosToStartShowing = 100;
     private subscription = new Subscription();
 
+    constructor(private ngZone: NgZone) { }
+
     ngOnInit(): void {
-        this.subscription.add(
-            fromEvent(window, 'scroll')
-                .pipe(auditTime(100))
-                .subscribe(() => {
-                    this.checkScroll();
-                })
-        );
+        this.ngZone.runOutsideAngular(() => {
+            this.subscription.add(
+                fromEvent(window, 'scroll', { passive: true })
+                    .pipe(auditTime(100))
+                    .subscribe(() => {
+                        const isShown = this.getScrollPosition() >= this.topPosToStartShowing;
+
+                        if (isShown !== this.isShow) {
+                            this.ngZone.run(() => {
+                                this.isShow = isShown;
+                            });
+                        }
+                    })
+            );
+        });
     }
 
     ngOnDestroy(): void {
         this.subscription.unsubscribe();
     }
 
+    private getScrollPosition(): number {
+        return window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    }
+
     checkScroll() {
-        const scrollPosition = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
-        this.isShow = scrollPosition >= this.topPosToStartShowing;
+        this.isShow = this.getScrollPosition() >= this.topPosToStartShowing;
     }
 
     scrollToTop() {

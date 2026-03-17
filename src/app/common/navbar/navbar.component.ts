@@ -1,5 +1,5 @@
 import { NgClass, NgIf, CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { fromEvent, Subscription } from 'rxjs';
 import { auditTime } from 'rxjs/operators';
@@ -83,7 +83,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     constructor(
         public router: Router,
         private translate: TranslateService,
-        private settingService: SettingService
+        private settingService: SettingService,
+        private ngZone: NgZone
     ) {
         // Initialize languages
         this.translate.addLangs(['en', 'ar']);
@@ -100,14 +101,22 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        // Optimize scroll listener to prevent forced reflows
-        this.subscriptions.add(
-            fromEvent(window, 'scroll')
-                .pipe(auditTime(100))
-                .subscribe(() => {
-                    this.checkScroll();
-                })
-        );
+        // Keep high-frequency scroll work outside Angular and only re-enter when state changes.
+        this.ngZone.runOutsideAngular(() => {
+            this.subscriptions.add(
+                fromEvent(window, 'scroll', { passive: true })
+                    .pipe(auditTime(100))
+                    .subscribe(() => {
+                        const isSticky = this.getScrollPosition() >= 50;
+
+                        if (isSticky !== this.isSticky) {
+                            this.ngZone.run(() => {
+                                this.isSticky = isSticky;
+                            });
+                        }
+                    })
+            );
+        });
 
         // Update currentLanguage when language changes
         this.translate.onLangChange.subscribe((event) => {
@@ -130,9 +139,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.subscriptions.unsubscribe();
     }
 
+    private getScrollPosition(): number {
+        return window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    }
+
     checkScroll() {
-        const scrollPosition = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
-        this.isSticky = scrollPosition >= 50;
+        this.isSticky = this.getScrollPosition() >= 50;
     }
 
     switchLanguage(lang: string) {
