@@ -28,6 +28,63 @@
     }
 }
 
+.animate__animated,
+.wow {
+    animation-duration: var(--animate-duration, 0.7s);
+    animation-fill-mode: both;
+}
+
+.animate__fadeIn {
+    animation-name: appFadeIn;
+}
+
+.animate__fadeInUp {
+    animation-name: appFadeInUp;
+}
+
+.fadeInRight {
+    animation-name: appFadeInRight;
+}
+
+[data-wow-duration='1s'] {
+    --animate-duration: 1s;
+}
+
+[data-wow-delay='0.3s'] {
+    animation-delay: 0.3s;
+}
+
+@keyframes appFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes appFadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 18px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes appFadeInRight {
+    from {
+        opacity: 0;
+        transform: translate3d(18px, 0, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
 .hidden {
     opacity: 0;
     visibility: hidden;

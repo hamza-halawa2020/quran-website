@@ -1,9 +1,8 @@
 import { NgClass, NgIf, CommonModule } from '@angular/common';
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { fromEvent, Subscription } from 'rxjs';
 import { auditTime } from 'rxjs/operators';
-import { NgbCollapseModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { SettingService, Settings } from '../../shared/services/setting.service';
 
@@ -16,8 +15,6 @@ import { SettingService, Settings } from '../../shared/services/setting.service'
         RouterLinkActive,
         NgIf,
         NgClass,
-        NgbCollapseModule,
-        NgbDropdownModule,
         TranslateModule,
     ],
     templateUrl: './navbar.component.html',

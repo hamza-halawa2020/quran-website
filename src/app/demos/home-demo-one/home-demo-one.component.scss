@@ -1,17 +1,29 @@
 .home-defer-placeholder {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     min-height: var(--home-defer-min-h, 320px);
     border-radius: 26px;
     margin: 30px auto;
     max-width: 1200px;
     width: calc(100% - 40px);
+    background: linear-gradient(180deg, rgba(30, 58, 95, 0.04), rgba(201, 169, 97, 0.08));
+}
+
+.home-defer-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
     background: linear-gradient(
         90deg,
-        rgba(30, 58, 95, 0.05) 0%,
-        rgba(201, 169, 97, 0.10) 50%,
-        rgba(30, 58, 95, 0.05) 100%
+        transparent 0%,
+        rgba(255, 255, 255, 0.55) 45%,
+        rgba(255, 255, 255, 0.1) 55%,
+        transparent 100%
     );
-    background-size: 200% 100%;
-    animation: homeDeferShimmer 1.3s ease-in-out infinite;
+    transform: translateX(-100%);
+    will-change: transform;
+    animation: homeDeferShimmer 1.4s linear infinite;
 }
 
 @media (max-width: 767px) {
@@ -23,6 +35,7 @@
 }
 
 @keyframes homeDeferShimmer {
-    0%   { background-position: 0% 50%; }
-    100% { background-position: 200% 50%; }
+    to {
+        transform: translateX(100%);
+    }
 }

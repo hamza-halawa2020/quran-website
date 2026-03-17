@@ -1,26 +1,22 @@
 import { CommonModule, NgClass, NgIf, NgOptimizedImage } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import {
     CarouselComponent,
     CarouselModule,
     OwlOptions,
 } from 'ngx-owl-carousel-o';
 import { MainSliderService } from './main-slider.service';
-import { HttpClientModule } from '@angular/common/http';
-import { environment } from '../../../environments/environment.development';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-main-slider',
     standalone: true,
     imports: [
-        RouterLink,
         CommonModule,
         CarouselModule,
         NgIf,
         NgClass,
-        HttpClientModule,
         NgOptimizedImage,
         TranslateModule
     ],
@@ -30,8 +26,6 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 })
 export class MainSlider implements OnInit {
     sliderData: any;
-    // image = environment.imgUrl;
-    image = '';
 
     // Reference to the OwlCarousel component
     @ViewChild('owlCarousel', { static: false })
@@ -100,8 +94,6 @@ export class MainSlider implements OnInit {
             next: (response: any) => {
                 // The API returns data in response.data
                 this.sliderData = response.data || [];
-                // Since API returns full image_url, we don't need to prepend imgUrl
-                this.image = '';
             },
             error: (error) => {
                 this.sliderData = [];

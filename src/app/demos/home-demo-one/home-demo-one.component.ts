@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { CarouselModule } from 'ngx-owl-carousel-o';
-import { FooterComponent } from '../../common/footer/footer.component';
-import { BackToTopComponent } from '../../common/back-to-top/back-to-top.component';
 import { MainSlider } from '../../common/main-slider/main-slider.component';
 import { HowItWorksComponent } from '../../common/how-it-works/how-it-works.component';
 import { AboutSectionComponent } from './components/about-section/about-section.component';
@@ -27,9 +23,7 @@ import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.dir
     standalone: true,
     imports: [
         CommonModule,
-        HttpClientModule,
         TranslateModule,
-        CarouselModule,
         MainSlider,
         HowItWorksComponent,
         AboutSectionComponent,
@@ -44,8 +38,6 @@ import { ScrollRevealDirective } from '../../shared/directives/scroll-reveal.dir
         CtaSectionComponent,
         PartnersSectionComponent,
         PaymentMethodsComponent,
-        FooterComponent,
-        BackToTopComponent,
         ScrollRevealDirective,
     ],
     templateUrl: './home-demo-one.component.html',

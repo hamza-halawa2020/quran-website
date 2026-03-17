@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map, shareReplay } from 'rxjs/operators';
 
 export interface Settings {
     phone?: string;
@@ -27,12 +27,22 @@ export interface Settings {
 export class SettingService {
     private apiUrl = environment.backEndUrl;
     private endpoint = '/settings';
+    private settingsRequest$?: Observable<Settings>;
 
     constructor(private http: HttpClient) { }
 
-    getSettings(): Observable<Settings> {
-        return this.http.get<{ data: Settings }>(`${this.apiUrl}${this.endpoint}`).pipe(
-            map(response => response.data)
-        );
+    getSettings(forceRefresh: boolean = false): Observable<Settings> {
+        if (!this.settingsRequest$ || forceRefresh) {
+            this.settingsRequest$ = this.http.get<{ data: Settings }>(`${this.apiUrl}${this.endpoint}`).pipe(
+                map(response => response.data),
+                catchError((error) => {
+                    this.settingsRequest$ = undefined;
+                    return throwError(() => error);
+                }),
+                shareReplay(1)
+            );
+        }
+
+        return this.settingsRequest$;
     }
 }

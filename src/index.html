@@ -24,6 +24,13 @@
         <img src="assets/images/logo_optimized.svg" alt="Loading..." width="150" height="50" fetchpriority="high" />
     </div>
     <app-root></app-root>
+    <script>
+        window.addEventListener('load', function () {
+            window.setTimeout(function () {
+                document.body.classList.add('loaded');
+            }, 250);
+        }, { once: true });
+    </script>
 </body>
 
 </html>

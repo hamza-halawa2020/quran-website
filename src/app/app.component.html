@@ -1,6 +1,20 @@
 <app-navbar />
 <router-outlet />
-<app-whatsapp-float />
-<app-custom-cursor />
-<app-footer />
-<app-back-to-top />
+
+@defer (on idle) {
+    <app-whatsapp-float />
+}
+
+@defer (on idle) {
+    <app-custom-cursor />
+}
+
+@defer (on viewport; prefetch on idle) {
+    <app-footer />
+} @placeholder {
+    <div class="app-footer-placeholder" aria-hidden="true"></div>
+}
+
+@defer (on idle) {
+    <app-back-to-top />
+}
