@@ -170,41 +170,22 @@ body {
 @font-face {
     font-family: 'Font Awesome 6 Free';
     font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url("../node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2") format("woff2");
-}
-
-@font-face {
-    font-family: 'Font Awesome 6 Free';
-    font-style: normal;
     font-weight: 900;
-    font-display: swap;
-    src: url("../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2") format("woff2");
+    font-display: block;
+    src: url("/assets/fonts/fa-solid-subset.woff2") format("woff2");
 }
 
 @font-face {
     font-family: 'Font Awesome 6 Brands';
     font-style: normal;
     font-weight: 400;
-    font-display: swap;
-    src: url("../node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2") format("woff2");
-}
-
-/* Fallback for potential compatibility names */
-@font-face {
-    font-family: 'Font Awesome 5 Free';
-    font-style: normal;
-    font-weight: 900;
-    font-display: swap;
-    src: url("../node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2") format("woff2");
+    font-display: block;
+    src: url("/assets/fonts/fa-brands-subset.woff2") format("woff2");
 }
 
 .fa,
 .fas,
 .fa-solid,
-.fa-regular,
-.far,
 .fa-brands,
 .fab {
     -webkit-font-smoothing: antialiased;
@@ -223,12 +204,6 @@ body {
     font-weight: 900;
 }
 
-.fa-regular,
-.far {
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 400;
-}
-
 .fa-brands,
 .fab {
     font-family: 'Font Awesome 6 Brands';
@@ -238,8 +213,6 @@ body {
 .fa::before,
 .fas::before,
 .fa-solid::before,
-.fa-regular::before,
-.far::before,
 .fa-brands::before,
 .fab::before {
     content: var(--fa);
