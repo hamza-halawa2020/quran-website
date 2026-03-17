@@ -1,7 +1,7 @@
 import { ApplicationConfig, ErrorHandler, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { tokenInterceptor } from './token.interceptor';
 import {
     TranslateModule,
@@ -19,7 +19,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 export const appConfig: ApplicationConfig = {
     providers: [
         provideZoneChangeDetection({ eventCoalescing: true, runCoalescing: true }),
-        provideHttpClient(withInterceptors([tokenInterceptor])),
+        provideHttpClient(withFetch(), withInterceptors([tokenInterceptor])),
         provideRouter(routes),
         { provide: ErrorHandler, useClass: LazyChunkErrorHandler },
         importProvidersFrom(
