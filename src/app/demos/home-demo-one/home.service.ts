@@ -107,12 +107,29 @@ export class HomeService {
   }
 
   getLatestPosts(): Observable<any[]> {
-    return this.http.get<any>(`${this.apiUrl}/posts?limit=3`)
+    return this.http.get<any>(`${this.apiUrl}/posts?page=1`)
       .pipe(
-        map(response => response.data || []),
-        catchError(error => {
-          return of([]);
-        })
+        switchMap((response) => {
+          const firstPagePosts = response.data || [];
+          const lastPage = response.meta?.last_page || 1;
+
+          if (lastPage <= 1) {
+            return of(firstPagePosts);
+          }
+
+          const remainingPageRequests: Observable<any>[] = [];
+          for (let page = 2; page <= lastPage; page++) {
+            remainingPageRequests.push(this.http.get<any>(`${this.apiUrl}/posts?page=${page}`));
+          }
+
+          return forkJoin(remainingPageRequests).pipe(
+            map((remainingPages) => [
+              ...firstPagePosts,
+              ...remainingPages.flatMap((pageResponse) => pageResponse.data || [])
+            ])
+          );
+        }),
+        catchError(() => of([]))
       );
   }
 
@@ -183,12 +200,29 @@ export class HomeService {
   }
 
   getCertificates(): Observable<any[]> {
-    return this.http.get<any>(`${this.apiUrl}/certificates?limit=6`)
+    return this.http.get<any>(`${this.apiUrl}/certificates?page=1`)
       .pipe(
-        map(response => response.data || []),
-        catchError(error => {
-          return of([]);
-        })
+        switchMap((response) => {
+          const firstPageCertificates = response.data || [];
+          const lastPage = response.meta?.last_page || 1;
+
+          if (lastPage <= 1) {
+            return of(firstPageCertificates);
+          }
+
+          const remainingPageRequests: Observable<any>[] = [];
+          for (let page = 2; page <= lastPage; page++) {
+            remainingPageRequests.push(this.http.get<any>(`${this.apiUrl}/certificates?page=${page}`));
+          }
+
+          return forkJoin(remainingPageRequests).pipe(
+            map((remainingPages) => [
+              ...firstPageCertificates,
+              ...remainingPages.flatMap((pageResponse) => pageResponse.data || [])
+            ])
+          );
+        }),
+        catchError(() => of([]))
       );
   }
 
