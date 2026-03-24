@@ -28,81 +28,75 @@
 
 <!-- Contact Form -->
 <div class="contact-area">
-    <div class="">       
-        <div class="row justify-content-center">
-            <div class="col-lg-8 col-md-10">
-                <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label for="name">{{ 'FULL_NAME' | translate }} *</label>
-                                <input
-                                    type="text"
-                                    id="name"
-                                    [placeholder]="'ENTER_YOUR_NAME' | translate"
-                                    class="form-control"
-                                    [class.is-invalid]="contactForm.get('name')?.invalid && contactForm.get('name')?.touched"
-                                    formControlName="name"
-                                />
-                                <div class="invalid-feedback" *ngIf="getFieldError('name')">
-                                    {{ getFieldError('name') }}
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label for="phone">{{ 'PHONE_NUMBER' | translate }} *</label>
-                                <input
-                                    type="tel"
-                                    id="phone"
-                                    [placeholder]="'ENTER_YOUR_PHONE' | translate"
-                                    class="form-control"
-                                    [class.is-invalid]="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched"
-                                    formControlName="phone"
-                                />
-                                <div class="invalid-feedback" *ngIf="getFieldError('phone')">
-                                    {{ getFieldError('phone') }}
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-lg-12">
-                            <div class="form-group">
-                                <label for="message">{{ 'MESSAGE' | translate }} *</label>
-                                <textarea
-                                    id="message"
-                                    rows="6"
-                                    class="form-control"
-                                    [class.is-invalid]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
-                                    [placeholder]="'WRITE_YOUR_MESSAGE' | translate"
-                                    formControlName="message"
-                                ></textarea>
-                                <div class="invalid-feedback" *ngIf="getFieldError('message')">
-                                    {{ getFieldError('message') }}
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-lg-12 text-center">
-                            <button 
-                                class="submit-btn" 
-                                type="submit" 
-                                [disabled]="isSubmitting || contactForm.invalid"
-                            >
-                                <span *ngIf="!isSubmitting">
-                                    <i class="fa-solid fa-paper-plane"></i>
-                                    {{ "SEND_MESSAGE" | translate }}
-                                </span>
-                                <span *ngIf="isSubmitting">
-                                    <i class="fa-solid fa-spinner fa-spin"></i>
-                                    {{ "SENDING" | translate }}
-                                </span>
-                            </button>
-                        </div>
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label for="name">{{ 'FULL_NAME' | translate }} *</label>
+                    <input
+                        type="text"
+                        id="name"
+                        [placeholder]="'ENTER_YOUR_NAME' | translate"
+                        class="form-control"
+                        [class.is-invalid]="contactForm.get('name')?.invalid && contactForm.get('name')?.touched"
+                        formControlName="name"
+                    />
+                    <div class="invalid-feedback" *ngIf="getFieldError('name')">
+                        {{ getFieldError('name') }}
                     </div>
-                </form>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label for="phone">{{ 'PHONE_NUMBER' | translate }} *</label>
+                    <input
+                        type="tel"
+                        id="phone"
+                        [placeholder]="'ENTER_YOUR_PHONE' | translate"
+                        class="form-control"
+                        [class.is-invalid]="contactForm.get('phone')?.invalid && contactForm.get('phone')?.touched"
+                        formControlName="phone"
+                    />
+                    <div class="invalid-feedback" *ngIf="getFieldError('phone')">
+                        {{ getFieldError('phone') }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label for="message">{{ 'MESSAGE' | translate }} *</label>
+                    <textarea
+                        id="message"
+                        rows="6"
+                        class="form-control"
+                        [class.is-invalid]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
+                        [placeholder]="'WRITE_YOUR_MESSAGE' | translate"
+                        formControlName="message"
+                    ></textarea>
+                    <div class="invalid-feedback" *ngIf="getFieldError('message')">
+                        {{ getFieldError('message') }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 text-center">
+                <button
+                    class="submit-btn"
+                    type="submit"
+                    [disabled]="isSubmitting || contactForm.invalid"
+                >
+                    <span *ngIf="!isSubmitting">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        {{ "SEND_MESSAGE" | translate }}
+                    </span>
+                    <span *ngIf="isSubmitting">
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                        {{ "SENDING" | translate }}
+                    </span>
+                </button>
             </div>
         </div>
-    </div>
+    </form>
 </div>

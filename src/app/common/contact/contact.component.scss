@@ -2,6 +2,11 @@ $primary-color: var(--primaryColor); /* Navy Blue from Logo */
 $secondary-color: var(--secondaryColor); /* Gold from Logo */
 $text-color: var(--paragraphColor);
 
+:host {
+    display: block;
+    width: 100%;
+}
+
 .contact-area {
     padding: 60px 0;
     background-color: transparent;
@@ -34,6 +39,7 @@ $text-color: var(--paragraphColor);
 
     .contact-form {
         padding: 0;
+        max-width: 760px;
     }
 }
 
@@ -42,6 +48,9 @@ $text-color: var(--paragraphColor);
     padding: 0;
     border-radius: 0;
     box-shadow: none;
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
     
     .form-group {
         margin-bottom: 25px;
@@ -55,15 +64,18 @@ $text-color: var(--paragraphColor);
         }
         
         .form-control {
-            height: 60px;
+            min-height: 62px;
+            width: 100%;
+            max-width: 100%;
             border: 2px solid transparent;
             border-radius: 12px;
-            padding: 15px 25px;
-            font-size: 1rem;
+            padding: 16px 22px;
+            font-size: 1.02rem;
             color: $text-color;
             background-color: #ffffff;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.02);
+            line-height: 1.5;
             
             &:focus {
                 border-color: $secondary-color;
@@ -87,7 +99,7 @@ $text-color: var(--paragraphColor);
         }
         
         textarea.form-control {
-            height: 180px;
+            min-height: 180px;
             resize: none;
             padding-top: 20px;
         }
@@ -101,9 +113,9 @@ $text-color: var(--paragraphColor);
         }
     }
     
-    .submit-btn {
-        background: $primary-color;
-        color: #fff;
+        .submit-btn {
+            background: $primary-color;
+            color: #fff;
         border: none;
         padding: 18px 45px;
         border-radius: 12px;
@@ -182,18 +194,19 @@ $text-color: var(--paragraphColor);
     
     .contact-form {
         padding: 30px 25px;
+        max-width: 100%;
         
         .form-group {
             margin-bottom: 25px;
             
             .form-control {
-                height: 50px;
-                padding: 12px 15px;
-                font-size: 15px;
+                min-height: 58px;
+                padding: 15px 18px;
+                font-size: 16px;
             }
             
             textarea.form-control {
-                height: 100px;
+                min-height: 140px;
             }
         }
         
