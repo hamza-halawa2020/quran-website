@@ -88,19 +88,29 @@ export class HomeService {
   }
 
   getTestimonials(): Observable<any[]> {
-    return this.http.get<any>(`${this.apiUrl}/reviews?limit=3`)
+    return this.http.get<any>(`${this.apiUrl}/reviews?page=1`)
       .pipe(
-        map(response => {
-          const reviews = response.data || [];
-          return reviews.map((review: any) => ({
-            id: review.id,
-            client_name: review.name,
-            comment: review.review,
-            status: review.status,
-            created_at: review.created_at
-          }));
+        switchMap((response) => {
+          const firstPageTestimonials = this.mapTestimonials(response.data || []);
+          const lastPage = response.meta?.last_page || 1;
+
+          if (lastPage <= 1) {
+            return of(firstPageTestimonials);
+          }
+
+          const remainingPageRequests: Observable<any>[] = [];
+          for (let page = 2; page <= lastPage; page++) {
+            remainingPageRequests.push(this.http.get<any>(`${this.apiUrl}/reviews?page=${page}`));
+          }
+
+          return forkJoin(remainingPageRequests).pipe(
+            map((remainingPages) => [
+              ...firstPageTestimonials,
+              ...remainingPages.flatMap((pageResponse) => this.mapTestimonials(pageResponse.data || []))
+            ])
+          );
         }),
-        catchError(error => {
+        catchError(() => {
           return of([]);
         })
       );
@@ -190,13 +200,42 @@ export class HomeService {
   }
 
   getMediaItems(): Observable<any[]> {
-    return this.http.get<any>(`${this.apiUrl}/media-center?limit=6`)
+    return this.http.get<any>(`${this.apiUrl}/media-center?page=1`)
       .pipe(
-        map(response => response.data || []),
-        catchError(error => {
+        switchMap((response) => {
+          const firstPageMediaItems = response.data || [];
+          const lastPage = response.meta?.last_page || 1;
+
+          if (lastPage <= 1) {
+            return of(firstPageMediaItems);
+          }
+
+          const remainingPageRequests: Observable<any>[] = [];
+          for (let page = 2; page <= lastPage; page++) {
+            remainingPageRequests.push(this.http.get<any>(`${this.apiUrl}/media-center?page=${page}`));
+          }
+
+          return forkJoin(remainingPageRequests).pipe(
+            map((remainingPages) => [
+              ...firstPageMediaItems,
+              ...remainingPages.flatMap((pageResponse) => pageResponse.data || [])
+            ])
+          );
+        }),
+        catchError(() => {
           return of([]);
         })
       );
+  }
+
+  private mapTestimonials(reviews: any[]): any[] {
+    return reviews.map((review: any) => ({
+      id: review.id,
+      client_name: review.name,
+      comment: review.review,
+      status: review.status,
+      created_at: review.created_at
+    }));
   }
 
   getCertificates(): Observable<any[]> {

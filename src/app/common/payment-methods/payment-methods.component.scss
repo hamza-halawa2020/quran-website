@@ -151,5 +151,29 @@
         .section-title h3 {
             font-size: 2rem;
         }
+
+        .payment-methods-wrapper {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            padding: 0;
+        }
+
+        .payment-method-item {
+            padding: 24px 16px;
+
+            .payment-icon {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 16px;
+
+                i {
+                    font-size: 24px;
+                }
+            }
+
+            p {
+                font-size: 1rem;
+            }
+        }
     }
 }
