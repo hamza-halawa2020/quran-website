@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, switchMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 export interface HomeStats {
@@ -117,12 +117,30 @@ export class HomeService {
   }
 
   getLatestCourses(): Observable<any[]> {
-    return this.http.get<any>(`${this.apiUrl}/courses?limit=3`)
+    return this.http.get<any>(`${this.apiUrl}/courses?page=1`)
       .pipe(
-        map(response => response.data || []),
-        catchError(error => {
-          return of([]);
-        })
+        switchMap((response) => {
+          const firstPageCourses = response.data || [];
+          const lastPage = response.meta?.last_page || 1;
+
+          if (lastPage <= 1) {
+            return of(firstPageCourses);
+          }
+
+          // Keep the home page in sync with the full courses listing by merging all pages.
+          const remainingPageRequests: Observable<any>[] = [];
+          for (let page = 2; page <= lastPage; page++) {
+            remainingPageRequests.push(this.http.get<any>(`${this.apiUrl}/courses?page=${page}`));
+          }
+
+          return forkJoin(remainingPageRequests).pipe(
+            map((remainingPages) => [
+              ...firstPageCourses,
+              ...remainingPages.flatMap((pageResponse) => pageResponse.data || [])
+            ])
+          );
+        }),
+        catchError(() => of([]))
       );
   }
 

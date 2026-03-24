@@ -129,7 +129,7 @@
   "FAQS": "FAQ's",
   "EVENTS": "Event",
   "COURSES": "Courses",
-  "COURSES_DESC": "Explore our latest educational courses",
+  "COURSES_DESC": "Explore our educational courses",
   "NO_COURSES_FOUND": "No courses found.",
   "OUR_CERTIFICATES": "Our Certificates",
   "CERTIFICATES_DESC": "View our collection of awarded certificates",
@@ -376,6 +376,9 @@
   "FINANCIAL_METRICS": "Financial Metrics",
   "SERVICES_PAGE_TITLE": "Services",
   "SERVICES_PAGE_DESC": "We offer a wide range of professional services to meet your needs.",
+  "SERVICES_PAGE_DESC2": "We are an online Islamic academy dedicated to teaching the Qur’an, Arabic, and Islamic studies to learners of all ages and backgrounds. Our goal is to provide a structured, supportive, and engaging learning environment where students can build a strong foundation in their religion and language.",
+  "SERVICES_PAGE_DESC3": "We offer a range of courses including Qur’an memorisation, recitation with Tajweed, Arabic language, and Islamic studies for both children and adults. Our programs are designed to be flexible and personalised, allowing each student to learn at their own pace while achieving real progress.",
+  "SERVICES_PAGE_DESC4": "Our teaching approach combines clarity, consistency, and care. We focus not only on knowledge, but also on correct practice, understanding, and building a meaningful connection with the Qur’an and Islamic teachings.",
   "NO_SERVICES_FOUND": "No services currently available.",
   "BACK_TO_SERVICES": "Back to Services",
   "BACK_TO_LIST": "Back to Articles",
@@ -856,5 +859,6 @@
   "ALL": "All",
   "IMAGES": "Images",
   "VIDEOS": "Videos",
-  "NO_MEDIA_FOUND": "No media found"
+  "NO_MEDIA_FOUND": "No media found",
+  "BOOK_TRIAL": "Book A Trial "
 }
