@@ -6,6 +6,15 @@
         <div class="section-title text-center ">{{ 'SERVICES_PAGE_DESC2' | translate }}</div>
         <div class="section-title text-center ">{{ 'SERVICES_PAGE_DESC3' | translate }}</div>
         <div class="section-title text-center ">{{ 'SERVICES_PAGE_DESC4' | translate }}</div>
+
+        @defer (on viewport) {
+            <div scrollReveal [revealDelay]="60">
+                <app-latest-courses-section [courses]="courses"></app-latest-courses-section>
+            </div>
+        } @placeholder {
+            <div class="services-defer-placeholder" style="--services-defer-min-h: 520px"></div>
+        }
+
         <div class="row">
             <div class="col-lg-4 col-md-6 mb-4" *ngFor="let service of defaultServices">
                 <div class="service-card">

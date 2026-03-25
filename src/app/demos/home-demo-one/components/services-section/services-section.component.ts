@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LatestCoursesSectionComponent } from '../latest-courses-section/latest-courses-section.component';
+import { ScrollRevealDirective } from '../../../../shared/directives/scroll-reveal.directive';
 
 @Component({
     selector: 'app-services-section',
     standalone: true,
-    imports: [CommonModule, RouterLink, TranslateModule],
+    imports: [CommonModule, RouterLink, TranslateModule, LatestCoursesSectionComponent, ScrollRevealDirective],
     templateUrl: './services-section.component.html',
     styleUrls: ['./services-section.component.scss']
 })
 export class ServicesSectionComponent implements OnInit {
+    @Input() courses: any[] = [];
     defaultServices: any[] = [];
 
     constructor(public translate: TranslateService) { }

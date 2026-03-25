@@ -3,18 +3,10 @@
 
 @defer (on viewport) {
     <div scrollReveal>
-        <app-services-section></app-services-section>
+        <app-services-section [courses]="homeData?.latestCourses || []"></app-services-section>
     </div>
 } @placeholder {
     <div class="home-defer-placeholder" style="--home-defer-min-h: 420px"></div>
-}
-
-@defer (on viewport) {
-    <div scrollReveal [revealDelay]="60">
-        <app-latest-courses-section [courses]="homeData?.latestCourses || []"></app-latest-courses-section>
-    </div>
-} @placeholder {
-    <div class="home-defer-placeholder" style="--home-defer-min-h: 520px"></div>
 }
 
 @defer (on viewport) {

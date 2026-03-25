@@ -9,7 +9,6 @@ import { ServicesSectionComponent } from './components/services-section/services
 import { StatsSectionComponent } from './components/stats-section/stats-section.component';
 import { TeamSectionComponent } from './components/team-section/team-section.component';
 import { TestimonialsSectionComponent } from './components/testimonials-section/testimonials-section.component';
-import { LatestCoursesSectionComponent } from './components/latest-courses-section/latest-courses-section.component';
 import { LatestPostsSectionComponent } from './components/latest-posts-section/latest-posts-section.component';
 import { CertificatesSectionComponent } from './components/certificates-section/certificates-section.component';
 import { CtaSectionComponent } from './components/cta-section/cta-section.component';
@@ -37,7 +36,6 @@ type IdleWindow = Window & {
         StatsSectionComponent,
         TeamSectionComponent,
         TestimonialsSectionComponent,
-        LatestCoursesSectionComponent,
         LatestPostsSectionComponent,
         CertificatesSectionComponent,
         MediaGallerySectionComponent,
