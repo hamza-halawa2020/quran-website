@@ -52,8 +52,13 @@
             </div>
         </div>
 
-        <!-- Mobile Menu Toggle -->
-        <button
+        <div class="navbar-mobile-controls">
+            <a routerLink="/contacts" class="btn btn-outline mobile-contact-btn" (click)="closeMobileMenu()">
+                {{ 'BOOK_TRIAL' | translate }}
+            </a>
+
+            <!-- Mobile Menu Toggle -->
+            <button
             type="button"
             class="mobile-toggle"
             (click)="toggleMobileMenu()"
@@ -65,6 +70,7 @@
             <span></span>
             <span></span>
             <span></span>
-        </button>
+            </button>
+        </div>
     </div>
 </nav>
