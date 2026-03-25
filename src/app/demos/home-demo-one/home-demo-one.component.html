@@ -11,6 +11,14 @@
 
 @defer (on viewport) {
     <div scrollReveal [revealDelay]="60">
+        <app-latest-courses-section [courses]="homeData?.latestCourses || []"></app-latest-courses-section>
+    </div>
+} @placeholder {
+    <div class="home-defer-placeholder" style="--home-defer-min-h: 520px"></div>
+}
+
+@defer (on viewport) {
+    <div scrollReveal [revealDelay]="60">
         <app-media-gallery-section [items]="homeData?.mediaItems || []" [openInPage]="true"></app-media-gallery-section>
     </div>
 } @placeholder {
@@ -52,14 +60,6 @@
 @defer (on viewport) {
     <div scrollReveal [revealDelay]="60">
         <app-team-section [teamMembers]="homeData?.teamMembers || []"></app-team-section>
-    </div>
-} @placeholder {
-    <div class="home-defer-placeholder" style="--home-defer-min-h: 520px"></div>
-}
-
-@defer (on viewport) {
-    <div scrollReveal [revealDelay]="60">
-        <app-latest-courses-section [courses]="homeData?.latestCourses || []"></app-latest-courses-section>
     </div>
 } @placeholder {
     <div class="home-defer-placeholder" style="--home-defer-min-h: 520px"></div>
