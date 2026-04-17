@@ -96,3 +96,23 @@
 } @placeholder {
     <div class="home-defer-placeholder" style="--home-defer-min-h: 320px"></div>
 }
+
+@defer (on viewport) {
+    <div scrollReveal [revealDelay]="60">
+        <section class="contact-home-section section-padding">
+            <div class="container">
+                <div class="section-title text-center mb-4">
+                    <h2>{{ 'BOOK_TRIAL' | translate }}</h2>
+                    <p>{{ 'EMAIL_DISCLAIMER' | translate }}</p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <app-contact />
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+} @placeholder {
+    <div class="home-defer-placeholder" style="--home-defer-min-h: 500px"></div>
+}
