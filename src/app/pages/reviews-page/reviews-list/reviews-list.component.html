@@ -85,7 +85,12 @@
                                     <span>{{ getInitials(review.name) }}</span>
                                 </div>
                                 <div class="reviewer-details">
-                                    <h4 class="reviewer-name">{{ review.name }}</h4>
+                                    <h4 class="reviewer-name">
+                                        {{ review.name }}
+                                        <span class="reviewer-country" *ngIf="review.country">
+                                            <i class="fa-solid fa-location-dot"></i> {{ review.country }}
+                                        </span>
+                                    </h4>
                                     <p class="review-date">{{ formatDate(review.created_at) }}</p>
                                 </div>
                             </div>

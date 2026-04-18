@@ -232,6 +232,7 @@ export class HomeService {
     return reviews.map((review: any) => ({
       id: review.id,
       client_name: review.name,
+      country: review.country,
       comment: review.review,
       status: review.status,
       created_at: review.created_at

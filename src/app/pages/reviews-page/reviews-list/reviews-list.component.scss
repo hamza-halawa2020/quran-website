@@ -1,7 +1,7 @@
-$primary-color: var(--primaryColor);
-$secondary-color: var(--secondaryColor);
-$text-color: var(--paragraphColor);
-$gold-color: var(--secondaryColor);
+$primary-color: #1e3a5f;
+$secondary-color: #c9a961;
+$text-color: #374151;
+$gold-color: #c9a961;
 
 
 // Investment opportunities list styles will inherit from global styles
@@ -195,6 +195,26 @@ $gold-color: var(--secondaryColor);
                 font-weight: 600;
                 color: $text-color;
                 margin-bottom: 5px;
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 10px;
+
+                .reviewer-country {
+                    font-size: 13px;
+                    font-weight: 400;
+                    color: $secondary-color;
+                    padding: 2px 8px;
+                    background: rgba($secondary-color, 0.1);
+                    border-radius: 12px;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 4px;
+
+                    i {
+                        font-size: 11px;
+                    }
+                }
             }
             
             .review-date {
