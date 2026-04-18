@@ -26,6 +26,7 @@ export class AddReviewPageComponent {
   ) {
     this.reviewForm = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(255)]],
+      country: ['', [Validators.required, Validators.maxLength(255)]],
       review: ['', [Validators.required, Validators.minLength(10)]]
     });
   }
@@ -63,6 +64,10 @@ export class AddReviewPageComponent {
 
   get name() {
     return this.reviewForm.get('name');
+  }
+
+  get country() {
+    return this.reviewForm.get('country');
   }
 
   get review() {
