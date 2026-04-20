@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "onlineislamicmadrasah": {
+    "onlineislamicschool": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/onlineislamicmadrasah",
+            "outputPath": "dist/onlineislamicschool",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -91,10 +91,10 @@
           },
           "configurations": {
             "production": {
-              "buildTarget": "onlineislamicmadrasah:build:production"
+              "buildTarget": "onlineislamicschool:build:production"
             },
             "development": {
-              "buildTarget": "onlineislamicmadrasah:build:development"
+              "buildTarget": "onlineislamicschool:build:development"
             }
           },
           "defaultConfiguration": "development"

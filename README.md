@@ -1,5 +1,5 @@
 "# front" 
 "# front" 
 "# front" 
-"# onlineislamicmadrasah-front" 
-"# onlineislamicmadrasah-website" 
+"# onlineislamicschool-front" 
+"# onlineislamicschool-website" 
